@@ -4,7 +4,9 @@ const COLORS = {
   lightGrey: "#F2F2F2",
   darkGrey: "#333333",
   white: "#FFFFFF",
-  black: "#12131A"
+  black: "#12131A",
+  silver: "#F5F5F6",
+  lightBlack: '#25292E'
 };
 
 Object.defineProperty(exports, "__esModule", {

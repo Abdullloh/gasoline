@@ -13,6 +13,9 @@ import Antfreez from "../assets/img/antfreez.svg";
 import Chimical from "../assets/img/chimical.svg";
 import Card from "../components/TestimonialCard/Card";
 import Products from "../components/NewProducts/Products";
+import Discount from "../components/DiscountSection/Discount";
+import Service from "../components/Servise/Service";
+import Footer from "../components/Footer/Footer";
 
 function Landing() {
   const data = [
@@ -114,7 +117,11 @@ function Landing() {
           </div>
         </StyledContainer>
       </div>
-      <Products/>
+      <Products headTitle={'Новые товары'}/>
+      <Discount/>
+      <Products headTitle={'Хиты продаж'}/>
+      <Service/>
+      <Footer/>
     </StyledLanding>
   );
 }

@@ -1,16 +1,21 @@
 import React from 'react';
-import {Row} from 'antd'
+import {Button, Row} from 'antd'
 import { StyledContainer } from '../../styles/Container.style';
 import PageHeader from '../PageHeader/PageHeader';
 import ProductCard from './ProductCard';
 import CardImg from '../../assets/img/category-oil.svg'
+// import { StyledBtn } from './Button.style';
+import {btnStyle} from './Button.style'
 
-const Products = () => {
+const Products = (props) => {
     let item = [1,2,3,4,5,6,7,8]
+    // const btnStyle = {
+    //     margin
+    // }
     return (
         <StyledContainer>
             <div className="container">
-                <PageHeader title="Новые товары"/>
+                <PageHeader title={props.headTitle}/>
                 <Row gutter={[20,50]}>
                 {
                     item.map((item,index)=> {
@@ -20,6 +25,9 @@ const Products = () => {
                     })
                 }
                 </Row>
+                <div style={{width:'100%',display: 'flex',alignItems: 'center', justifyContent: 'center', margin: "40px"}}>
+                    <Button className="btn_read_more" style={{width:'100%', maxWidth: "421px"}} size="large" type="primary" ghost>Показать ещё</Button>
+                </div>
             </div>
         </StyledContainer>
             

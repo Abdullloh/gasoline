@@ -21,6 +21,7 @@ const ProductCard = ({img='',title='',price=''}) => {
         lg={{
             span: 6,
         }}
+        style={{margin:'auto'}}
         >
         <StyledProductCard>
             <div>

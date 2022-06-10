@@ -8,6 +8,11 @@ export const StyledProductCard = styled.div`
   align-items: center;
   justify-content: center;
   padding: 30px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover{
+    box-shadow: 0px 21px 20px rgba(84, 81, 81, 0.17);
+  }
   .card-body {
     h3 {
       color: #4f4f4f;
