@@ -1,0 +1,37 @@
+import styled from "styled-components";
+
+export const StyledProductCard = styled.div`
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  .card-body {
+    h3 {
+      color: #4f4f4f;
+      font-size: 18px;
+    }
+  }
+  .card-footer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    div {
+        .counter {
+            border:none;
+            cursor: pointer;
+            margin:0;
+            padding: 2px;
+            font-size:24px;
+        }
+        span{
+            border: 1px solid #bdbdbd;
+            border-radius: 5px;
+            padding: 6px;
+            margin: 0 8px;
+        }
+    }
+  }
+`;
