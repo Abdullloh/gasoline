@@ -7,7 +7,6 @@ export const StyledLanding = styled.div`
     background-color: ${COLORS.lightGrey};
     /* min-height: calc(100vh - 150px); */
     padding: 50px 0px;
-    margin-top: 50px;
     .img-block {
       display: flex;
       flex-direction: column;

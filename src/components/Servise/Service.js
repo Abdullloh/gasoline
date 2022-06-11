@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Row, Col } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import PageHeader from "../PageHeader/PageHeader";
@@ -23,7 +23,8 @@ function Service() {
       imgUrl: ServiceImg3,
     },
     {
-      title: "Реальные и конкурентоспособные ценыШирочайший ассортимент товаров",
+      title:
+        "Реальные и конкурентоспособные ценыШирочайший ассортимент товаров",
       imgUrl: ServiceImg4,
     },
   ]);
@@ -32,25 +33,26 @@ function Service() {
       <StyledContainer>
         <div className="container">
           <PageHeader title={"Почему именно мы?"} />
-          <Row gutter={[15, 15]} style={{"align-items": "stretch"}}>
-              {data?.map((item, index) => (
-                  <Col
-                  xs={{
-                      span: 24
-                  }}
-                  sm={{
-                      span: 12
-                  }}
-                  md={{
-                      span: 12
-                  }}
-                  lg={{
-                      span: 6
-                  }}
-                  >
-                  <ServiceCard key={index} imgUrl={item.imgUrl} serviceTitle={item.title}/>
-                  </Col>
-              ))}
+          <Row gutter={[15, 15]} style={{ "align-items": "stretch" }}>
+            {data?.map((item, index) => (
+              <Col
+                xs={{
+                  span: 24,
+                }}
+                sm={{
+                  span: 12,
+                }}
+                md={{
+                  span: 12,
+                }}
+                lg={{
+                  span: 6,
+                }}
+                key={index}
+              >
+                <ServiceCard imgUrl={item.imgUrl} serviceTitle={item.title} />
+              </Col>
+            ))}
           </Row>
         </div>
       </StyledContainer>

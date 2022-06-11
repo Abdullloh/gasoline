@@ -12,16 +12,12 @@ export const StyledFooter = styled.footer`
     flex-direction: column;
     justify-content: center;
   }
-  p {
+  a {
     font-weight: 400;
     font-size: 20px;
     line-height: 24px;
     color: ${COLORS.white};
-  }
-  .navigation {
-    p {
-      cursor: pointer;
-    }
+    margin: 7px 0px;
   }
   .footer_heading {
     font-weight: 600;
@@ -65,8 +61,18 @@ export const StyledFooter = styled.footer`
     border: none;
     outline: none;
     padding: 14px 30px;
+    cursor: pointer;
+  }
+  .form_sub {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ant-modal-content {
+    border-radius: 90px;
   }
   @media only screen and (max-width: 768px) {
-      padding: 28px 0;
+    padding: 28px 0;
   }
 `;

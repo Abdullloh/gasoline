@@ -47,7 +47,6 @@ function Landing() {
  }
   return (
     <StyledLanding>
-      <Navbar />
       <div className="entry-section">
         <StyledContainer>
           <div className="container">
@@ -121,7 +120,6 @@ function Landing() {
       <Discount/>
       <Products headTitle={'Хиты продаж'}/>
       <Service/>
-      <Footer/>
     </StyledLanding>
   );
 }

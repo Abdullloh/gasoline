@@ -8,6 +8,29 @@ export const StyledNavbar = styled.div`
   padding-top: 25px;
   padding-bottom: 25px;
   box-shadow: 0px 7px 65px rgba(0, 0, 0, 0.06);
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav_link {
+    font-weight: 400 !important;
+    font-size: 23px !important;
+    line-height: 27px !important;
+    transition: all 0.3s ease-in-out;
+    color: ${COLORS.white} !important;
+  }
+  nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    div{
+      padding: 10px 0px;
+    }
+  }
+  .active {
+    color: ${COLORS.main} !important;
+  }
 
   .wrapper {
     display: flex;
@@ -91,7 +114,7 @@ export const StyledNavbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    div{
+    div {
       cursor: pointer;
     }
     .respons-search {
@@ -107,7 +130,7 @@ export const StyledNavbar = styled.div`
     left: 0;
     z-index: 5;
     transition: all 0.3s ease-in-out;
-    .searchBlock{
+    .searchBlock {
       margin: 25px 0;
     }
   }

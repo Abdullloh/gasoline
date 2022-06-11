@@ -1,13 +1,23 @@
-import React from 'react';
-import {Button} from 'antd'
-import Navbar from '../components/Navbar/Navbar';
-import Landing from './Landing';
+import React from "react";
+import { Navigate, Routes, Route } from "react-router-dom";
+import { Button } from "antd";
+import Navbar from "../components/Navbar/Navbar";
+import Landing from "./Landing";
+import Footer from "../components/Footer/Footer";
+import { ROUTES } from "../routes";
 
 function App() {
   return (
-    <div className="App">
-      <Landing/>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+        {ROUTES?.map((item) => (
+          <Route path={item?.path} element={item?.component} />
+        ))}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+      <Footer />
+    </>
   );
 }
 
