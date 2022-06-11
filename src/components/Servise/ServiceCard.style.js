@@ -22,6 +22,7 @@ export const StyledServiceCard = styled.div`
     color: ${COLORS.darkGrey};
   }
   @media only screen and (max-width: 576px) {
+    max-width: 100% !important;
     img {
       margin-bottom: 15px;
     }
