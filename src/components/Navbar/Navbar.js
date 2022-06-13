@@ -11,6 +11,7 @@ import { MenuIcon, SearchIcon } from "../../utils/Images";
 import COLORS from "../../constants/colors";
 import { UserIcon, ShopCartIcon } from "../../utils/Images";
 import { StyledNavUl } from "./NavUl.style";
+import Tread from "./Tread";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -19,7 +20,7 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const [hideMenu, setHideMenu] = useState(false);
   const inputRef = useRef();
-
+  let arr = [1,2,3,4,5,6,7,8]
   const showMenu = () => {
     setHideMenu((prev) => !prev);
   };
@@ -36,6 +37,13 @@ function Navbar() {
   return (
     <>
       <StyledNavbar>
+        {/* <div className="tread">
+          {arr.map(item=> {
+            return(
+              <Tread key={item}/>
+              )
+          })}
+        </div> */}
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -150,7 +158,7 @@ function Navbar() {
                 </NavLink>
               </div>
               <div>
-                <NavLink className="nav_link" to="/home">
+                <NavLink className="nav_link" to="/partner">
                   Для партнеров
                 </NavLink>
               </div>
@@ -179,7 +187,7 @@ function Navbar() {
                   </NavLink>
                 </div>
                 <div>
-                  <NavLink className="nav_link" to="/home">
+                  <NavLink className="nav_link" to="/partner">
                     Для партнеров
                   </NavLink>
                 </div>

@@ -16,8 +16,12 @@ import Products from "../components/NewProducts/Products";
 import Discount from "../components/DiscountSection/Discount";
 import Service from "../components/Servise/Service";
 import Footer from "../components/Footer/Footer";
+import Main from "./Main";
+import Partner from "./Partner";
 
 function Landing() {
+  let leftSideText = 'Высоко качественные моторные масла';
+  let leftSidePar = 'Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. '
   const data = [
     {
       title: "Моторные масла",
@@ -47,56 +51,13 @@ function Landing() {
  }
   return (
     <StyledLanding>
-      <div className="entry-section">
-        <StyledContainer>
-          <div className="container">
-            <Row
-              style={{
-                "align-items": "center",
-                "justify-content": "space-between",
-              }}
-            >
-              <Col
-              style={colStyle}
-                sm={{
-                  span: 24,
-                  offset: 0,
-                }}
-                lg={{
-                  span: 12,
-                  offset: 0,
-                }}
-              >
-                <h1 className="heading-title">
-                  Высоко качественные моторные масла
-                </h1>
-                <p className="heading-paragraph">
-                  Мы предлагаем моторные, трансмиссионные, <br /> гидравлические
-                  и компрессорные масла таких <br /> брендов, как ROWE, Shell,
-                  Micking и Winiron.
-                </p>
-                <button className="headeing-btn">Продукция</button>
-              </Col>
-              <Col
-              style={colStyle}
-                sm={{
-                  span: 24,
-                  offset: 0,
-                }}
-                lg={{
-                  span: 12,
-                  offset: 0,
-                }}
-              >
-                <div className="img-block">
-                  <img src={OilImg} alt="oil" className="oilImg" />
-                  <button className="headeing-btn">Продукция</button>
-                </div>
-              </Col>
-            </Row>
-          </div>
-        </StyledContainer>
-      </div>
+      <Main 
+        img={OilImg}
+       buttonText={'Продукция'}
+       leftSideText = {leftSideText}
+       leftSidePar={leftSidePar}
+       flexDirection={'row'}
+      />
       <div className="category-section">
         <StyledContainer>
           <div className="container">
@@ -119,7 +80,7 @@ function Landing() {
       <Products headTitle={'Новые товары'}/>
       <Discount/>
       <Products headTitle={'Хиты продаж'}/>
-      <Service/>
+      {/* <Service/> */}
     </StyledLanding>
   );
 }

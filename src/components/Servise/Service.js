@@ -33,7 +33,7 @@ function Service() {
       <StyledContainer>
         <div className="container">
           <PageHeader title={"Почему именно мы?"} />
-          <Row gutter={[15, 15]} style={{ "align-items": "stretch" }}>
+          <Row gutter={[15, 15]} style={{ "alignItems": "stretch" }}>
             {data?.map((item, index) => (
               <Col
                 xs={{

@@ -8,6 +8,16 @@ export const StyledContainer = styled.div`
     padding-right: 15px;
     padding-left: 15px;
   }
+  .aboutText {
+    font-size:20px;
+    line-height:26px;
+  }
+  .text {
+    font-weight: 600;
+    font-size: 18px;
+    word-spacing: 3px;
+    line-height: 25px;
+  }
   @media (min-width: 476px) {
     .container {
       padding-right: 15px;

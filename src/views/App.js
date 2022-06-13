@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar/Navbar";
 import Landing from "./Landing";
 import Footer from "../components/Footer/Footer";
 import { ROUTES } from "../routes";
+import Service from "../components/Servise/Service";
 
 function App() {
   return (
@@ -12,10 +13,11 @@ function App() {
       <Navbar />
       <Routes>
         {ROUTES?.map((item) => (
-          <Route path={item?.path} element={item?.component} />
+          <Route key={item} path={item?.path} element={item?.component} />
         ))}
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="" element={<Navigate to="/" />} />
       </Routes>
+      <Service/>
       <Footer />
     </>
   );
