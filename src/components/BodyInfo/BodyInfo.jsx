@@ -4,7 +4,7 @@ import { StyledContainer } from '../../styles/Container.style';
 import PartnerBodyImage from '../../assets/img/PartnerBodyImage.svg';
 
 const BodyInfo = (props) => {
-  const {img} = props
+  const {img = 'https://pixabay.com/photos/beetle-insect-bug-macro-entomology-7209311/'} = props
     return (
         <StyledContainer>
           <div className="container">
