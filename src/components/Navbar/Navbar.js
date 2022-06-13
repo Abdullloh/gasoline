@@ -5,7 +5,7 @@ import { StyledContainer } from "../../styles/Container.style";
 import { NavLink } from "react-router-dom";
 import { StyledNavbar } from "./Navbar.style";
 import { Col, Row } from "antd";
-import Logo from "../../assets/img/Logo.svg";
+import Logo from "../../assets/img/Logo-img.png";
 import Menuicon from "../../assets/img/menu-icon.svg";
 import { MenuIcon, SearchIcon } from "../../utils/Images";
 import COLORS from "../../constants/colors";

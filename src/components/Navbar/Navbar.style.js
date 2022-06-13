@@ -50,8 +50,8 @@ export const StyledNavbar = styled.div`
     display: none;
   }
   .logoImg {
-    width: 95px;
-    height: 28px;
+    width: 100%;
+    max-width: 75px;
   }
   .catalog-btn {
     font-size: 18px;
