@@ -20,8 +20,9 @@ import Main from "./Main";
 import Partner from "./Partner";
 
 function Landing() {
-  let leftSideText = 'Высоко качественные моторные масла';
-  let leftSidePar = 'Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. '
+  let leftSideText = "Высоко качественные моторные масла";
+  let leftSidePar =
+    "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";
   const data = [
     {
       title: "Моторные масла",
@@ -46,17 +47,17 @@ function Landing() {
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 },
   ];
- const colStyle = {
-     width: '100%',
- }
+  const colStyle = {
+    width: "100%",
+  };
   return (
     <StyledLanding>
-      <Main 
+      <Main
         img={OilImg}
-       buttonText={'Продукция'}
-       leftSideText = {leftSideText}
-       leftSidePar={leftSidePar}
-       flexDirection={'row'}
+        buttonText={"Продукция"}
+        leftSideText={leftSideText}
+        leftSidePar={leftSidePar}
+        flexDirection={"row"}
       />
       <div className="category-section">
         <StyledContainer>
@@ -71,15 +72,15 @@ function Landing() {
             </Row> */}
             <Carousel breakPoints={carouselBreakpoint}>
               {data?.map((item, index) => (
-                <Card data={item} key={index}/>
+                <Card data={item} key={index} />
               ))}
             </Carousel>
           </div>
         </StyledContainer>
       </div>
-      <Products headTitle={'Новые товары'}/>
-      <Discount/>
-      <Products headTitle={'Хиты продаж'}/>
+      <Products headTitle={"Новые товары"} />
+      <Discount />
+      <Products headTitle={"Хиты продаж"} />
       {/* <Service/> */}
     </StyledLanding>
   );
