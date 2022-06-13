@@ -6,9 +6,9 @@ export const StyledNavUl = styled.nav`
   nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     div {
-      padding: 20px 0px;
+      padding: 20px 48px;
     }
   }
   .nav_link {
