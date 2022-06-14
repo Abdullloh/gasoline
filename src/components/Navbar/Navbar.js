@@ -21,7 +21,7 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const [hideMenu, setHideMenu] = useState(false);
   const inputRef = useRef();
-  let arr = [1,2,3,4,5,6,7,8]
+  let arr = [1, 2, 3, 4, 5, 6, 7, 8];
   const showMenu = () => {
     setHideMenu((prev) => !prev);
   };
@@ -38,13 +38,11 @@ function Navbar() {
   return (
     <>
       <StyledNavbar>
-        {/* <div className="tread">
-          {arr.map(item=> {
-            return(
-              <Tread key={item}/>
-              )
+        <div className="tread">
+          {arr.map((item) => {
+            return <Tread key={item} />;
           })}
-        </div> */}
+        </div>
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -169,7 +167,7 @@ function Navbar() {
                 </NavLink>
               </div>
             </nav> */}
-          <Navigation/>
+            <Navigation />
           </div>
         </StyledContainer>
       </StyledNavbar>
