@@ -38,11 +38,11 @@ function Navbar() {
   return (
     <>
       <StyledNavbar>
-        <div className="tread">
+        {/* <div className="tread">
           {arr.map((item) => {
             return <Tread key={item} />;
           })}
-        </div>
+        </div> */}
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
