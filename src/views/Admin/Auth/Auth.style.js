@@ -9,6 +9,10 @@ export const StyledSignIn = styled.div`
   justify-content: center;
   .wrapper {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     .auth_title {
       font-size: 32px;
       line-height: 37px;
@@ -16,6 +20,8 @@ export const StyledSignIn = styled.div`
       padding: 20px 0px;
     }
     .form_block {
+      width: 100%;
+      max-width: 850px;
       border: 1px solid ${COLORS.darkGrey};
       padding: 70px;
       border-radius: 30px;

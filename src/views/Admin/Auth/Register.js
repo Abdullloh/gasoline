@@ -5,12 +5,14 @@ import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 
-function SignIn() {
+function Register() {
   const [userName, setUserName] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [phoneNum, setPhoneNum] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [compName, setCompName] = useState(null);
   const userData = {
     userName: userName,
-    password: password,
+    phoneNum: phoneNum,
   };
   const handleSubmite = (e) => {
     e.preventDefault();
@@ -21,21 +23,35 @@ function SignIn() {
       <StyledContainer>
         <div className="container">
           <div className="wrapper">
-            <h2 className="auth_title">Вход в админку для Партнеров</h2>
+            <h2 className="auth_title">Регистрация</h2>
             <div className="form_block">
               <Form layout="vertical">
-                <Form.Item label="Логин">
+                <Form.Item label="Ф.И.О.">
                   <Input
                     size="large"
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
-                <Form.Item label="Пароль">
-                  <Input.Password
+                <Form.Item label="Номер телефона">
+                  <Input
                     size="large"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
+                    onChange={(e) => setUserName(e.target.value)}
+                    value={userName}
+                  />
+                </Form.Item>
+                <Form.Item label="Email">
+                  <Input
+                    size="large"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                </Form.Item>
+                <Form.Item label="Название компании">
+                  <Input
+                    size="large"
+                    onChange={(e) => setCompName(e.target.value)}
+                    value={compName}
                   />
                 </Form.Item>
                 <div className="sbt_block">
@@ -55,4 +71,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Register;
