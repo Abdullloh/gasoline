@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import AboutCompany from "../views/AboutCompany";
+import Register from "../views/Admin/Auth/Register";
 import SignIn from "../views/Admin/Auth/SignIn";
 import Landing from "../views/Landing";
 import Partner from "../views/Partner";
@@ -27,5 +28,9 @@ export const ROUTES = [
   {
     path: "/sign-in",
     component: <SignIn />,
+  },
+  {
+    path: "/sign-up",
+    component: <Register />,
   },
 ];
