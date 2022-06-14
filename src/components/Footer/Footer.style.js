@@ -23,7 +23,7 @@ export const StyledFooter = styled.footer`
     font-weight: 600;
     font-size: 24px;
     line-height: 120%;
-    color: ${COLORS.black};
+    color: ${COLORS.white};
   }
   .footer_social_heading {
     font-weight: 500;

@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "./Main";
+import Main from "../components/Main";
 import OilBallon from "../assets/img/oilBalloon.svg";
 import { StyledLanding } from "../styles/Landing.style";
 import BodyInfo from "../components/BodyInfo/BodyInfo";

@@ -1,5 +1,5 @@
 import React from "react";
-import Main from "./Main";
+import Main from "../components/Main";
 import PartnerBodyImage from "../assets/img/oilBalloon.svg";
 import PartnerImage from "../assets/img/Partnerimage.svg";
 import { StyledLanding } from "../styles/Landing.style";
@@ -12,6 +12,7 @@ import Product from "../assets/img/product.svg";
 import { Col, Row } from "antd";
 import Text from "../components/Text/Text";
 import { StyledContainer } from "../styles/Container.style";
+import Service from "../components/Servise/Service";
 const Partner = () => {
   let leftSideText = "Развивайте бизнес и зарабатывайте вместе с нами";
   let leftSidePar =
@@ -167,6 +168,7 @@ const Partner = () => {
           </Row>
         </div>
       </StyledContainer>
+      <Service/>
     </StyledLanding>
   );
 };

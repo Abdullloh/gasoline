@@ -16,7 +16,7 @@ import Products from "../components/NewProducts/Products";
 import Discount from "../components/DiscountSection/Discount";
 import Service from "../components/Servise/Service";
 import Footer from "../components/Footer/Footer";
-import Main from "./Main";
+import Main from "../components/Main";
 import Partner from "./Partner";
 
 function Landing() {

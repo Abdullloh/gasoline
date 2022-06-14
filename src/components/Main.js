@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledContainer } from "../styles/Container.style";
 import { Row, Col, Button } from "antd";
+import Service from './Servise/Service';
 
 const Main = (props) => {
     const {img,buttonText,leftSideText,leftSidePar,flexDirection,aboutPageButtonText,isFlexTrue} = props
