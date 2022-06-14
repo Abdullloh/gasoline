@@ -1,10 +1,10 @@
 import React from "react";
-import Service from "../components/Servise/Service";
-import Text from "../components/Text/Text";
-import { AboutPageStyle } from "../styles/AboutPageSyle";
-import { StyledContainer } from "../styles/Container.style";
-import { StyledLanding } from "../styles/Landing.style";
-import Main from "../components/Main";
+import Service from "../../components/Servise/Service";
+import Text from "../../components/Text/Text";
+import { AboutPageStyle } from "../../styles/AboutPageSyle";
+import { StyledContainer } from "../../styles/Container.style";
+import { StyledLanding } from "../../styles/Landing.style";
+import Main from "../../components/Main";
 
 const AboutCompany = () => {
   return (

@@ -27,27 +27,23 @@ function SignIn() {
               <Form layout="vertical">
                 <Form.Item label="Логин">
                   <Input
-                    size="large"
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
                 <Form.Item label="Пароль">
                   <Input.Password
-                    size="large"
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
                 </Form.Item>
                 <div className="sbt_block">
-                  <Button type="primary"  onClick={handleSubmite}>
+                  <Button type="primary" onClick={handleSubmite}>
                     Войти
                   </Button>
-                <Link to="/sign-up">
-                <Button type="link" >
-                    Зарегистрироваться
-                  </Button>
-                </Link>
+                  <Link to="/sign-up">
+                    <Button type="link">Зарегистрироваться</Button>
+                  </Link>
                 </div>
               </Form>
             </div>

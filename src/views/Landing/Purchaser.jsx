@@ -1,17 +1,17 @@
 import React from "react";
-import Main from "../components/Main";
-import OilBallon from "../assets/img/oilBalloon.svg";
-import { StyledLanding } from "../styles/Landing.style";
-import BodyInfo from "../components/BodyInfo/BodyInfo";
-import CardList from "../components/CardList/CardList";
-import Bar from "../assets/img/bar.svg";
-import Purchase from "../assets/img/purchase.svg";
-import Download from "../assets/img/download.svg";
-import Product from "../assets/img/product.svg";
+import Main from "../../components/Main";
+import OilBallon from "../../assets/img/oilBalloon.svg";
+import { StyledLanding } from "../../styles/Landing.style";
+import BodyInfo from "../../components/BodyInfo/BodyInfo";
+import CardList from "../../components/CardList/CardList";
+import Bar from "../../assets/img/bar.svg";
+import Purchase from "../../assets/img/purchase.svg";
+import Download from "../../assets/img/download.svg";
+import Product from "../../assets/img/product.svg";
 import { Col, Row } from "antd";
-import Text from "../components/Text/Text";
-import { StyledContainer } from "../styles/Container.style";
-import Service from "../components/Servise/Service";
+import Text from "../../components/Text/Text";
+import { StyledContainer } from "../../styles/Container.style";
+import Service from "../../components/Servise/Service";
 const Purchaser = () => {
   let leftSideText =
     "GAZOIL ОНЛАЙН ТОРГОВЫЙ ЦЕНТР НЕФТЕННЫХ ПРОДУКЦИЙ   В УЗБЕКИСТАНЕ";
