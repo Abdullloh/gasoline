@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
-import Footer from "../../../components/Footer/Footer";
-import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 
@@ -13,6 +11,8 @@ function Register() {
   const userData = {
     userName: userName,
     phoneNum: phoneNum,
+    email: email,
+    compName: compName,
   };
   const handleSubmite = (e) => {
     e.preventDefault();
@@ -28,42 +28,39 @@ function Register() {
               <Form layout="vertical">
                 <Form.Item label="Ф.И.О.">
                   <Input
-                    
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
                 <Form.Item label="Номер телефона">
                   <Input
-                    
-                    onChange={(e) => setUserName(e.target.value)}
-                    value={userName}
+                    onChange={(e) => setPhoneNum(e.target.value)}
+                    value={phoneNum}
                   />
                 </Form.Item>
                 <Form.Item label="Email">
                   <Input
-                    
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
                 </Form.Item>
                 <Form.Item label="Название компании">
                   <Input
-                    
                     onChange={(e) => setCompName(e.target.value)}
                     value={compName}
                   />
                 </Form.Item>
-                <div className="sbt_block">
-                  <Button type="primary"  onClick={handleSubmite}>
-                    Войти
-                  </Button>
-                  <Button type="link" >
-                    Зарегистрироваться
+                <div className="sbt_block" style={{"justify-content": "center"}}>
+                  <Button type="primary" onClick={handleSubmite}>
+                    Отправить заявку
                   </Button>
                 </div>
               </Form>
             </div>
+            <p>
+              При входе и регистрации вы соглашаетесь с Условиями использования
+              сайта <br/> и Политикой обработки персональных данных.
+            </p>
           </div>
         </div>
       </StyledContainer>

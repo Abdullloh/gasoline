@@ -15,10 +15,12 @@ const ProductCard = ({ img = "", title = "", price = "" }) => {
     setIsModalVisible(!isModalVisible);
   };
 
-  const increment = () => {
+  const increment = (e) => {
+    e.stopPropagation();
     setState((prev) => prev + 1);
   };
-  const decrement = () => {
+  const decrement = (e) => {
+    e.stopPropagation();
     if (state > 0) {
       setState((prev) => prev - 1);
     }

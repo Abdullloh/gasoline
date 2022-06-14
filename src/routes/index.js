@@ -1,12 +1,12 @@
 import { lazy } from "react";
-import AboutCompany from "../views/AboutCompany";
-import Register from "../views/Admin/Auth/Register";
+import AboutCompany from "../views/Landing/AboutCompany";
+import Register from "../views/Admin/Auth/Register"
 import SignIn from "../views/Admin/Auth/SignIn";
-import Landing from "../views/Landing";
-import Partner from "../views/Partner";
-import Purchaser from "../views/Purchaser";
+import Landing from "../views/Landing/Landing";
+import Partner from "../views/Landing/Partner";
+import Purchaser from "../views/Landing/Purchaser";
 
-const LandingMain = lazy(() => import("../views/Landing"));
+const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
 export const ROUTES = [
   {
@@ -28,6 +28,10 @@ export const ROUTES = [
   {
     path: "/sign-in",
     component: <SignIn />,
+  },
+  {
+    path: "/sign-up",
+    component: <Register />,
   },
   {
     path: "/sign-up",

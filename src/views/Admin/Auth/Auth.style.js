@@ -3,7 +3,6 @@ import COLORS from "../../../constants/colors";
 
 export const StyledSignIn = styled.div`
   margin: 0px;
-  height: calc(100vh - 730px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,9 +12,15 @@ export const StyledSignIn = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin: 15px 0px;
+    p {
+      padding: 10px 0px;
+      text-align: center;
+      font-size: 12px;
+    }
     .auth_title {
-      font-size: 32px;
-      line-height: 37px;
+      font-size: 22px;
+      line-height: 27px;
       color: ${COLORS.black};
       padding: 20px 0px;
     }
@@ -26,7 +31,7 @@ export const StyledSignIn = styled.div`
       padding: 70px;
       border-radius: 30px;
       label {
-        font-size: 22px;
+        font-size: 18px;
       }
       /* button {
         font-size: 32px;

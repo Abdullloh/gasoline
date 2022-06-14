@@ -1,23 +1,19 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
 import Carousel from "react-elastic-carousel";
-import Navbar from "../components/Navbar/Navbar";
-import { StyledLanding } from "../styles/Landing.style";
-import { StyledContainer } from "../styles/Container.style";
-import { OilImage } from "../utils/Images";
-import OilImg from "../assets/img/oil-img.svg";
-import PageHeader from "../components/PageHeader/PageHeader";
-import CategoryOil from "../assets/img/category-oil.svg";
-import Tyre from "../assets/img/tyre.svg";
-import Antfreez from "../assets/img/antfreez.svg";
-import Chimical from "../assets/img/chimical.svg";
-import Card from "../components/TestimonialCard/Card";
-import Products from "../components/NewProducts/Products";
-import Discount from "../components/DiscountSection/Discount";
-import Service from "../components/Servise/Service";
-import Footer from "../components/Footer/Footer";
-import Main from "../components/Main";
-import Partner from "./Partner";
+import { StyledLanding } from "../../styles/Landing.style";
+import { StyledContainer } from "../../styles/Container.style";
+import OilImg from "../../assets/img/oil-img.svg";
+import PageHeader from "../../components/PageHeader/PageHeader";
+import CategoryOil from "../../assets/img/category-oil.svg";
+import Tyre from "../../assets/img/tyre.svg";
+import Antfreez from "../../assets/img/antfreez.svg";
+import Chimical from "../../assets/img/chimical.svg";
+import Card from "../../components/TestimonialCard/Card";
+import Products from "../../components/NewProducts/Products";
+import Discount from "../../components/DiscountSection/Discount";
+import Service from "../../components/Servise/Service";
+import Main from "../../components/Main";
 
 function Landing() {
   let leftSideText = "Высоко качественные моторные масла";
