@@ -12,6 +12,7 @@ import COLORS from "../../constants/colors";
 import { UserIcon, ShopCartIcon } from "../../utils/Images";
 import { StyledNavUl } from "./NavUl.style";
 import Tread from "./Tread";
+import Navigation from "./Navigation";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -146,7 +147,7 @@ function Navbar() {
                 </Col>
               </Row>
             </div>
-            <nav>
+            {/* <nav>
               <div>
                 <NavLink className="nav_link" to="/">
                   Главная
@@ -167,7 +168,8 @@ function Navbar() {
                   Покупателям
                 </NavLink>
               </div>
-            </nav>
+            </nav> */}
+          <Navigation/>
           </div>
         </StyledContainer>
       </StyledNavbar>

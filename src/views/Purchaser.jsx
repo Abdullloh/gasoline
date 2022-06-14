@@ -11,6 +11,7 @@ import Product from "../assets/img/product.svg";
 import { Col, Row } from "antd";
 import Text from "../components/Text/Text";
 import { StyledContainer } from "../styles/Container.style";
+import Service from "../components/Servise/Service";
 const Purchaser = () => {
   let leftSideText =
     "GAZOIL ОНЛАЙН ТОРГОВЫЙ ЦЕНТР НЕФТЕННЫХ ПРОДУКЦИЙ   В УЗБЕКИСТАНЕ";
@@ -97,6 +98,7 @@ const Purchaser = () => {
           </Row>
         </div>
       </StyledContainer>
+      <Service />
     </StyledLanding>
   );
 };

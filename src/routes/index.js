@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import AboutCompany from "../views/AboutCompany";
+import SignIn from "../views/Admin/Auth/SignIn";
 import Landing from "../views/Landing";
 import Partner from "../views/Partner";
 import Purchaser from "../views/Purchaser";
@@ -22,5 +23,9 @@ export const ROUTES = [
   {
     path: "/service",
     component: <Purchaser />,
+  },
+  {
+    path: "/sign-in",
+    component: <SignIn />,
   },
 ];
