@@ -36,7 +36,7 @@ const Purchaser = () => {
         subtitleThird="Теперь Вам необязательно посещать разные сайты по отдельности, так как все товары и услуги доступны в каталоге нашего маркетплейса"
       />
       <StyledContainer>
-        <div className="contaier">
+        <div className="container">
           <Row>
             <Col
               style={style}

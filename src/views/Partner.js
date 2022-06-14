@@ -12,7 +12,6 @@ import Product from "../assets/img/product.svg";
 import { Col, Row } from "antd";
 import Text from "../components/Text/Text";
 import { StyledContainer } from "../styles/Container.style";
-import Service from "../components/Servise/Service";
 const Partner = () => {
   let leftSideText = "Развивайте бизнес и зарабатывайте вместе с нами";
   let leftSidePar =
@@ -24,21 +23,21 @@ const Partner = () => {
   };
   return (
     <StyledLanding>
+      <Main
+        img={PartnerImage}
+        buttonText={"Добавить товар"}
+        leftSideText={leftSideText}
+        leftSidePar={leftSidePar}
+      />
+      <BodyInfo
+        img={PartnerBodyImage}
+        title="Партнёрская сеть — это выгодно и просто!"
+        subtitle="GASOIL предоставляет магазинам и предпринимателям возможность получить полный комплекс услуг на одной площадке."
+        subtitleSecond="Вам не надо тратиться на маркетинг, искать различные источники трафика. Мы предоставим вам вышеперечисленные услуги и гарантирукм."
+        subtitleThird="Благодаря нативности инструментов средний CTR на площадках наших партнёров — 9%. В некоторых случаях этот показатель достигает "
+      />
       <StyledContainer>
         <div className="contaier">
-          <Main
-            img={PartnerImage}
-            buttonText={"Добавить товар"}
-            leftSideText={leftSideText}
-            leftSidePar={leftSidePar}
-          />
-          <BodyInfo
-            img={PartnerBodyImage}
-            title="Партнёрская сеть — это выгодно и просто!"
-            subtitle="GASOIL предоставляет магазинам и предпринимателям возможность получить полный комплекс услуг на одной площадке."
-            subtitleSecond="Вам не надо тратиться на маркетинг, искать различные источники трафика. Мы предоставим вам вышеперечисленные услуги и гарантирукм."
-            subtitleThird="Благодаря нативности инструментов средний CTR на площадках наших партнёров — 9%. В некоторых случаях этот показатель достигает "
-          />
           <Row>
             <Col
               style={style}
@@ -168,7 +167,6 @@ const Partner = () => {
           </Row>
         </div>
       </StyledContainer>
-      <Service/>
     </StyledLanding>
   );
 };
