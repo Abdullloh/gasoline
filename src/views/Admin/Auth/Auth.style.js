@@ -26,7 +26,7 @@ export const StyledSignIn = styled.div`
       padding: 70px;
       border-radius: 30px;
       label {
-        font-size: 32px;
+        font-size: 22px;
       }
       /* button {
         font-size: 32px;

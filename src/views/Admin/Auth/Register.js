@@ -28,37 +28,37 @@ function Register() {
               <Form layout="vertical">
                 <Form.Item label="Ф.И.О.">
                   <Input
-                    size="large"
+                    
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
                 <Form.Item label="Номер телефона">
                   <Input
-                    size="large"
+                    
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
                 <Form.Item label="Email">
                   <Input
-                    size="large"
+                    
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
                 </Form.Item>
                 <Form.Item label="Название компании">
                   <Input
-                    size="large"
+                    
                     onChange={(e) => setCompName(e.target.value)}
                     value={compName}
                   />
                 </Form.Item>
                 <div className="sbt_block">
-                  <Button type="primary" size="large" onClick={handleSubmite}>
+                  <Button type="primary"  onClick={handleSubmite}>
                     Войти
                   </Button>
-                  <Button type="link" size="large">
+                  <Button type="link" >
                     Зарегистрироваться
                   </Button>
                 </div>

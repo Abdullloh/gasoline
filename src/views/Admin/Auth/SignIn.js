@@ -39,10 +39,10 @@ function SignIn() {
                   />
                 </Form.Item>
                 <div className="sbt_block">
-                  <Button type="primary" size="large" onClick={handleSubmite}>
+                  <Button type="primary"  onClick={handleSubmite}>
                     Войти
                   </Button>
-                  <Button type="link" size="large">
+                  <Button type="link" >
                     Зарегистрироваться
                   </Button>
                 </div>
