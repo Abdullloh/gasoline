@@ -4,6 +4,7 @@ import Footer from "../../../components/Footer/Footer";
 import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
+import { Link } from "react-router-dom";
 
 function SignIn() {
   const [userName, setUserName] = useState(null);
@@ -42,9 +43,11 @@ function SignIn() {
                   <Button type="primary"  onClick={handleSubmite}>
                     Войти
                   </Button>
-                  <Button type="link" >
+                <Link to="/sign-up">
+                <Button type="link" >
                     Зарегистрироваться
                   </Button>
+                </Link>
                 </div>
               </Form>
             </div>
