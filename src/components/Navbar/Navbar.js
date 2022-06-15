@@ -196,6 +196,11 @@ function Navbar() {
                     Покупателям
                   </NavLink>
                 </div>
+                <div>
+                  <NavLink className="nav_link" to="/service">
+                    Товары
+                  </NavLink>
+                </div>
               </nav>
             </div>
           </div>

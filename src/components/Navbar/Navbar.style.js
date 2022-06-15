@@ -24,7 +24,7 @@ export const StyledNavbar = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    div{
+    div {
       padding: 10px 0px;
     }
   }
