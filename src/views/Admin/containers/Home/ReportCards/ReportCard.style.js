@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import COLORS from "../../constants/colors";
+import COLORS from "../../../../../constants/colors";
 
 export const StyledReportCard = styled.div`
   text-align: left;
@@ -22,8 +22,10 @@ export const StyledReportCard = styled.div`
     img {
       width: 20px;
       height: 12px;
+      margin-right: 7px;
     }
     p{
+        margin-top:15px;
         font-size: 18px;
         line-height:20px;
     }
