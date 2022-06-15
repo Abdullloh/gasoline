@@ -9,6 +9,7 @@ import { ReactComponent as OrdersIcon } from "../assets/img/orders.svg";
 import { ReactComponent as PurchasesIcon } from "../assets/img/purchase.svg";
 import { ReactComponent as PartnerIcon } from "../assets/img/partners.svg";
 import { ReactComponent as ExitIcon } from "../assets/img/exit.svg";
+import { ReactComponent as shopBagIcon } from "../assets/img/shopBag.svg";
 
 export {
     Logo,
@@ -22,4 +23,5 @@ export {
     PurchasesIcon,
     PartnerIcon,
     ExitIcon,
+    shopBagIcon
 }
