@@ -3,7 +3,7 @@ import { Col, Button } from "antd";
 import { StyledProductCard } from "./ProductCardStyle";
 import ProductDetail from "../ProductDetail/ProductDetail";
 
-const ProductCard = ({ img = "", title = "", price = "" }) => {
+const ProductCard = ({ img = "", title = "", price = "", margin }) => {
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -26,22 +26,14 @@ const ProductCard = ({ img = "", title = "", price = "" }) => {
     }
   };
   return (
-    <Col
-      md={{
-        span: 12,
-      }}
-      lg={{
-        span: 6,
-      }}
-      style={{ margin: "auto" }}
-    >
+    <>
       <ProductDetail
         isVisible={isModalVisible}
         handleCancel={handleCancel}
         title={title}
         imgSrc={img}
       />
-      <StyledProductCard onClick={showModal}>
+      <StyledProductCard margin={margin} onClick={showModal}>
         <div>
           <img src={img} alt="oilImg" />
         </div>
@@ -65,7 +57,7 @@ const ProductCard = ({ img = "", title = "", price = "" }) => {
           </Button>
         </div>
       </StyledProductCard>
-    </Col>
+    </>
   );
 };
 

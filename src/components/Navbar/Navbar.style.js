@@ -29,7 +29,7 @@ export const StyledNavbar = styled.div`
     }
   }
   .active {
-    color: ${COLORS.main} !important;
+    color: ${COLORS.white} !important;
   }
 
   .wrapper {

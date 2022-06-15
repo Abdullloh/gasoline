@@ -3,6 +3,7 @@ import COLORS from "../../constants/colors";
 
 export const StyledNavUl = styled.nav`
   display: block;
+  background: ${COLORS.main};
   nav {
     display: flex;
     align-items: center;
@@ -16,14 +17,14 @@ export const StyledNavUl = styled.nav`
     font-size: 23px;
     line-height: 27px;
     transition: all 0.3s ease-in-out;
-    color: ${COLORS.black};
+    color: ${COLORS.white};
     &:hover {
-      color: ${COLORS.main};
+      color: ${COLORS.black};
     }
   }
-  .active {
+  /* .active {
     color: ${COLORS.main};
-  }
+  } */
   @media screen and (max-width: 992px) {
     display: none;
   }

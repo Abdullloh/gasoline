@@ -6,7 +6,11 @@ const COLORS = {
   white: "#FFFFFF",
   black: "#12131A",
   silver: "#F5F5F6",
-  lightBlack: '#25292E'
+  silverLight: "#F5F5F5",
+  lightBlack: '#25292E',
+  red: '#EB5757',
+  lightBlue: '#2F80ED',
+  green: '#27AE60'
 };
 
 Object.defineProperty(exports, "__esModule", {

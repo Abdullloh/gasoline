@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledProductCard = styled.div`
   border: 1px solid #e0e0e0;
   border-radius: 10px;
+  margin: ${(props) => props.margin};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +11,7 @@ export const StyledProductCard = styled.div`
   padding: 30px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
-  &:hover{
+  &:hover {
     box-shadow: 0px 21px 20px rgba(84, 81, 81, 0.17);
   }
   .card-body {
@@ -24,19 +25,19 @@ export const StyledProductCard = styled.div`
     width: 100%;
     justify-content: space-between;
     div {
-        .counter {
-            border:none;
-            cursor: pointer;
-            margin:0;
-            padding: 2px;
-            font-size:24px;
-        }
-        span{
-            border: 1px solid #bdbdbd;
-            border-radius: 5px;
-            padding: 6px;
-            margin: 0 8px;
-        }
+      .counter {
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 2px;
+        font-size: 24px;
+      }
+      span {
+        border: 1px solid #bdbdbd;
+        border-radius: 5px;
+        padding: 6px;
+        margin: 0 8px;
+      }
     }
   }
 `;
