@@ -1,32 +1,29 @@
 import { lazy } from "react";
-import AboutCompany from "../views/AboutCompany";
-import Register from "../views/Admin/Auth/Register";
-import SignIn from "../views/Admin/Auth/SignIn";
-import Landing from "../views/Landing/Landing";
-import Partner from "../views/Partner";
-import Purchaser from "../views/Purchaser";
+import Home from "../views/Admin/containers/Home/Home"
+import Partners from "../views/Admin/containers/Partners/Partners";
 
-const LandingMain = lazy(() => import("../views/Landing/Landing"));
+
+const MainHome = lazy(() => import("../views/Admin/containers/Home/Home"));
 
 export const ADMIN_ROUTES = [
   {
     path: "/",
-    component: Dashboard,
+    component: <Home/>,
   },
   {
     path: "/orders",
-    component: Foods,
+    component: <h1>orders</h1>,
   },
   {
     path: "/purchases",
-    component: Category,
+    component: <h1>purchases</h1>,
   },
   {
     path: "/questions",
-    component: OrderList,
+    component: <h1>questions</h1>,
   },
   {
     path: "/partners",
-    component: OrderList,
+    component: <Partners/>,
   },
 ];

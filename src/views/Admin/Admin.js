@@ -1,10 +1,11 @@
 import React, { Suspense } from "react";
-import { Layout } from "antd";
+import { Layout, Spin } from "antd";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { StyledApp } from "./Admin.style";
 import Sidebar from "../../components/Sidebar/Siderbar";
 import Home from "./containers/Home/Home";
+import { ADMIN_ROUTES } from "../../routes/AdminRoute";
 // import Header from "../../components/Header/Header";
 
 const { Content } = Layout;
@@ -19,16 +20,15 @@ function Admin() {
               className="site-layout-background"
               style={{ padding: 24, minHeight: "calc(100vh - 48px)" }}
             >
-              <Suspense fallback="Loading...">
-                {/* <Routes>
-                  {MAIN_ROUTES?.map((item) => {
-                    const { path, element: Component } = item;
+              <Suspense fallback={<Spin size="large"/>}>
+                <Routes>
+                  {ADMIN_ROUTES?.map((item) => {
+                    const { path, component } = item;
                     return (
-                      <Route key={path} path={path} element={<Component />} />
+                      <Route key={path} path={path} element={component} />
                     );
                   })}
-                </Routes> */}
-                <Home/>
+                </Routes>
               </Suspense>
             </div>
           </Content>
