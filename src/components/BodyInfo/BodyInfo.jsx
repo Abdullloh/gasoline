@@ -7,12 +7,12 @@ const BodyInfo = (props) => {
   const paragraghStyle = {
     fontSize: "18px",
     fontWeight: "400",
-    lineHeight: "22px"
+    lineHeight: "22px",
   };
   const titleStyle = {
     fontSize: "40px",
     fontWeight: "400",
-    lineHeight: "49px"
+    lineHeight: "49px",
   };
   return (
     <StyledContainer>
@@ -20,7 +20,7 @@ const BodyInfo = (props) => {
         <div>
           <Row>
             <Col
-              style={{ "width": "100%", "padding": "30px 0px" }}
+              style={{ width: "100%", padding: "30px 0px" }}
               sm={{
                 span: 24,
                 offset: 0,
@@ -32,13 +32,13 @@ const BodyInfo = (props) => {
             >
               <img
                 src={props?.img}
-                style={{ width: "100%" }}
+                style={{ width: "90%" }}
                 className="partnerImage"
                 alt="PartnerImage"
               />
             </Col>
             <Col
-              style={{ "width": "100%", "padding": "30px 0px" }}
+              style={{ width: "100%", padding: "30px 0px" }}
               sm={{
                 span: 24,
                 offset: 0,

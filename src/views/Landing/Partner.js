@@ -1,7 +1,7 @@
 import React from "react";
 import Main from "../../components/Main";
-import PartnerBodyImage from "../../assets/img/oilBalloon.svg";
-import PartnerImage from "../../assets/img/Partnerimage.svg";
+import PartnerBodyImage from "../../assets/img/partner-body-img.png";
+import PartnerImage from "../../assets/img/partner-bg.png";
 import { StyledLanding } from "../../styles/Landing.style";
 import BodyInfo from "../../components/BodyInfo/BodyInfo";
 import CardList from "../../components/CardList/CardList";
@@ -23,10 +23,10 @@ const Partner = () => {
     justifyContent: "center",
   };
   return (
-    <StyledLanding>
+    <StyledLanding img={PartnerImage}>
       <Main
-        img={PartnerImage}
         buttonText={"Добавить товар"}
+        textColor={"white"}
         leftSideText={leftSideText}
         leftSidePar={leftSidePar}
       />
@@ -38,7 +38,7 @@ const Partner = () => {
         subtitleThird="Благодаря нативности инструментов средний CTR на площадках наших партнёров — 9%. В некоторых случаях этот показатель достигает "
       />
       <StyledContainer>
-        <div className="contaier">
+        <div className="container">
           <Row>
             <Col
               style={style}
@@ -168,7 +168,7 @@ const Partner = () => {
           </Row>
         </div>
       </StyledContainer>
-      <Service/>
+      <Service />
     </StyledLanding>
   );
 };

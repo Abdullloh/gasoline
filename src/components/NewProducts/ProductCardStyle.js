@@ -14,6 +14,11 @@ export const StyledProductCard = styled.div`
   &:hover {
     box-shadow: 0px 21px 20px rgba(84, 81, 81, 0.17);
   }
+  .card-header {
+    img {
+      width: 100%;
+    }
+  }
   .card-body {
     h3 {
       color: #4f4f4f;

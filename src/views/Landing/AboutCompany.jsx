@@ -1,5 +1,6 @@
 import React from "react";
 import Service from "../../components/Servise/Service";
+import CompanyImg from "../../assets/img/company-bg.png";
 import Text from "../../components/Text/Text";
 import { AboutPageStyle } from "../../styles/AboutPageSyle";
 import { StyledContainer } from "../../styles/Container.style";
@@ -8,7 +9,7 @@ import Main from "../../components/Main";
 
 const AboutCompany = () => {
   return (
-    <StyledLanding>
+    <StyledLanding img={CompanyImg}>
       <Main
         leftSideText={"Добро пожаловать на GAZOIL "}
         buttonText={"Разместить товар"}
