@@ -51,7 +51,6 @@ export const StyledNavbar = styled.div`
   }
   .logoImg {
     width: 100%;
-    max-width: 75px;
   }
   .catalog-btn {
     font-size: 18px;

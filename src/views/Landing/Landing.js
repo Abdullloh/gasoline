@@ -3,7 +3,7 @@ import { Row, Col, Button } from "antd";
 import Carousel from "react-elastic-carousel";
 import { StyledLanding } from "../../styles/Landing.style";
 import { StyledContainer } from "../../styles/Container.style";
-import OilImg from "../../assets/img/oil-img.svg";
+import OilImg from "../../assets/img/home-bg.png";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import CategoryOil from "../../assets/img/category-oil.svg";
 import Tyre from "../../assets/img/tyre.svg";
@@ -47,9 +47,8 @@ function Landing() {
     width: "100%",
   };
   return (
-    <StyledLanding>
+    <StyledLanding img={OilImg}>
       <Main
-        img={OilImg}
         buttonText={"Продукция"}
         leftSideText={leftSideText}
         leftSidePar={leftSidePar}
@@ -77,7 +76,7 @@ function Landing() {
       <Products headTitle={"Новые товары"} />
       <Discount />
       <Products headTitle={"Хиты продаж"} />
-      <Service/>
+      <Service />
     </StyledLanding>
   );
 }

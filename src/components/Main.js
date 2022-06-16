@@ -95,7 +95,7 @@ const Main = (props) => {
               }
             >
               <div className="img-block">
-                {img && <img src={img} alt="oil" className="oilImg" />}
+                {/* {img && <img src={img} alt="oil" className="oilImg" />} */}
                 <button className="headeing-btn">{buttonText}</button>
                 {aboutPageButtonText && (
                   <button className="headeing-btn">

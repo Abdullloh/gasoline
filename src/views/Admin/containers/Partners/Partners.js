@@ -5,10 +5,11 @@ import { StyledPartners } from "./Partners.style";
 function Partners() {
   const [data, setData] = useState([]);
   const [editComp, setEditComp] = useState(false);
-  const [modalData, setModalData] = useState(null);
+  const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(modalData);
 
   const [formValues, setFormValues] = useState({
     compName: "",
@@ -23,7 +24,7 @@ function Partners() {
 
   const closeModal = () => {
     setIsVisible(false);
-    setModalData(null);
+    // setModalData(null);
   };
   const openModal = () => {
     setIsVisible(true);
@@ -56,37 +57,37 @@ function Partners() {
       },
       {
         id: "2",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 1 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "3",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 2 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "4",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 3 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "5",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 4 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "6",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 5 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "7",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 6 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "8",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 7 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
     ]);
@@ -102,14 +103,12 @@ function Partners() {
     );
   };
 
-  const getCompInfo = (id) => {
-    data.map((item) => {
-      if (item.id == id) {
-        setModalData(item);
-      }
-    });
-
-    openModal();
+  const getCompInfo = async (id) => {
+    let filterData = await data.filter((item) => item.id == id)[0];
+    if (filterData) {
+      setModalData(filterData);
+      openModal();
+    }
   };
 
   const handleInput = (e) => {
@@ -228,7 +227,7 @@ function Partners() {
                       <h5>Полное наименование</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>OOO test test</h5>
+                      <h5>{modalData?.compName}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -326,7 +325,11 @@ function Partners() {
                     </Col>
                     <Col>
                       <Form.Item>
-                        <Button type="primary" htmlType="submit" onClick={console.log(formValues)}>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          onClick={console.log(formValues)}
+                        >
                           Submit
                         </Button>
                       </Form.Item>
