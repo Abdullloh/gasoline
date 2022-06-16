@@ -2,6 +2,16 @@ import styled from "styled-components";
 import COLORS from "../../../../constants/colors";
 
 export const StyledApplication = styled.div`
+  .ant-modal-body {
+    .question_block {
+      background: ${COLORS.white};
+      border: 1px solid ${COLORS.black};
+      border-radius: 8px;
+      padding: 20px;
+      color: ${COLORS.red};
+      text-align: center;
+    }
+  }
   .wrapper {
     background-color: ${COLORS.white};
     padding: 50px;
@@ -17,5 +27,13 @@ export const StyledApplication = styled.div`
         margin: 0px;
       }
     }
+  }
+  .ant-table-tbody {
+    tr:nth-child(even) {
+      background-color: #d9d9d9;
+    }
+  }
+  .ant-table-thead {
+    display: none;
   }
 `;
