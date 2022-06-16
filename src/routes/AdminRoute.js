@@ -1,4 +1,5 @@
 import { lazy } from "react";
+import Application from "../views/Admin/containers/Applications/Application";
 import Home from "../views/Admin/containers/Home/Home"
 import Partners from "../views/Admin/containers/Partners/Partners";
 
@@ -20,7 +21,7 @@ export const ADMIN_ROUTES = [
   },
   {
     path: "/questions",
-    component: <h1>questions</h1>,
+    component: <Application/>,
   },
   {
     path: "/partners",
