@@ -34,7 +34,7 @@ const ProductCard = ({ img = "", title = "", price = "", margin }) => {
         imgSrc={img}
       />
       <StyledProductCard margin={margin} onClick={showModal}>
-        <div>
+        <div className="card-header">
           <img src={img} alt="oilImg" />
         </div>
         <div className="card-body">

@@ -8,6 +8,7 @@ const Main = (props) => {
   const navigate = useNavigate();
   const {
     img,
+    textColor,
     buttonText,
     leftSideText,
     leftSidePar,
@@ -57,8 +58,15 @@ const Main = (props) => {
                     }
               }
             >
-              <h1 className="heading-title">{leftSideText}</h1>
-              <p className="heading-paragraph">{leftSidePar}</p>
+              <h1 style={{ color: props.textColor }} className="heading-title">
+                {leftSideText}
+              </h1>
+              <p
+                style={{ color: props.textColor }}
+                className="heading-paragraph"
+              >
+                {leftSidePar}
+              </p>
               <div className="buttonContainer">
                 <button
                   onClick={() => navigate("/products")}

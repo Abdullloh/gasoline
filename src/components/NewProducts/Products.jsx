@@ -10,6 +10,8 @@ import { StyledProducts } from "./Product.style";
 import { useNavigate } from "react-router-dom";
 
 const Products = (props) => {
+  const { productList } = props;
+  const { results = [] } = productList;
   let item = [1, 2, 3, 4, 5, 6, 7, 8];
   const navigate = useNavigate();
   return (
@@ -18,7 +20,8 @@ const Products = (props) => {
         <div className="container">
           <PageHeader title={props.headTitle} />
           <Row gutter={[20, 50]}>
-            {item.map((item, index) => {
+            {results.map((item, index) => {
+              const { title, images } = item;
               return (
                 <Col
                   key={index}
@@ -32,8 +35,8 @@ const Products = (props) => {
                 >
                   <ProductCard
                     key={index}
-                    img={CardImg}
-                    title="Антифриз концентрат HEPU 1.5 л/Красный"
+                    img={images[1]?.image}
+                    title={title}
                     price="$149"
                   />
                 </Col>

@@ -1,35 +1,36 @@
 import React from "react";
 import Main from "../../components/Main";
-import OilBallon from "../../assets/img/oilBalloon.svg";
+import PurchaserBodyImg from "../../assets/img/purchaser-body-img.png";
 import { StyledLanding } from "../../styles/Landing.style";
 import BodyInfo from "../../components/BodyInfo/BodyInfo";
 import CardList from "../../components/CardList/CardList";
 import Bar from "../../assets/img/bar.svg";
 import Purchase from "../../assets/img/purchase.svg";
 import Download from "../../assets/img/download.svg";
-import Product from "../../assets/img/product.svg";
+import PurchaserImg from "../../assets/img/purchaser-bg.png";
 import { Col, Row } from "antd";
 import Text from "../../components/Text/Text";
 import { StyledContainer } from "../../styles/Container.style";
 import Service from "../../components/Servise/Service";
 const Purchaser = () => {
   let leftSideText =
-    "GAZOIL ОНЛАЙН ТОРГОВЫЙ ЦЕНТР НЕФТЕННЫХ ПРОДУКЦИЙ   В УЗБЕКИСТАНЕ";
+    "GAZOIL.UZ онлайн маркетплейс нефтяных продукций в Узбекистане";
   let style = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   };
   return (
-    <StyledLanding>
+    <StyledLanding img={PurchaserImg}>
       <Main
         leftSideText={leftSideText}
         buttonText={"Купить товар"}
         flexDirection={"column"}
         isFlexTrue={true}
+        textColor={"white"}
       />
       <BodyInfo
-        img={OilBallon}
+        img={PurchaserBodyImg}
         title="Для покупателей"
         subtitle="GASOIL это огромный маркетплейс в интернете нефтяных продукций"
         subtitleSecond="Это уникальная база товаров и услуг от разных компаний, собранных в одном месте. С помощью нас вы сможете найти самый широкий ассортимент товаров и услуг и заказать их непосредственно на нашем сайте или на сайте поставщика."
