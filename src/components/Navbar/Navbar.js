@@ -107,7 +107,7 @@ function Navbar() {
         <StyledContainer>
           <div
             className="respons-menu"
-            style={{ top: hideMenu ? "75px" : "-480px" }}
+            style={{ top: hideMenu ? "95px" : "-600px" }}
           >
             <div>
               <div className="searchBlock" onClick={focusInput}>
@@ -145,28 +145,6 @@ function Navbar() {
                 </Col>
               </Row>
             </div>
-            {/* <nav>
-              <div>
-                <NavLink className="nav_link" to="/">
-                  Главная
-                </NavLink>
-              </div>
-              <div>
-                <NavLink className="nav_link" to="/about">
-                  О компании
-                </NavLink>
-              </div>
-              <div>
-                <NavLink className="nav_link" to="/partner">
-                  Для партнеров
-                </NavLink>
-              </div>
-              <div>
-                <NavLink className="nav_link" to="/service">
-                  Покупателям
-                </NavLink>
-              </div>
-            </nav> */}
             <Navigation />
           </div>
         </StyledContainer>
@@ -194,6 +172,11 @@ function Navbar() {
                 <div>
                   <NavLink className="nav_link" to="/service">
                     Покупателям
+                  </NavLink>
+                </div>
+                <div>
+                  <NavLink className="nav_link" to="/products">
+                    Товары
                   </NavLink>
                 </div>
               </nav>

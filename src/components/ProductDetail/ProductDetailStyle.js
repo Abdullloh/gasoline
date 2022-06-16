@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ProductDetailStyle = styled.div`
   .detail-heading {
+    padding: 15px 7px;
     display: flex;
     .heading-images {
       width: 50%;
@@ -29,6 +30,12 @@ export const ProductDetailStyle = styled.div`
         width: 50%;
         margin-top: 30px;
       }
+    }
+  }
+  .detail-body {
+    p {
+      font-size: 15px;
+      font-weight: 300;
     }
   }
 `;
