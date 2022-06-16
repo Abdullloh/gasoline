@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Table, Checkbox, Modal } from "antd";
+import { Table, Checkbox, Modal, Row, Col, Button, Form, Input } from "antd";
 import { StyledPartners } from "./Partners.style";
 
 function Partners() {
   const [data, setData] = useState([]);
-  const [modalData, setModalData] = useState(null);
+  const [editComp, setEditComp] = useState(false);
+  const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [loading, setLoading] = useState(true);
+  console.log(modalData);
+
+  const [formValues, setFormValues] = useState({
+    compName: "",
+    ceo: "",
+    nameBank: "",
+    inn: "",
+    mfo: "",
+    addressComp: "",
+    phoneNum: "",
+    accountNum: "",
+  });
 
   const closeModal = () => {
     setIsVisible(false);
-    setModalData(null);
+    // setModalData(null);
   };
   const openModal = () => {
     setIsVisible(true);
+  };
+  const handleEditComp = () => {
+    setEditComp((prev) => !prev);
   };
   const columns = [
     {
@@ -41,37 +57,37 @@ function Partners() {
       },
       {
         id: "2",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 1 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "3",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 2 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "4",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 3 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "5",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 4 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "6",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 5 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "7",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 6 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
       {
         id: "8",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
+        compName: "ООО TEST 7 TEST TEST TEST TEST TEST TEST",
         hasAccess: true,
       },
     ]);
@@ -87,17 +103,20 @@ function Partners() {
     );
   };
 
-  const getCompInfo = (id) => {
-    data.map((item) => {
-      if (item.id == id) {
-        setModalData(item);
-      }
-      setTimeout(() => {
-        console.log(modalData);
-    }, 300);
+  const getCompInfo = async (id) => {
+    let filterData = await data.filter((item) => item.id == id)[0];
+    if (filterData) {
+      setModalData(filterData);
+      openModal();
+    }
+  };
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    setFormValues({
+      ...formValues,
+      [e.target.name]: value,
     });
-    
-    // openModal();
   };
   return (
     <StyledPartners>
@@ -111,7 +130,220 @@ function Partners() {
           dataSource={data}
           loading={loading}
         />
-        <Modal visible={isVisible} footer={null} onCancel={closeModal}></Modal>
+        <Modal visible={isVisible} footer={null} onCancel={closeModal}>
+          <div className="modal_body">
+            <Form layout="vertical">
+              {editComp ? (
+                <>
+                  <div style={{ margin: "10px 0px" }}>
+                    <label htmlFor="compName">Полное наименование</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.compName}
+                      name="compName"
+                      id="compName"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="ceo">Генеральный директор</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.ceo}
+                      name="ceo"
+                      id="ceo"
+                    />
+                  </div>
+                  <div style={{ margin: "15px 0px" }}>
+                    <label htmlFor="nameBank">Наименование банка</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.nameBank}
+                      name="nameBank"
+                      id="nameBank"
+                    />
+                  </div>
+                  <div style={{ margin: "15px 0px" }}>
+                    <label htmlFor="inn">ИНН</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.inn}
+                      name="inn"
+                      id="inn"
+                    />
+                  </div>
+                  <div style={{ margin: "15px 0px" }}>
+                    <label htmlFor="mfo">МФО</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.mfo}
+                      name="mfo"
+                      id="mfo"
+                    />
+                  </div>
+                  <div style={{ margin: "15px 0px" }}>
+                    <label htmlFor="addressComp">Адрес компании</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.addressComp}
+                      name="addressComp"
+                      id="addressComp"
+                    />
+                  </div>
+                  <div style={{ margin: "15px 0px" }}>
+                    <label htmlFor="phoneNum">Номер телефона</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.phoneNum}
+                      name="phoneNum"
+                      id="phoneNum"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="accountNum">Расчетный счет</label>
+                    <Input
+                      required
+                      onChange={handleInput}
+                      value={formValues.accountNum}
+                      name="accountNum"
+                      id="accountNum"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Полное наименование</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>{modalData?.compName}</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Генеральный директор</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Test test tes</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Наименование банка</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>test test</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>ИНН</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>1234556778</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>МФО</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>123456789</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Адрес компании</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>test test</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Номер телефона</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>+998 99 999 99 99</h5>
+                    </Col>
+                  </Row>
+                  <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>Расчетный счет</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5>220022002200220022002200</h5>
+                    </Col>
+                  </Row>
+                </>
+              )}
+
+              <div className="modal_footer" style={{ margin: "20px 0px" }}>
+                {editComp ? (
+                  <Row gutter={[16, 16]}>
+                    <Col>
+                      <Button onClick={handleEditComp}>Cancel</Button>
+                    </Col>
+                    <Col>
+                      <Form.Item>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          onClick={console.log(formValues)}
+                        >
+                          Submit
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                ) : (
+                  <Button type="primary" onClick={handleEditComp}>
+                    Изменить
+                  </Button>
+                )}
+              </div>
+            </Form>
+          </div>
+        </Modal>
       </div>
     </StyledPartners>
   );
