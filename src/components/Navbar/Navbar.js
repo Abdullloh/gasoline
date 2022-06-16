@@ -1,11 +1,17 @@
 import React, { useState, useRef } from "react";
-import { Button, Input, Space, Select } from "antd";
+import { Button, Input, Space, Select, Dropdown, Menu } from "antd";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import { StyledContainer } from "../../styles/Container.style";
 import { NavLink } from "react-router-dom";
 import { StyledNavbar } from "./Navbar.style";
 import { Col, Row } from "antd";
-import Logo from "../../assets/img/Logo-img.png";
+import Logo from "../../assets/img/logo2.svg";
+import Neft from "../../assets/img/neft-logo.svg";
+import HomeIcon from "../../assets/img/home-icon.svg";
+import CompanyIcon from "../../assets/img/company-icon.svg";
+import PartnerIcon from "../../assets/img/partner-icon.svg";
+import PurchaserIcon from "../../assets/img/purchaser-icon.svg";
+import ProductIcon from "../../assets/img/product-icon.svg";
 import Menuicon from "../../assets/img/menu-icon.svg";
 import { MenuIcon, SearchIcon } from "../../utils/Images";
 import COLORS from "../../constants/colors";
@@ -35,6 +41,25 @@ function Navbar() {
   const focusInput = () => {
     inputRef.current.focus();
   };
+
+  const menu = (
+    <Menu
+      items={[
+        {
+          label: <p>Масло </p>,
+          key: "0",
+        },
+        {
+          label: <p> Топливо </p>,
+          key: "1",
+        },
+        {
+          label: <p> Смазки</p>,
+          key: "2",
+        },
+      ]}
+    />
+  );
   return (
     <>
       <StyledNavbar>
@@ -154,28 +179,40 @@ function Navbar() {
           <div className="container">
             <div className="navigation">
               <nav>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <div className="nav_link" to="/">
+                    <img src={Neft} />
+                    <Dropdown overlay={menu} placement="bottomLeft">
+                      <Space>Нефтепродукты</Space>
+                    </Dropdown>
+                  </div>
+                </div>
                 <div>
                   <NavLink className="nav_link" to="/">
+                    <img src={HomeIcon} />
                     Главная
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/about">
-                    О компании
+                    <img src={CompanyIcon} />О компании
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/partner">
+                    <img src={PartnerIcon} />
                     Для партнеров
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/service">
+                    <img src={PurchaserIcon} />
                     Покупателям
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/products">
+                    <img src={ProductIcon} />
                     Товары
                   </NavLink>
                 </div>

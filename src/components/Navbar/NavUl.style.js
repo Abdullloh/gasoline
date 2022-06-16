@@ -6,25 +6,41 @@ export const StyledNavUl = styled.nav`
   background: ${COLORS.main};
   nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 54px;
+    justify-content: space-evenly;
     div {
-      padding: 20px 48px;
+      height: 100%;
+    }
+    &:first-child {
+      display: flex;
+      align-items: center;
     }
   }
   .nav_link {
+    cursor: pointer;
     font-weight: 400;
+    height: 100%;
     font-size: 23px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
     line-height: 27px;
     transition: all 0.3s ease-in-out;
     color: ${COLORS.white};
     &:hover {
-      color: ${COLORS.black};
+      background: #4381e5;
+    }
+    img {
+      margin-right: 10px;
+    }
+    .ant-space-item {
+      display: flex;
+      align-items: center;
     }
   }
-  /* .active {
-    color: ${COLORS.main};
-  } */
+  .active {
+    background: #4381e5;
+  }
   @media screen and (max-width: 992px) {
     display: none;
   }

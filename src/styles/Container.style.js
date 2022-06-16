@@ -9,8 +9,8 @@ export const StyledContainer = styled.div`
     padding-left: 15px;
   }
   .aboutText {
-    font-size:20px;
-    line-height:26px;
+    font-size: 20px;
+    line-height: 26px;
   }
   .text {
     font-weight: 600;

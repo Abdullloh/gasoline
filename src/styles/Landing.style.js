@@ -4,8 +4,11 @@ import COLORS from "../constants/colors";
 export const StyledLanding = styled.div`
   background-color: ${COLORS.white};
   .entry-section {
-    background-color: ${COLORS.lightGrey};
-    /* min-height: calc(100vh - 150px); */
+    background: url(${(props) => props.img});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 600px;
     padding: 50px 0px;
     .img-block {
       display: flex;
@@ -52,7 +55,7 @@ export const StyledLanding = styled.div`
 
   .category-section {
     padding-bottom: 40px;
-    .rec-arrow{
+    .rec-arrow {
       display: none;
     }
     .rec-dot {
@@ -87,7 +90,7 @@ export const StyledLanding = styled.div`
     }
     .img-block {
       width: 100%;
-      .oilImg{
+      .oilImg {
         max-width: 285px;
       }
       button {
