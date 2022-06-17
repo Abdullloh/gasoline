@@ -3,7 +3,7 @@ import Admin from "./Admin/Admin";
 import MainLanding from "./Landing/MainLanding";
 
 function App() {
-  return <MainLanding />;
+  return <Admin />;
 }
 
 export default App;
