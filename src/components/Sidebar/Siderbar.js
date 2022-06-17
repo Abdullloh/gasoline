@@ -1,6 +1,6 @@
 import React from "react";
 import { Divider, Menu, Layout } from "antd";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 import { StyledSidebar } from "./Sidebar.style";
 import Links from "./Links";
@@ -10,22 +10,12 @@ const { Sider } = Layout;
 
 export default function Sidebar() {
   const location = useLocation();
-  // const handleLogOut = async () => {
-  //   Swal.fire({
-  //     title: t("Sign Out"),
-  //     confirmButtonText: t("Confirm"),
-  //     cancelButtonText: t("Cancel"),
-  //     text: t("Do you confirm logging out?"),
-  //     cancelButtonColor: "#E7E9EB",
-  //     confirmButtonColor: COLORS.success,
-  //     showCancelButton: true,
-  //     customClass: "swal-danger",
-  //   }).then(async ({ value }) => {
-  //     if (value) {
-  //       dispatch(clearRestaurant());
-  //     }
-  //   });
-  // };
+  const navigate = useNavigate()
+  const handleLogOut = async () => {
+    localStorage.clear()
+    window.location.reload()
+    navigate('/')
+  };
 
   return (
     <StyledSidebar>
@@ -56,7 +46,7 @@ export default function Sidebar() {
           })}
           <Menu.Item
             key="logout"
-            // onClick={handleLogOut}
+            onClick={handleLogOut}
             className="sidebar-logOut"
             icon={<ExitIcon />}
           >
