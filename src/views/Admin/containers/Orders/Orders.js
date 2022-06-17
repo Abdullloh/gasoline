@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import axios from "axios";
 import { Button, Checkbox, Table } from "antd";
 import { StyledOrders } from "./Orders.style";
 
@@ -19,13 +20,13 @@ function Orders() {
             }}
           >
             <h2>#{record?.orderNum}</h2>
-            <p>{record?.orderDate}</p>
+            <p>{record?.created_at}</p>
           </div>
-          <h4>{record?.orderPerson}</h4>
-          <h4>Телефон: {record?.orderPhoneNum}</h4>
-          <h2>{record?.orderName}</h2>
+          <h4>{record?.customer_name}</h4>
+          <h4>Телефон: {record?.customer_phone}</h4>
+          <h2>{record?.product?.title}</h2>
           <p>
-            {record?.quantity}x{record?.productPrice}
+            {record?.product?.in_stock}x{record?.product?.price}
           </p>
         </td>
       ),
@@ -34,8 +35,8 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-          <h4>Организация: “Название”</h4>
-          <h4>Номер телефона организации: {record?.orderPhoneNum}</h4>
+          <h4>Организация: "{record?.partner_name	}"</h4>
+          <h4>Номер телефона организации: {record?.partner_phone}</h4>
         </>
       ),
     },
@@ -43,7 +44,7 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <div className="order_payment">
-          <h2>{record?.payment} UZS</h2>
+          <h2>{record?.price} UZS</h2>
           <Checkbox size="large" checked={record?.hasPaid}>
             Оплачено
           </Checkbox>
@@ -54,61 +55,13 @@ function Orders() {
       ),
     },
   ];
+
+  const getOrders = () => {
+    axios.get("http://137.184.114.36:7774/adminside/orders/") .then(response => console.log(response.data.results))
+  }
   useEffect(() => {
-    setData([
-      {
-        id: 123,
-        orderNum: 2,
-        orderDate: "18.09.2022",
-        orderPerson: "Джамшид Намозов",
-        orderPhoneNum: "+998 99 999 99 99",
-        orderName: "Моторное масло",
-        productPrice: "300000",
-        hasPaid: true,
-        payment: "60 000.00",
-        hasDelivered: false,
-        quantity: 3,
-      },
-      {
-        id: 23,
-        orderNum: 45,
-        orderDate: "28.02.2022",
-        orderPerson: "Джамшид",
-        orderPhoneNum: "+998 99 999 99 99",
-        orderName: "Моторное масло",
-        productPrice: "300000",
-        paid: false,
-        payment: "150 000.00",
-        delivered: true,
-        quantity: 5,
-      },
-      {
-        id: 3,
-        orderNum: 85,
-        orderDate: "28.02.2022",
-        orderPerson: "Джамшид",
-        orderPhoneNum: "+998 99 999 99 99",
-        orderName: "Моторное масло",
-        productPrice: "300000",
-        paid: false,
-        payment: "150 000.00",
-        delivered: true,
-        quantity: 5,
-      },
-      {
-        id: 4,
-        orderNum: 65,
-        orderDate: "28.02.2022",
-        orderPerson: "Джамшид",
-        orderPhoneNum: "+998 99 999 99 99",
-        orderName: "Моторное масло",
-        productPrice: "300000",
-        paid: false,
-        payment: "150 000.00",
-        delivered: true,
-        quantity: 5,
-      },
-    ]);
+
+    getOrders()
   }, []);
   return (
     <StyledOrders>
