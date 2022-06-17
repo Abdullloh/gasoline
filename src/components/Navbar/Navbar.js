@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Input, Space, Select, Dropdown, Menu } from "antd";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import { StyledContainer } from "../../styles/Container.style";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { StyledNavbar } from "./Navbar.style";
 import { Col, Row } from "antd";
 import Logo from "../../assets/img/logo2.svg";
@@ -19,29 +19,55 @@ import { UserIcon, ShopCartIcon } from "../../utils/Images";
 import { StyledNavUl } from "./NavUl.style";
 import Tread from "./Tread";
 import Navigation from "./Navigation";
+import useFetchHook from "../../customhooks/useFetchHook";
+import axios from "axios";
+import Axios from "../../utils/axios";
+import Basket from "../Basket/Basket";
+import { useSelector } from "react-redux";
 
 const { Search } = Input;
 const { Option } = Select;
 
 function Navbar() {
   const [search, setSearch] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const selector = useSelector((state) => state);
+  console.log(selector);
+  const { user } = selector.signin;
   const [hideMenu, setHideMenu] = useState(false);
+  const navigate = useNavigate();
   const inputRef = useRef();
-  let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const handleCancel = () => {
+    setShowModal(!showModal);
+  };
+
   const showMenu = () => {
     setHideMenu((prev) => !prev);
   };
+
   const handleInput = (e) => {
     setSearch(e.target.value);
   };
+
   const responSearch = () => {
     setHideMenu(true);
     focusInput();
   };
+
   const focusInput = () => {
     inputRef.current.focus();
   };
 
+  const loginToAccount = () => {
+    if (user.role == "Customer") {
+      navigate("/orders");
+    } else {
+      navigate("/sign-in");
+    }
+  };
   const menu = (
     <Menu
       items={[
@@ -60,8 +86,22 @@ function Navbar() {
       ]}
     />
   );
+
+  useEffect(() => {
+    let timer = setTimeout(async () => {
+      try {
+        const data = await Axios.get(`/products/?search=${search}`);
+        console.log(data);
+      } catch (error) {}
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [search]);
   return (
     <>
+      <Basket isVisible={showModal} handleCancel={handleCancel} />
       <StyledNavbar>
         {/* <div className="tread">
           {arr.map((item) => {
@@ -119,10 +159,10 @@ function Navbar() {
                     <SearchIcon />
                   </div>
                   <div className="user-account">
-                    <UserIcon />
+                    <UserIcon onClick={loginToAccount} />
                   </div>
                   <div className="user-shopCart">
-                    <ShopCartIcon />
+                    <ShopCartIcon onClick={openModal} />
                   </div>
                 </div>
               </div>

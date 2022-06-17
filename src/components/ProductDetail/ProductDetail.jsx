@@ -1,20 +1,20 @@
 import { Button, Image, Modal } from "antd";
-import React, { useRef } from "react";
+import React from "react";
 import { ProductDetailStyle } from "./ProductDetailStyle";
 
 export default function ProductDetail(props) {
   const { isVisible, handleCancel, title, imgSrc } = props;
-
+  console.log(imgSrc);
   return (
     <Modal footer={null} visible={isVisible} onCancel={handleCancel}>
       <ProductDetailStyle>
         <div className="detail-heading">
           <div className="heading-images">
-            <Image src={imgSrc} />
+            <Image src={imgSrc[0].image} />
             <div>
-              <img src={imgSrc} alt="" />
-              <img src={imgSrc} alt="" />
-              <img src={imgSrc} alt="" />
+              {imgSrc.map((item) => {
+                return <img src={item?.image} alt="" />;
+              })}
             </div>
           </div>
           <div className="heading-info">

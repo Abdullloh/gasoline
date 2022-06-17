@@ -6,6 +6,7 @@ import Landing from "../views/Landing/Landing";
 import Partner from "../views/Landing/Partner";
 import Purchaser from "../views/Landing/Purchaser";
 import ProductView from "../views/ProductView/ProductView";
+import UserAccount from "../views/UserAccount/UserAccount";
 
 const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
@@ -41,5 +42,9 @@ export const ROUTES = [
   {
     path: "/products",
     component: <ProductView />,
+  },
+  {
+    path: "/my-account",
+    component: <UserAccount />,
   },
 ];
