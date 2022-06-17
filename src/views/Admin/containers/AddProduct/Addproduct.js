@@ -21,7 +21,7 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1NDc5MDY5LCJpYXQiOjE2NTU0Nzg3NjksImp0aSI6IjU1NTZjOTM4OTFlODQxZTdhMjg1Y2EwOGE3ZmE4MjZhIiwidXNlcl9pZCI6MX0.Pd3SCgYTTBos1idQ-authSMdfMlPBCd4Q12Wc2xEvk4"
+  let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MjA3MjIzLCJpYXQiOjE2NTU0ODcyMjMsImp0aSI6IjVjZGEyODcyNDczMjQ2YjQ4ZmM3ZjllM2IzY2UxNGMxIiwidXNlcl9pZCI6MX0.JBUgzySnpNY4kKVhmU4PJNTd3SFgdobGNCN2WovoWMk"
   let header = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`

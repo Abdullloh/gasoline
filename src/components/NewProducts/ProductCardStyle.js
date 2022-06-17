@@ -6,6 +6,7 @@ export const StyledProductCard = styled.div`
   margin: ${(props) => props.margin};
   display: flex;
   flex-direction: column;
+  min-height: 450px;
   align-items: center;
   justify-content: center;
   padding: 30px;
