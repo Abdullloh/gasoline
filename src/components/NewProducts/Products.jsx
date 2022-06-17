@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 const Products = (props) => {
   const { productList } = props;
   const { results = [] } = productList;
-  let item = [1, 2, 3, 4, 5, 6, 7, 8];
   const navigate = useNavigate();
   return (
     <StyledProducts>
@@ -21,7 +20,6 @@ const Products = (props) => {
           <PageHeader title={props.headTitle} />
           <Row gutter={[20, 50]}>
             {results.map((item, index) => {
-              const { title, images } = item;
               return (
                 <Col
                   key={index}
@@ -33,12 +31,7 @@ const Products = (props) => {
                   }}
                   style={{ margin: "auto" }}
                 >
-                  <ProductCard
-                    key={index}
-                    img={images[1]?.image}
-                    title={title}
-                    price="$149"
-                  />
+                  <ProductCard key={index} data={item} />
                 </Col>
               );
             })}

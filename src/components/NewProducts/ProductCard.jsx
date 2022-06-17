@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Col, Button } from "antd";
+import { useDispatch } from "react-redux";
 import { StyledProductCard } from "./ProductCardStyle";
 import ProductDetail from "../ProductDetail/ProductDetail";
+import { addToCard } from "../../store/actios/publicActions";
 
-const ProductCard = ({ img = "", title = "", price = "", margin }) => {
+const ProductCard = ({ data }) => {
+  const { images = "", title = "", price = "", margin } = data;
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const dispatch = useDispatch();
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -15,27 +18,34 @@ const ProductCard = ({ img = "", title = "", price = "", margin }) => {
     setIsModalVisible(!isModalVisible);
   };
 
+  const addCard = (e) => {
+    e.stopPropagation();
+    dispatch(addToCard({ ...data, count: state }));
+  };
+
   const increment = (e) => {
     e.stopPropagation();
     setState((prev) => prev + 1);
   };
+
   const decrement = (e) => {
     e.stopPropagation();
     if (state > 0) {
       setState((prev) => prev - 1);
     }
   };
+  console.log(images);
   return (
     <>
       <ProductDetail
         isVisible={isModalVisible}
         handleCancel={handleCancel}
         title={title}
-        imgSrc={img}
+        imgSrc={images}
       />
       <StyledProductCard margin={margin} onClick={showModal}>
         <div className="card-header">
-          <img src={img} alt="oilImg" />
+          <img src={images[0].image} alt="oilImg" />
         </div>
         <div className="card-body">
           <h3>{title}</h3>
@@ -52,7 +62,7 @@ const ProductCard = ({ img = "", title = "", price = "", margin }) => {
               +
             </span>
           </div>
-          <Button type="primary" onClick={(e) => e.stopPropagation()}>
+          <Button type="primary" onClick={(e) => addCard(e)}>
             В корзину
           </Button>
         </div>

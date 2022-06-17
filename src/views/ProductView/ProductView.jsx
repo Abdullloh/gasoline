@@ -7,15 +7,17 @@ import { Button, Checkbox, Col, Collapse, InputNumber, Row } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import { useState } from "react";
 import { useEffect } from "react";
+import useFetchHook from "../../customhooks/useFetchHook";
 export default function ProductView() {
+  const [productList] = useFetchHook("/products");
+  const { results = [] } = productList;
   const [visible, setVisible] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   console.log(width);
   const { Panel } = Collapse;
   const handleChange = (e) => {
-    console.log(`checked = ${e.target.checked}`);
+    console.log(`checked = ${e.target.value}`);
   };
-  const item = [1, 2, 3, 4, 5, 6, 7, 8];
   const onChange = (value) => {
     console.log("changed", value);
   };
@@ -68,8 +70,12 @@ export default function ProductView() {
                 </Panel>
                 <Panel header="Тип продаж">
                   <div className="checkbox-container">
-                    <Checkbox onChange={handleChange}>Масла</Checkbox>
-                    <Checkbox onChange={handleChange}>Топливо</Checkbox>
+                    <Checkbox value={"masla"} onChange={handleChange}>
+                      Масла
+                    </Checkbox>
+                    <Checkbox value={"toplivo"} onChange={handleChange}>
+                      Топливо
+                    </Checkbox>
                     <Checkbox onChange={handleChange}>Смазки</Checkbox>
                   </div>
                 </Panel>
@@ -90,7 +96,8 @@ export default function ProductView() {
             </div>
             <div className="product-container">
               <Row>
-                {item.map((item, index) => {
+                {results.map((item, index) => {
+                  const { title, images, price } = item;
                   return (
                     <Col
                       sm={{
@@ -107,9 +114,9 @@ export default function ProductView() {
                       <ProductCard
                         margin="10px"
                         key={index}
-                        img={CardImg}
-                        title="Антифриз концентрат HEPU 1.5 л/Красный"
-                        price="$149"
+                        img={images[1]?.image}
+                        title={title}
+                        price={price}
                       />
                     </Col>
                   );

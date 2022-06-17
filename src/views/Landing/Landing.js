@@ -18,7 +18,6 @@ import useFetchHook from "../../customhooks/useFetchHook";
 
 function Landing() {
   const [productList] = useFetchHook("/products");
-  console.log(productList);
   let leftSideText = "Добро пожаловать на первую биржу по ГСМ в Узбекистане";
   let leftSidePar =
     "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";

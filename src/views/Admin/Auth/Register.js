@@ -2,21 +2,32 @@ import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
+import Axios from "../../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [userName, setUserName] = useState(null);
   const [phoneNum, setPhoneNum] = useState(null);
   const [email, setEmail] = useState(null);
+  const navigate = useNavigate();
   const [compName, setCompName] = useState(null);
   const userData = {
-    userName: userName,
-    phoneNum: phoneNum,
+    name: userName,
+    phone: phoneNum,
     email: email,
-    compName: compName,
+    company_name: compName,
+    inn: "123",
+    password: "123",
   };
-  const handleSubmite = (e) => {
+  const handleSubmite = async (e) => {
     e.preventDefault();
-    console.log(userData);
+    try {
+      const res = await Axios.post("/accounts/register/", { ...userData });
+      const { status } = res;
+      if (status == 200) {
+        navigate("/sign-in");
+      }
+    } catch (error) {}
   };
   return (
     <StyledSignIn>
@@ -50,7 +61,10 @@ function Register() {
                     value={compName}
                   />
                 </Form.Item>
-                <div className="sbt_block" style={{"justify-content": "center"}}>
+                <div
+                  className="sbt_block"
+                  style={{ "justify-content": "center" }}
+                >
                   <Button type="primary" onClick={handleSubmite}>
                     Отправить заявку
                   </Button>
@@ -59,7 +73,7 @@ function Register() {
             </div>
             <p>
               При входе и регистрации вы соглашаетесь с Условиями использования
-              сайта <br/> и Политикой обработки персональных данных.
+              сайта <br /> и Политикой обработки персональных данных.
             </p>
           </div>
         </div>

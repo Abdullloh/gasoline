@@ -1,21 +1,51 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Radio } from "antd";
 import Footer from "../../../components/Footer/Footer";
 import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Axios from "../../../utils/axios";
+import { useDispatch } from "react-redux";
+import { signUpAction } from "../../../store/actios/authAcions";
 
 function SignIn() {
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(1);
+  const navigate = useNavigate();
   const userData = {
-    userName: userName,
+    login: userName,
     password: password,
   };
-  const handleSubmite = (e) => {
+  const urlLink =
+    value == "admin"
+      ? "manager-login/"
+      : value == "customer"
+      ? "customer-login/"
+      : value == "partner"
+      ? "partner-login/"
+      : "";
+  const handleSubmite = async (e) => {
     e.preventDefault();
-    console.log(userData);
+    try {
+      const res = await Axios.post(`/accounts/${urlLink}`, {
+        ...userData,
+      });
+      console.log(res);
+      const { data } = res;
+      const { success } = data;
+      if (success == true) {
+        dispatch(signUpAction(data.data));
+        localStorage.setItem("user", JSON.stringify(data.data));
+        navigate("/my-account");
+      }
+    } catch (error) {}
+  };
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
   };
   return (
     <StyledSignIn>
@@ -24,6 +54,11 @@ function SignIn() {
           <div className="wrapper">
             <h2 className="auth_title">Вход в админку для Партнеров</h2>
             <div className="form_block">
+              <Radio.Group onChange={onChange} value={value}>
+                <Radio value={"admin"}>Manager</Radio>
+                <Radio value={"customer"}>Customer</Radio>
+                <Radio value={"partner"}>Partner</Radio>
+              </Radio.Group>
               <Form layout="vertical">
                 <Form.Item label="Логин">
                   <Input
