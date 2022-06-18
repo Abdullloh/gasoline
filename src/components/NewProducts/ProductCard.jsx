@@ -56,7 +56,7 @@ const ProductCard = ({ data, margin}) => {
             <span onClick={decrement} className="counter">
               -
             </span>
-            <span>{state} sht</span>
+            <span>{state} шт</span>
             <span onClick={increment} className="counter">
               {" "}
               +

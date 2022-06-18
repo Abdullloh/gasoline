@@ -44,7 +44,7 @@ export default function Basket(props) {
       if(cart.length > 0){
         try {
           const res = await Axios.post('/cart/orders',{
-            cartItems:[...cartIds],
+            cartitems:[...cartIds],
           })
           console.log(res);
         } catch (error) {
@@ -72,7 +72,7 @@ export default function Basket(props) {
               </div>
               <div className="heading-info">
                 <h3>{title}</h3>
-                <div>
+                {/* <div>
                   <span onClick={() => decrement(id)} className="counter">
                     -
                   </span>
@@ -81,7 +81,7 @@ export default function Basket(props) {
                     {" "}
                     +
                   </span>
-                </div>
+                </div> */}
                 <Button type="primary" onClick={() => removeItemFromBasket(id)}>
                   Удалить
                 </Button>

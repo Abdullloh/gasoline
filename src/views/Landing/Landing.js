@@ -59,7 +59,7 @@ function Landing() {
       <div className="category-section">
         <StyledContainer>
           <div className="container">
-            <PageHeader title="Категории товаров" />
+            {/* <PageHeader title="Категории товаров" /> */}
             {/* <Row gutter={16}>
               {data?.map((item, index) => (
                 <Col span={6} key={index}>
@@ -67,11 +67,11 @@ function Landing() {
                 </Col>
               ))}
             </Row> */}
-            <Carousel breakPoints={carouselBreakpoint}>
+            {/* <Carousel breakPoints={carouselBreakpoint}>
               {data?.map((item, index) => (
                 <Card data={item} key={index} />
               ))}
-            </Carousel>
+            </Carousel> */}
           </div>
         </StyledContainer>
       </div>
