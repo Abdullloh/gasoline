@@ -6,6 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { StyledNavbar } from "./Navbar.style";
 import { Col, Row } from "antd";
 import Logo from "../../assets/img/logo2.svg";
+import Birja from "../../assets/img/Birja.svg";
 import Neft from "../../assets/img/neft-logo.svg";
 import HomeIcon from "../../assets/img/home-icon.svg";
 import CompanyIcon from "../../assets/img/company-icon.svg";
@@ -24,6 +25,7 @@ import axios from "axios";
 import Axios from "../../utils/axios";
 import Basket from "../Basket/Basket";
 import { useSelector } from "react-redux";
+import HeaderCarousel from "./HeaderCarousel";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -108,6 +110,7 @@ function Navbar() {
             return <Tread key={item} />;
           })}
         </div> */}
+        <HeaderCarousel />
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -118,12 +121,9 @@ function Navbar() {
                 <a href="#">
                   <img className="logoImg" src={Logo} alt="Logo" />
                 </a>
-              </div>
-              <div>
-                <button className="catalog-btn">
-                  <MenuOutlined className="catalog-icon" />
-                  Весь каталог
-                </button>
+                <div className="birja_block">
+                  <img src={Birja} alt="logo" />
+                </div>
               </div>
               <div>
                 <div className="searchBlock" onClick={focusInput}>
@@ -143,26 +143,21 @@ function Navbar() {
                 </div>
               </div>
               <div>
-                <Select
-                  className="select-city"
-                  defaultValue="Ташкент"
-                  size="large"
-                  bordered="false"
-                >
-                  <Option value="москва">Москва</Option>
-                  <Option value="москва">Москва</Option>
-                </Select>
-              </div>
-              <div>
                 <div className="nav-userAccount">
                   <div className="respons-search" onClick={responSearch}>
                     <SearchIcon />
                   </div>
                   <div className="user-account">
-                    <UserIcon onClick={loginToAccount} />
+                    <button onClick={loginToAccount}>
+                      <UserIcon />
+                      Личный кабинет
+                    </button>
                   </div>
                   <div className="user-shopCart">
-                    <ShopCartIcon onClick={openModal} />
+                    <button onClick={openModal}>
+                      <ShopCartIcon />
+                      Корзина
+                    </button>
                   </div>
                 </div>
               </div>
