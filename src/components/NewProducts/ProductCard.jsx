@@ -41,8 +41,7 @@ const ProductCard = ({ data, margin}) => {
       <ProductDetail
         isVisible={isModalVisible}
         handleCancel={handleCancel}
-        title={title}
-        imgSrc={images}
+        data={data}
       />
       <StyledProductCard margin={margin} onClick={showModal}>
         <div className="card-header">
