@@ -15,6 +15,7 @@ import Discount from "../../components/DiscountSection/Discount";
 import Service from "../../components/Servise/Service";
 import Main from "../../components/Main";
 import useFetchHook from "../../customhooks/useFetchHook";
+import News from "../../components/News/News";
 
 function Landing() {
  
@@ -59,19 +60,7 @@ function Landing() {
       <div className="category-section">
         <StyledContainer>
           <div className="container">
-            <PageHeader title="Категории товаров" />
-            {/* <Row gutter={16}>
-              {data?.map((item, index) => (
-                <Col span={6} key={index}>
-                  <Card data={item} />
-                </Col>
-              ))}
-            </Row> */}
-            <Carousel breakPoints={carouselBreakpoint}>
-              {data?.map((item, index) => (
-                <Card data={item} key={index} />
-              ))}
-            </Carousel>
+         <News/>
           </div>
         </StyledContainer>
       </div>
