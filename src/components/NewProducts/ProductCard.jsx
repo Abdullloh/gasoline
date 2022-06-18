@@ -41,8 +41,7 @@ const ProductCard = ({ data, margin}) => {
       <ProductDetail
         isVisible={isModalVisible}
         handleCancel={handleCancel}
-        title={title}
-        imgSrc={images}
+        data={data}
       />
       <StyledProductCard margin={margin} onClick={showModal}>
         <div className="card-header">
@@ -57,7 +56,7 @@ const ProductCard = ({ data, margin}) => {
             <span onClick={decrement} className="counter">
               -
             </span>
-            <span>{state} sht</span>
+            <span>{state} шт</span>
             <span onClick={increment} className="counter">
               {" "}
               +

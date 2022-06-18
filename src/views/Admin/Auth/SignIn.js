@@ -40,7 +40,8 @@ function SignIn() {
       if (success == true) {
         dispatch(signUpAction(data.data));
         localStorage.setItem("user", JSON.stringify(data.data));
-        if(data?.admin?.role === "Customer"){
+        console.log(data);
+        if(data?.data?.admin?.role === "Customer"){
           navigate('/my-account')
         }else {
           window.location.reload()

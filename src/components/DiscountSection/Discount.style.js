@@ -8,7 +8,7 @@ export const StyledDiscount = styled.div`
   .slick-dots-bottom {
     visibility: hidden;
   }
-  .discount_2{
+  .discount_2 {
     background: url(${DiscountBg2});
     background-position: center;
     background-repeat: no-repeat;

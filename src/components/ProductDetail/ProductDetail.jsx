@@ -1,25 +1,33 @@
 import { Button, Image, Modal } from "antd";
 import React from "react";
 import { ProductDetailStyle } from "./ProductDetailStyle";
+import { useDispatch } from "react-redux";
+import { addToCard } from "../../store/actios/publicActions";
 
 export default function ProductDetail(props) {
-  const { isVisible, handleCancel, title, imgSrc } = props;
-  console.log(imgSrc);
+  console.log(props);
+  const dispatch = useDispatch()
+  const {isVisible, handleCancel} = props
+  const { title, images } = props.data;
+  const addCard = (e) => {
+    e.stopPropagation();
+    dispatch(addToCard({ ...props.data }));
+  };
   return (
     <Modal footer={null} visible={isVisible} onCancel={handleCancel}>
       <ProductDetailStyle>
         <div className="detail-heading">
           <div className="heading-images">
-            <Image src={imgSrc[0].image} />
+            <Image src={images[0].image} />
             <div>
-              {imgSrc.map((item) => {
+              {images?.map((item) => {
                 return <img src={item?.image} alt="" />;
               })}
             </div>
           </div>
           <div className="heading-info">
             <h3>Моторное масло GM Dexos-1, Generation-2, 5w30, 3,8л</h3>
-            <Button type="primary">В корзину</Button>
+            <Button type="primary" onClick={(e)=> addCard(e)}>В корзину</Button>
           </div>
         </div>
         <div className="detail-body">
