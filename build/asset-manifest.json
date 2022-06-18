@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3ee07154.css",
+    "main.js": "/static/js/main.a750b2c2.js",
+    "static/js/787.ec728d71.chunk.js": "/static/js/787.ec728d71.chunk.js",
+    "static/media/PartnerBodyImage.svg": "/static/media/PartnerBodyImage.3b68469163303fc4a5d2c589d6c9db65.svg",
+    "static/media/category-oil.svg": "/static/media/category-oil.3e11e54b83347c65cede44f6b2c5e380.svg",
+    "static/media/Partnerimage.svg": "/static/media/Partnerimage.7110d96a556df2e8ecbeb9cd1302d4e3.svg",
+    "static/media/tyre.svg": "/static/media/tyre.20e08991e47a6a83f393c40e2d687c3b.svg",
+    "static/media/oilBalloon.svg": "/static/media/oilBalloon.536e69657847ede0e93807a344251713.svg",
+    "static/media/discount-bg.svg": "/static/media/discount-bg.942b04e8a87db5c8eeff056f6078c25b.svg",
+    "static/media/antfreez.svg": "/static/media/antfreez.1390a3d327296dd456c2a91aa246317c.svg",
+    "static/media/oil-img.svg": "/static/media/oil-img.7c76f66fdb40403839ed345a5c254adc.svg",
+    "static/media/chimical.svg": "/static/media/chimical.df179980095c9f39980da1a5cb6f156f.svg",
+    "static/media/Logo-img.png": "/static/media/Logo-img.301e215db28c90cb0208.png",
+    "static/media/purchase.svg": "/static/media/purchase.a69a5df1fa0f598f63e3eb48dbb25b5b.svg",
+    "static/media/product.svg": "/static/media/product.bec5b66531a9f544a608482a3007c2aa.svg",
+    "static/media/bar.svg": "/static/media/bar.e2effe2ab16dbd29264575d79d8afdbc.svg",
+    "static/media/instagram.svg": "/static/media/instagram.2380578a182e0791eec5640d13523e50.svg",
+    "static/media/download.svg": "/static/media/download.eef12f72dbc68e85ba8074115ff0ece2.svg",
+    "static/media/shopCart.svg": "/static/media/shopCart.75858293adb58114b09d2987411a688c.svg",
+    "static/media/service-img2.svg": "/static/media/service-img2.a908b0e413d903538d2eaf886dc42aab.svg",
+    "static/media/facebook.svg": "/static/media/facebook.aba22e79bfa540b90f2856e29c35e5d8.svg",
+    "static/media/service-img4.svg": "/static/media/service-img4.eec7a93376c54ec264a99ac555efa8c6.svg",
+    "static/media/service-img1.svg": "/static/media/service-img1.7dba501c117b58e3bfcd0c5cf99b508c.svg",
+    "static/media/Logo.svg": "/static/media/Logo.7e26695d710830acc6e75d2828ed23c7.svg",
+    "static/media/user.svg": "/static/media/user.30c6e8fca51bfdacab32eeed56e12530.svg",
+    "index.html": "/index.html",
+    "static/media/search.svg": "/static/media/search.3d24675dc0227cfcf73efda34cb0e0e1.svg",
+    "static/media/service-img3.svg": "/static/media/service-img3.97901841b150163549c011ab0a79a646.svg",
+    "static/media/menu-icon.svg": "/static/media/menu-icon.a3ee804705db1dbff8b717ef437c6093.svg",
+    "main.3ee07154.css.map": "/static/css/main.3ee07154.css.map",
+    "main.a750b2c2.js.map": "/static/js/main.a750b2c2.js.map",
+    "787.ec728d71.chunk.js.map": "/static/js/787.ec728d71.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3ee07154.css",
+    "static/js/main.a750b2c2.js"
+  ]
+}
