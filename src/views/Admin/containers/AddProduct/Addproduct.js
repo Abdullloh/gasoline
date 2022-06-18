@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { message } from "antd";
 import { BsPlusLg } from "react-icons/bs";
 import axios from "axios";
 import { Row, Col, Input, Select, Checkbox, Button } from "antd";
@@ -21,11 +22,27 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MjA3MjIzLCJpYXQiOjE2NTU0ODcyMjMsImp0aSI6IjVjZGEyODcyNDczMjQ2YjQ4ZmM3ZjllM2IzY2UxNGMxIiwidXNlcl9pZCI6MX0.JBUgzySnpNY4kKVhmU4PJNTd3SFgdobGNCN2WovoWMk"
+  let token =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MjA3MjIzLCJpYXQiOjE2NTU0ODcyMjMsImp0aSI6IjVjZGEyODcyNDczMjQ2YjQ4ZmM3ZjllM2IzY2UxNGMxIiwidXNlcl9pZCI6MX0.JBUgzySnpNY4kKVhmU4PJNTd3SFgdobGNCN2WovoWMk";
   let header = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  }
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+
+  const key = "updatable";
+
+  const openSuccesMessage = () => {
+    message.loading({ content: "Loading...", key });
+    setTimeout(() => {
+      message.success({ content: "Succes", key, duration: 2 });
+    }, 1000);
+  };
+  const openErrorMessage = () => {
+    message.loading({ content: "Loading...", key });
+    setTimeout(() => {
+      message.error({ content: "Error", key, duration: 2 });
+    }, 1000);
+  };
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
@@ -33,7 +50,7 @@ function Addproduct() {
       const res = await Axios.post(`/products/upload_image/`, formData);
       console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
-      setUplodedImgsId([...uplodedImgsId, {"id": res?.data.id}]);
+      setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
       console.log(uploadedImgs);
     } catch (error) {}
   };
@@ -44,33 +61,40 @@ function Addproduct() {
     axios
       .get("http://137.184.114.36:7774/products/categories/")
       .then((response) => setProductCategory(response?.data?.results));
-    };
-    console.log(productCategory);
+  };
+  console.log(productCategory);
 
-  const handleSubmite = async (e)  => {
+  const handleSubmite = async (e) => {
     //   const uplodedImgsId = []
     //   uploadedImgs.map((item) => uploadedImgsId.push(item.id))
     e.preventDefault();
     const productData = {
-        title: productName,
-        description: description,
-        vendor_code: article,
-        images: uplodedImgsId,
-        categories: [{
-            id: 1,
-        }],
-        price: price,
-        in_stock: quantity,
-    }
+      title: productName,
+      description: description,
+      vendor_code: article,
+      images: uplodedImgsId,
+      categories: [
+        {
+          id: 1,
+        },
+      ],
+      price: price,
+      in_stock: quantity,
+    };
 
     console.log(productData);
- try {
-    const resProduct = await Axios.post(`/products/`, {...productData}, {headers:header});
-    console.log(resProduct);
- } catch (error) {
-    console.log(error);
- }
-
+    try {
+      const resProduct = await Axios.post(
+        `/products/`,
+        { ...productData },
+        { headers: header }
+      );
+      console.log(resProduct);
+      openSuccesMessage()
+    } catch (error) {
+      openErrorMessage()
+      console.log(error);
+    }
   };
   useEffect(() => {
     getCategories();
@@ -283,7 +307,9 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
-              <Button type="primary" onClick={handleSubmite} htmlFor="submit">Submit</Button>
+              <Button type="primary" onClick={handleSubmite} htmlFor="submit">
+                Submit
+              </Button>
             </div>
           </Col>
         </Row>
