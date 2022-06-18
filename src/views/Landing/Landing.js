@@ -15,9 +15,9 @@ import Discount from "../../components/DiscountSection/Discount";
 import Service from "../../components/Servise/Service";
 import Main from "../../components/Main";
 import useFetchHook from "../../customhooks/useFetchHook";
+import News from "../../components/News/News";
 
 function Landing() {
- 
   let leftSideText = "Добро пожаловать на первую биржу по ГСМ в Узбекистане";
   let leftSidePar =
     "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";
@@ -59,25 +59,13 @@ function Landing() {
       <div className="category-section">
         <StyledContainer>
           <div className="container">
-            {/* <PageHeader title="Категории товаров" /> */}
-            {/* <Row gutter={16}>
-              {data?.map((item, index) => (
-                <Col span={6} key={index}>
-                  <Card data={item} />
-                </Col>
-              ))}
-            </Row> */}
-            {/* <Carousel breakPoints={carouselBreakpoint}>
-              {data?.map((item, index) => (
-                <Card data={item} key={index} />
-              ))}
-            </Carousel> */}
+            <News />
           </div>
         </StyledContainer>
       </div>
-      <Products  headTitle={"Новые товары"} />
+      <Products headTitle={"Новые товары"} />
       <Discount />
-      <Products  headTitle={"Хиты продаж"} />
+      <Products headTitle={"Хиты продаж"} />
       <Service />
     </StyledLanding>
   );
