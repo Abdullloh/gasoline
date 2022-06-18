@@ -14,7 +14,7 @@ function MainLanding() {
         {ROUTES?.map((item) => (
           <Route key={item} path={item?.path} element={item?.component} />
         ))}
-        <Route path="" element={<Navigate to="/" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Footer />
     </>

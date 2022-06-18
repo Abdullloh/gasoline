@@ -5,8 +5,9 @@ import { StyledProductCard } from "./ProductCardStyle";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import { addToCard } from "../../store/actios/publicActions";
 
-const ProductCard = ({ data }) => {
-  const { images = "", title = "", price = "", margin } = data;
+const ProductCard = ({ data, margin}) => {
+  console.log(data);
+  const { images = [], title = "", price = "" } = data;
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const ProductCard = ({ data }) => {
       />
       <StyledProductCard margin={margin} onClick={showModal}>
         <div className="card-header">
-          <img src={images[0].image} alt="oilImg" />
+          <img src={images[0]?.image} alt="oilImg" />
         </div>
         <div className="card-body">
           <h3>{title}</h3>

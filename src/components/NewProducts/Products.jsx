@@ -8,10 +8,13 @@ import CardImg from "../../assets/img/category-oil.svg";
 import { btnStyle } from "./Button.style";
 import { StyledProducts } from "./Product.style";
 import { useNavigate } from "react-router-dom";
+import useFetchHook from "../../customhooks/useFetchHook";
 
 const Products = (props) => {
-  const { productList } = props;
-  const { results = [] } = productList;
+  const [productList] = useFetchHook("/products");
+  console.log(productList);
+  const results = productList.results
+  console.log(results);
   const navigate = useNavigate();
   return (
     <StyledProducts>
@@ -19,7 +22,7 @@ const Products = (props) => {
         <div className="container">
           <PageHeader title={props.headTitle} />
           <Row gutter={[20, 50]}>
-            {results.map((item, index) => {
+            {results?.map((item, index) => {
               return (
                 <Col
                   key={index}

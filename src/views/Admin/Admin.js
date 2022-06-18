@@ -28,6 +28,7 @@ function Admin() {
                       <Route key={path} path={path} element={component} />
                     );
                   })}
+                  <Route path="*" element={<Navigate to="/" />}/>
                 </Routes>
               </Suspense>
             </div>

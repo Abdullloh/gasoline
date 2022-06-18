@@ -65,7 +65,7 @@ function Navbar() {
 
   const loginToAccount = () => {
     if (user.role == "Customer") {
-      navigate("/orders");
+      navigate("/my-account");
     } else {
       navigate("/sign-in");
     }

@@ -36,10 +36,15 @@ function SignIn() {
       console.log(res);
       const { data } = res;
       const { success } = data;
+      console.log(data);
       if (success == true) {
         dispatch(signUpAction(data.data));
         localStorage.setItem("user", JSON.stringify(data.data));
-        navigate("/my-account");
+        if(data?.admin?.role === "Customer"){
+          navigate('/my-account')
+        }else {
+          window.location.reload()
+        }
       }
     } catch (error) {}
   };

@@ -114,9 +114,7 @@ export default function ProductView() {
                       <ProductCard
                         margin="10px"
                         key={index}
-                        img={images[1]?.image}
-                        title={title}
-                        price={price}
+                        data={item}
                       />
                     </Col>
                   );

@@ -7,6 +7,7 @@ export default function useFetchHook(url) {
   const fetchData = async () => {
     try {
       const res = await Axios.get(url);
+      console.log(res);
       const { status, data } = res;
       if (status === 200) {
         setState(data);

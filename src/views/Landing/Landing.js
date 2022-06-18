@@ -17,7 +17,7 @@ import Main from "../../components/Main";
 import useFetchHook from "../../customhooks/useFetchHook";
 
 function Landing() {
-  const [productList] = useFetchHook("/products");
+ 
   let leftSideText = "Добро пожаловать на первую биржу по ГСМ в Узбекистане";
   let leftSidePar =
     "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";
@@ -75,9 +75,9 @@ function Landing() {
           </div>
         </StyledContainer>
       </div>
-      <Products productList={productList} headTitle={"Новые товары"} />
+      <Products  headTitle={"Новые товары"} />
       <Discount />
-      <Products productList={productList} headTitle={"Хиты продаж"} />
+      <Products  headTitle={"Хиты продаж"} />
       <Service />
     </StyledLanding>
   );

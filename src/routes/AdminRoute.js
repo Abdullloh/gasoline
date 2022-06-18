@@ -6,7 +6,6 @@ import Orders from "../views/Admin/containers/Orders/Orders";
 import Purchases from "../views/Admin/containers/Purchases/Purchases";
 import Addproduct from "../views/Admin/containers/AddProduct/Addproduct";
 
-const MainHome = lazy(() => import("../views/Admin/containers/Home/Home"));
 
 export const ADMIN_ROUTES = [
   {

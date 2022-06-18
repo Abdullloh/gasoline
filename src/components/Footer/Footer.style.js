@@ -29,7 +29,7 @@ export const StyledFooter = styled.footer`
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
-    color: ${COLORS.lightBlack};
+    color: ${COLORS.white};
   }
   .social_icons {
     display: flex;
