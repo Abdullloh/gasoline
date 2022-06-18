@@ -10,7 +10,9 @@ const COLORS = {
   lightBlack: '#25292E',
   red: '#EB5757',
   lightBlue: '#2F80ED',
-  green: '#27AE60'
+  green: '#27AE60',
+  lightGreen: "#15BF12",
+  lightRed: "#E26666",
 };
 
 Object.defineProperty(exports, "__esModule", {

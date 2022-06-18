@@ -5,9 +5,43 @@ export const StyledNavbar = styled.div`
   background-color: ${COLORS.white};
   margin: 0px;
   min-height: 100px;
-  padding-top: 25px;
+  padding-top: 10px;
   padding-bottom: 25px;
   box-shadow: 0px 7px 65px rgba(0, 0, 0, 0.06);
+  .user-account {
+    button {
+      width: 196px;
+    }
+  }
+  .user-account,
+  .user-shopCart {
+    button {
+      padding: 12px;
+      border: none;
+      outline: none;
+      margin: 0px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 21px;
+      color: ${COLORS.white};
+      background-color: ${COLORS.main};
+      border-radius: 10px;
+      svg {
+        path,
+        path:last-child {
+          fill: white;
+        }
+      }
+    }
+  }
+  .birja_block {
+    margin: 0px 8px;
+  }
   .navigation {
     display: flex;
     align-items: center;
@@ -109,7 +143,7 @@ export const StyledNavbar = styled.div`
     }
   }
   .nav-userAccount {
-    width: 100px;
+    /* width: 280px; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -135,6 +169,9 @@ export const StyledNavbar = styled.div`
   }
 
   @media screen and (max-width: 992px) {
+    .birja_block{
+      display: none;
+    }
     .wrapper {
       .catalog-btn,
       .searchBlock,
