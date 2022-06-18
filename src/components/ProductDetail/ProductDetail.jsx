@@ -18,7 +18,7 @@ export default function ProductDetail(props) {
       <ProductDetailStyle>
         <div className="detail-heading">
           <div className="heading-images">
-            <Image src={images[0].image} />
+            <Image src={images[0]?.image} />
             <div>
               {images?.map((item) => {
                 return <img src={item?.image} alt="" />;

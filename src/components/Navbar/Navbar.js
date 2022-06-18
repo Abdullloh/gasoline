@@ -105,11 +105,6 @@ function Navbar() {
     <>
       <Basket isVisible={showModal} handleCancel={handleCancel} />
       <StyledNavbar>
-        {/* <div className="tread">
-          {arr.map((item) => {
-            return <Tread key={item} />;
-          })}
-        </div> */}
         <HeaderCarousel />
         <StyledContainer>
           <div className="container">
@@ -185,25 +180,6 @@ function Navbar() {
                   }}
                 />
               </div>
-              <Row gutter="10">
-                <Col>
-                  <button className="catalog-btn">
-                    <MenuOutlined className="catalog-icon" />
-                    Весь каталог
-                  </button>
-                </Col>
-                <Col>
-                  <Select
-                    className="select-city"
-                    defaultValue="Ташкент"
-                    size="large"
-                    bordered="false"
-                  >
-                    <Option value="москва">Москва</Option>
-                    <Option value="москва">Москва</Option>
-                  </Select>
-                </Col>
-              </Row>
             </div>
             <Navigation />
           </div>
@@ -213,7 +189,7 @@ function Navbar() {
         <StyledContainer>
           <div className="container">
             <div className="navigation">
-              <nav>
+              <nav style={{"background-color": "#364A7E"}}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div className="nav_link" to="/">
                     <img src={Neft} />

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Row, Col } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import PageHeader from "../PageHeader/PageHeader";
-import ServiceImg1 from "../../assets/img/service-img1.svg";
-import ServiceImg2 from "../../assets/img/service-img2.svg";
-import ServiceImg3 from "../../assets/img/service-img3.svg";
-import ServiceImg4 from "../../assets/img/service-img4.svg";
+import ServiceImg1 from "../../assets/img/service-car.svg";
+import ServiceImg2 from "../../assets/img/service-box.svg";
+import ServiceImg3 from "../../assets/img/service-chart.svg";
+import ServiceImg4 from "../../assets/img/service-bag.svg";
 import ServiceCard from "./ServiceCard";
 
 function Service() {
@@ -15,7 +15,7 @@ function Service() {
       imgUrl: ServiceImg1,
     },
     {
-      title: "Широчайший ассортимент товаров",
+      title: "Все самое нужное на одном месте",
       imgUrl: ServiceImg2,
     },
     {
@@ -23,8 +23,7 @@ function Service() {
       imgUrl: ServiceImg3,
     },
     {
-      title:
-        "Реальные и конкурентоспособные ценыШирочайший ассортимент товаров",
+      title: "Широчайший ассортимент товаров",
       imgUrl: ServiceImg4,
     },
   ]);
@@ -33,7 +32,7 @@ function Service() {
       <StyledContainer>
         <div className="container">
           <PageHeader title={"Почему именно мы?"} />
-          <Row gutter={[15, 15]} style={{ "alignItems": "stretch" }}>
+          <Row gutter={[15, 15]} style={{ alignItems: "stretch" }}>
             {data?.map((item, index) => (
               <Col
                 xs={{

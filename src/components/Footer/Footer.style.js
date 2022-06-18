@@ -2,6 +2,7 @@ import styled from "styled-components";
 import COLORS from "../../constants/colors";
 
 export const StyledFooter = styled.footer`
+  /* font-family: "Gilroy"; */
   padding: 100px 0;
   margin-top: 100px;
   background-color: ${COLORS.main};
@@ -13,9 +14,9 @@ export const StyledFooter = styled.footer`
     justify-content: center;
   }
   a {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 24px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
     color: ${COLORS.white};
     margin: 7px 0px;
   }

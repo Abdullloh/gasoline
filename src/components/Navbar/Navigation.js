@@ -5,7 +5,7 @@ import { StyledNavUl } from "./NavUl.style";
 function Navigation() {
   return (
     <StyledNavUl>
-      <nav>
+      <nav className="nav_response">
         <div>
           <NavLink className="nav_link" to="/">
             Главная

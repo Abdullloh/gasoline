@@ -4,7 +4,8 @@ import COLORS from "../../constants/colors";
 export const StyledNavUl = styled.nav`
   display: block;
   background: ${COLORS.main};
-  nav {
+
+  .navigation > nav {
     display: flex;
     height: 54px;
     justify-content: space-evenly;

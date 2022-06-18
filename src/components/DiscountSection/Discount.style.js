@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import COLORS from "../../constants/colors";
-import DiscountBg from "../../assets/img/discount-bg.svg";
+import DiscountBg from "../../assets/img/discount-img3.svg";
 import DiscountBg2 from "../../assets/img/discount-2.png";
 
 export const StyledDiscount = styled.div`
