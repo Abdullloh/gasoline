@@ -67,8 +67,8 @@ function Footer() {
                 style={{
                   width: "100%",
                   display: "flex",
-                  "align-items": "center",
-                  "justify-content": "center",
+                  "alignItems": "center",
+                  "justifyContent": "center",
                 }}
               >
                 <Button type="primary" onClick={handleSubmit}>

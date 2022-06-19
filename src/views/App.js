@@ -7,9 +7,8 @@ function App() {
   console.log(data);
 
   return (
-     data?.admin?.role === 'Manager' ? <Admin/> : <MainLanding /> 
+    data?.admin?.role === 'Manager' ? <Admin/> : <MainLanding />
   )
-  ;
 }
 
 export default App;

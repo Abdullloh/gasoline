@@ -3,7 +3,7 @@ import Axios from "../utils/axios";
 
 export default function useFetchHook(url) {
   const [state, setState] = useState([]);
-
+  console.log(url);
   const fetchData = async () => {
     try {
       const res = await Axios.get(url);

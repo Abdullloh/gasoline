@@ -2,7 +2,7 @@ import styled from "styled-components";
 import COLORS from "../../constants/colors";
 
 export const StyledFooter = styled.footer`
-  /* font-family: "Gilroy"; */
+  font-family: "Gilroy";
   padding: 100px 0;
   margin-top: 100px;
   background-color: ${COLORS.main};

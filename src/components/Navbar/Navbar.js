@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Button, Input, Space, Select, Dropdown, Menu } from "antd";
+import { Button, Input, Space, Select, Dropdown, Menu, message } from "antd";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import { StyledContainer } from "../../styles/Container.style";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -39,8 +39,8 @@ function Navbar() {
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef();
-  const openModal = () => {
-    setShowModal(true);
+  const openModal = async() => {
+      setShowModal(true);
   };
   const handleCancel = () => {
     setShowModal(!showModal);
@@ -64,10 +64,13 @@ function Navbar() {
   };
 
   const loginToAccount = () => {
-    if (user.role == "Customer") {
-      navigate("/my-account");
-    } else {
-      navigate("/sign-in");
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(user?.token){
+      if (user.admin.role == "Customer") {
+        navigate("/my-account");
+      }
+    }else {
+      navigate('/sign-in')
     }
   };
   const menu = (
@@ -103,7 +106,7 @@ function Navbar() {
   }, [search]);
   return (
     <>
-      <Basket isVisible={showModal} handleCancel={handleCancel} />
+      <Basket isVisible={showModal}  handleCancel={handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
         <StyledContainer>

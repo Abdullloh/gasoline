@@ -8,19 +8,12 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
   (configs) => {
-    // console.log('token 1',token);
-    // const token2 = localStorage.getItem("acces");
-    // console.log('token 2',token2);
-    // const lang = store.getState().payload?.user?.lang?.languageValue;
-    // if (token2 || token) {
-    //   configs.headers.Authorization = token
-    // ? `Bearer ${token}`
-    // : `Bearer ${token2}`
-    // ? `Bearer ${token2}`
-    // : "";
-    // }
+    const userInfo = JSON.parse(localStorage.getItem("user"));
+    console.log('token 2',userInfo);
+    if (userInfo?.token) {
+      configs.headers.Authorization = `Bearer ${userInfo.token.access }` 
+    }
     // configs.headers["Accept-language"] = lang ?? "uz";
-    // console.log('config',configs);
     return configs;
   },
   (err) => {}
