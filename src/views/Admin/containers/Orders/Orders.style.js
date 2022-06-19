@@ -2,7 +2,19 @@ import styled from "styled-components";
 import COLORS from "../../../../constants/colors";
 
 export const StyledOrders = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0px;
+  .modalInfo {
+    h4 {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 23px;
+      color: ${COLORS.black};
+    }
+  }
   .search_block {
     display: flex;
     align-items: center;

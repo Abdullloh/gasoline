@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Table } from "antd";
+import { Button, Checkbox, Popconfirm, Table } from "antd";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { StyledPurchases } from "./Purchases.style";
@@ -81,8 +81,19 @@ function Purchases() {
       render: (text, record) => (
         <td className="ant-table-cell">
           <div className="edit_column">
-            <div onClick={() => handleDelete(record.id)}>
-              <AiOutlineDelete className="edit_column" color="red" size="20" />
+            <div>
+              <Popconfirm
+                title="Are you sure？"
+                okText="Yes"
+                cancelText="No"
+                onConfirm={() => handleDelete(record.id)}
+              >
+                <AiOutlineDelete
+                  className="edit_column"
+                  color="red"
+                  size="20"
+                />
+              </Popconfirm>
             </div>
           </div>
         </td>
