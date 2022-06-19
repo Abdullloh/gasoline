@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Checkbox, Modal, Row, Col, Button, Form, Input } from "antd";
 import { StyledPartners } from "./Partners.style";
+import Axios from "../../../../utils/axios";
 
 function Partners() {
   const [data, setData] = useState([]);
@@ -8,8 +9,12 @@ function Partners() {
   const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(true);
-  console.log(modalData);
+  const [loading, setLoading] = useState(false);
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
 
   const [formValues, setFormValues] = useState({
     compName: "",
@@ -24,7 +29,6 @@ function Partners() {
 
   const closeModal = () => {
     setIsVisible(false);
-    // setModalData(null);
   };
   const openModal = () => {
     setIsVisible(true);
@@ -48,50 +52,21 @@ function Partners() {
       ),
     },
   ];
+
+
+
+  const getPartners =  async () => {
+    setLoading(true);
+    try {
+      const res = Axios.get("/adminside/partners/", { headers: header });
+      setData(res?.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
   useEffect(() => {
-    setData([
-      {
-        id: "1",
-        compName: "ООО TEST TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "2",
-        compName: "ООО TEST 1 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "3",
-        compName: "ООО TEST 2 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "4",
-        compName: "ООО TEST 3 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "5",
-        compName: "ООО TEST 4 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "6",
-        compName: "ООО TEST 5 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "7",
-        compName: "ООО TEST 6 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-      {
-        id: "8",
-        compName: "ООО TEST 7 TEST TEST TEST TEST TEST TEST",
-        hasAccess: true,
-      },
-    ]);
-    setLoading(false);
+    getPartners()
   }, []);
 
   const handleAccess = (id) => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Table, Row, Col } from "antd";
 import { StyledApplication } from "./Application.style";
+import Axios from "../../../../utils/axios";
 
 function Application() {
   const [data, setData] = useState([]);
@@ -8,64 +9,46 @@ function Application() {
   const [applicationModal, setApplicationModal] = useState(false);
   const [questionData, setQuestionData] = useState({});
   const [applicationData, setApplicationData] = useState({});
+  const [loading, setLoading] = useState(false);
 
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+
+  const getRequests = async () => {
+    setLoading(true);
+    try {
+      const res = Axios.get("/adminside/requests/", { headers: header });
+      // console.log(res);
+      setData(res?.results);
+      console.log(res);
+      setLoading(false);
+    } catch (error) {
+      // console.log(error);
+      setLoading(false);
+    }
+  };
   const columns = [
     {
       render: (record) => (
         <td className="ant-table-cell">
-          {record.type == "question" ? "Вопрос" : "Заявка на партнертсво"}
+          {record?.type == "question" ? "Вопрос" : "Заявка на партнертсво"}
         </td>
       ),
     },
     {
       render: (record) => (
         <td className="ant-table-cell">
-          <h5 style={{"cursor": "pointer"}} onClick={() => getQuestionInfo(record.id)}>открыть</h5>
+          <h5 style={{"cursor": "pointer"}} onClick={() => getQuestionInfo(record?.id)}>открыть</h5>
         </td>
       ),
     },
   ];
   useEffect(() => {
-    setData([
-      {
-        id: 10,
-        type: "question",
-        fullName: "Test",
-        phoneNum: "+998 99 999 99 99",
-        date: "09.03.2022",
-        question:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae eaque dolore vero modi nulla provident vitae, mollitia voluptatibus libero maiores.",
-      },
-      {
-        id: 2,
-        type: "application",
-        fullName: "Test 2",
-        inn: "1234556778 ",
-        compName: "OOO Test",
-        phoneNum: "+998 99 999 99 99",
-        date: "09.03.2022",
-        dealNum: "#автоматически",
-      },
-      {
-        id: 3,
-        type: "question",
-        fullName: "Test 3",
-        phoneNum: "+998 99 999 99 99",
-        date: "09.03.2022",
-        question:
-          "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae eaque dolore vero modi nulla provident vitae, mollitia voluptatibus libero maiores.",
-      },
-      {
-        id: 4,
-        type: "application",
-        fullName: "Test 4",
-        inn: "1234556778 ",
-        compName: "OOO Test",
-        phoneNum: "+998 99 999 99 99",
-        date: "09.03.2022",
-        dealNum: "#автоматически",
-      },
-    ]);
+    getRequests()
+    console.log(data);
   }, []);
 
   const handleQuestionModal = () => {

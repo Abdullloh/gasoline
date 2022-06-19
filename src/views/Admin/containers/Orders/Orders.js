@@ -2,11 +2,30 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Button, Checkbox, Table } from "antd";
 import { StyledOrders } from "./Orders.style";
+import Axios from "../../../../utils/axios";
 
 function Orders() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+  const getOrders = async () => {
+    setLoading(true);
+    try {
+      const res = Axios.get("/adminside/orders/", { headers: header });
+      // console.log(res);
+      setData(res?.results);
+      setLoading(false);
+    } catch (error) {
+      // console.log(error);
+      setLoading(false);
+    }
+  };
   const columns = [
     {
       dataIndex: "orderName",
@@ -35,7 +54,7 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-          <h4>Организация: "{record?.partner_name	}"</h4>
+          <h4>Организация: "{record?.partner_name}"</h4>
           <h4>Номер телефона организации: {record?.partner_phone}</h4>
         </>
       ),
@@ -56,12 +75,9 @@ function Orders() {
     },
   ];
 
-  const getOrders = () => {
-    axios.get("http://137.184.114.36:7774/adminside/orders/") .then(response => console.log(response.data.results))
-  }
   useEffect(() => {
-
-    getOrders()
+    getOrders();
+    // console.log(adminInfo);
   }, []);
   return (
     <StyledOrders>
@@ -79,6 +95,7 @@ function Orders() {
           columns={columns}
           dataSource={data}
           pagination={{ defaultPageSize: 4 }}
+          loading={loading}
         ></Table>
       </div>
     </StyledOrders>

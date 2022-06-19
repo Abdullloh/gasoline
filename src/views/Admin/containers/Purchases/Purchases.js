@@ -5,9 +5,12 @@ import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { StyledPurchases } from "./Purchases.style";
 import OilImg from "../../../../assets/img/oil-img.svg";
 import { Link } from "react-router-dom";
+import Axios from "../../../../utils/axios";
 
 function Purchases() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const datas = [
     {
       id: 2,
@@ -79,19 +82,49 @@ function Purchases() {
     console.log(filteredData);
     setData(filteredData);
   };
+
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+
+  let questionData = {
+    name: "Qo'chqor",
+    phone: "+998994567898",
+    inn: "123456789",
+    company_name: "UzGazOil",
+    email: "test@gmail.com",
+    text: "Make a contract",
+    type: "question",
+    reviewed: false,
+  }
+
+  const getPurchases = async () => {
+    setLoading(true);
+    try {
+      const res = Axios.post("/adminside/request_create/", questionData, { headers: header });
+      // console.log(res);
+      setData(res?.results);
+      setLoading(false);
+    } catch (error) {
+      // console.log(error);
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    setData(datas);
+    // getPurchases();
   }, []);
   return (
     <StyledPurchases>
       <header>
-        <h2 className="title">Товары</h2>
-       <Link to="/add-product">
-       <Button type="primary" size="large  ">
-          <FiPlus color="#fff" size="16" />
-          Добавить новый товар
-        </Button>
-       </Link>
+        <h2 className="title" onClick={getPurchases}>Товары</h2>
+        <Link to="/add-product">
+          <Button type="primary" size="large  ">
+            <FiPlus color="#fff" size="16" />
+            Добавить новый товар
+          </Button>
+        </Link>
         <div className="search_block">
           <input
             type="text"
@@ -101,7 +134,7 @@ function Purchases() {
         </div>
       </header>
       <div className="wrapper">
-        <Table dataSource={data} columns={columns} />
+        <Table dataSource={data} columns={columns} loading={loading} />
       </div>
     </StyledPurchases>
   );
