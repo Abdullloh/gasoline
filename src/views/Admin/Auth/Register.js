@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 import Axios from "../../../utils/axios";
@@ -23,11 +23,14 @@ function Register() {
     e.preventDefault();
     try {
       const res = await Axios.post("/accounts/register/", { ...userData });
+      console.log(res);
       const { status } = res;
-      if (status == 200) {
+      if (status == 201) {
         navigate("/sign-in");
       }
-    } catch (error) {}
+    } catch (error) {
+      message.warn(error?.response?.data?.message)
+    }
   };
   return (
     <StyledSignIn>
@@ -66,7 +69,7 @@ function Register() {
                   style={{ "justify-content": "center" }}
                 >
                   <Button type="primary" onClick={handleSubmite}>
-                    Отправить заявку
+                  Регистрироваться
                   </Button>
                 </div>
               </Form>

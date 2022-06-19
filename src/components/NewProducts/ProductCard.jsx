@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { Col, Button } from "antd";
+import { Col, Button, message } from "antd";
 import { useDispatch } from "react-redux";
 import { StyledProductCard } from "./ProductCardStyle";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import { addToCard } from "../../store/actios/publicActions";
+import { useNavigate } from "react-router-dom";
+import Axios from "../../utils/axios";
 
 const ProductCard = ({ data, margin}) => {
-  console.log(data);
   const { images = [], title = "", price = "" } = data;
+  const navigate = useNavigate()
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
+  let userInfo = JSON.parse(localStorage.getItem('user'))
+
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -18,10 +23,25 @@ const ProductCard = ({ data, margin}) => {
   const handleCancel = () => {
     setIsModalVisible(!isModalVisible);
   };
-
-  const addCard = (e) => {
+  console.log(userInfo);
+  const addCard = async(e) => {
     e.stopPropagation();
-    dispatch(addToCard({ ...data, count: state }));
+    if(userInfo?.token){
+        try {
+          const res = await Axios.post('/cart/',{
+            product:data.id,
+            quantity:state
+          })
+          console.log(res);
+        } catch (error) {
+          
+        }
+      dispatch(addToCard({ ...data, count: state }));
+      message.success('Добавлено в корзину',1)
+    } 
+    else{
+      navigate('/sign-up')
+    } 
   };
 
   const increment = (e) => {
@@ -35,7 +55,6 @@ const ProductCard = ({ data, margin}) => {
       setState((prev) => prev - 1);
     }
   };
-  console.log(images);
   return (
     <>
       <ProductDetail
