@@ -6,10 +6,18 @@ import { StyledPurchases } from "./Purchases.style";
 import OilImg from "../../../../assets/img/oil-img.svg";
 import { Link } from "react-router-dom";
 import Axios from "../../../../utils/axios";
+import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Purchases() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+
+  const [productList, loading] = useFetchHook("/products/");
 
   const datas = [
     {
@@ -41,14 +49,18 @@ function Purchases() {
       render: (text, record) => (
         <td className="ant-table-cell">
           <div className="img_column">
-            <img
-              className="product_img"
-              src={record?.productImg}
-              alt={record?.productName}
-            />
+            {record?.images[0]?.image ? (
+              <img
+                className="product_img"
+                src={record?.images[0].image}
+                alt="Product"
+              />
+            ) : (
+              <img className="product_img" src={OilImg} alt="Product" />
+            )}
             <div>
               <h3 className="product_name">{text}</h3>
-              <Checkbox checked={record?.inStock} size="small">
+              <Checkbox checked={record?.available} size="small">
                 В наличии
               </Checkbox>
             </div>
@@ -77,16 +89,13 @@ function Purchases() {
       ),
     },
   ];
-  const handleDelete = (id) => {
-    let filteredData = data.filter((i) => i.id !== id);
-    console.log(filteredData);
-    setData(filteredData);
-  };
-
-  let adminInfo = JSON.parse(localStorage.getItem("user"));
-  let header = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  const handleDelete = async (id) => {
+    try {
+      const res = await Axios.delete(`/products/product/${id}`);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   let questionData = {
@@ -98,27 +107,26 @@ function Purchases() {
     text: "Make a contract",
     type: "question",
     reviewed: false,
-  }
-
-  const getPurchases = async () => {
-    setLoading(true);
-    try {
-      const res = Axios.post("/adminside/request_create/", questionData, { headers: header });
-      // console.log(res);
-      setData(res?.results);
-      setLoading(false);
-    } catch (error) {
-      // console.log(error);
-      setLoading(false);
-    }
   };
-  useEffect(() => {
-    // getPurchases();
-  }, []);
+
+  // const getPurchases = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = Axios.post("/adminside/request_create/", questionData, {
+  //       headers: header,
+  //     });
+  //     // console.log(res);
+  //     setData(res?.results);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     // console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
   return (
     <StyledPurchases>
       <header>
-        <h2 className="title" onClick={getPurchases}>Товары</h2>
+        <h2 className="title">Товары</h2>
         <Link to="/add-product">
           <Button type="primary" size="large  ">
             <FiPlus color="#fff" size="16" />
@@ -134,7 +142,11 @@ function Purchases() {
         </div>
       </header>
       <div className="wrapper">
-        <Table dataSource={data} columns={columns} loading={loading} />
+        <Table
+          dataSource={productList?.results}
+          columns={columns}
+          loading={loading}
+        />
       </div>
     </StyledPurchases>
   );

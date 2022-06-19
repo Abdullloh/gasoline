@@ -23,16 +23,16 @@ export default [
     title: "Главная",
   },
   {
-    path: "/orders",
-    // element: Foods,
-    icon: <BiTask size={24} />,
-    title: "Заказы",
-  },
-  {
     path: "/purchases",
     // element: Category,
+    icon: <BiTask size={24} />,
+    title: "Товары",
+  },
+  {
+    path: "/orders",
+    // element: Foods,
     icon: <BiShoppingBag size={24} />,
-    title: "Покупки",
+    title: "Заказы",
   },
   {
     path: "/questions",

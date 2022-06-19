@@ -3,29 +3,18 @@ import axios from "axios";
 import { Button, Checkbox, Table } from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
+import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Orders() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
-  const getOrders = async () => {
-    setLoading(true);
-    try {
-      const res = Axios.get("/adminside/orders/", { headers: header });
-      // console.log(res);
-      setData(res?.results);
-      setLoading(false);
-    } catch (error) {
-      // console.log(error);
-      setLoading(false);
-    }
-  };
+  const [ordersList, loading] = useFetchHook("/adminside/orders/", { header });
+console.log(ordersList);
   const columns = [
     {
       dataIndex: "orderName",
@@ -38,7 +27,7 @@ function Orders() {
               "justify-content": "space-between",
             }}
           >
-            <h2>#{record?.orderNum}</h2>
+            <h2>#{record?.product?.vendor_code}</h2>
             <p>{record?.created_at}</p>
           </div>
           <h4>{record?.customer_name}</h4>
@@ -75,10 +64,6 @@ function Orders() {
     },
   ];
 
-  useEffect(() => {
-    getOrders();
-    // console.log(adminInfo);
-  }, []);
   return (
     <StyledOrders>
       <header>
@@ -93,8 +78,7 @@ function Orders() {
       <div className="table_block">
         <Table
           columns={columns}
-          dataSource={data}
-          pagination={{ defaultPageSize: 4 }}
+          dataSource={ordersList?.results}
           loading={loading}
         ></Table>
       </div>
