@@ -20,8 +20,10 @@ export const StyledProductCard = styled.div`
     align-items: center;
     justify-content: center;
     padding: 10px;
+    height: 250px;
     img {
-      width: 60%;
+      width: 100%;
+      height: 80%;
     }
   }
   .card-body {

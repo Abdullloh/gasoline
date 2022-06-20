@@ -47,7 +47,11 @@ export const StyledFooter = styled.footer`
       align-items: center;
       justify-content: center;
       cursor: pointer;
-
+      a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       img {
         width: 10px;
       }
