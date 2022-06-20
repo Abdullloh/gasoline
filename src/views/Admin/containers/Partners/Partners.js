@@ -2,29 +2,33 @@ import React, { useEffect, useState } from "react";
 import { Table, Checkbox, Modal, Row, Col, Button, Form, Input } from "antd";
 import { StyledPartners } from "./Partners.style";
 import Axios from "../../../../utils/axios";
+import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Partners() {
   const [data, setData] = useState([]);
   const [editComp, setEditComp] = useState(false);
   const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
+  // const [partnerData, setPartnerData] = useState({});
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [loading, setLoading] = useState(false);
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
-
+  const [partnerList, loading] = useFetchHook("/adminside/partners/", {
+    header,
+  });
+  console.log(partnerList);
   const [formValues, setFormValues] = useState({
-    compName: "",
-    ceo: "",
-    nameBank: "",
-    inn: "",
-    mfo: "",
-    addressComp: "",
-    phoneNum: "",
-    accountNum: "",
+    compName: modalData?.user?.name,
+    ceo: modalData?.ceos_name,
+    nameBank: modalData?.bank_name,
+    inn: modalData?.inn,
+    mfo: modalData?.mfo,
+    addressComp: modalData?.company_address,
+    phoneNum: modalData?.user?.phone,
+    accountNum: modalData?.bank_account,
   });
 
   const closeModal = () => {
@@ -38,51 +42,75 @@ function Partners() {
   };
   const columns = [
     {
-      dataIndex: "compName",
+      dataIndex: "ceos_name",
       render: (text, record) => (
         <td className="ant-table-cell" onClick={() => getCompInfo(record.id)}>
-          {text}
+          {record.user.name ? record.user.name : "Partner name"}
         </td>
       ),
     },
     {
-      dataIndex: "hasAccess",
+      dataIndex: "active",
       render: (text, record) => (
-        <Checkbox onChange={() => handleAccess(record.id)} checked={text} />
+        <Checkbox onChange={() => handleAccess(record.id, !text)} checked={text} />
       ),
     },
   ];
 
-
-
-  const getPartners =  async () => {
-    setLoading(true);
+  const updatePartner = async (e, id) => {
+    e.preventDefault();
     try {
-      const res = Axios.get("/adminside/partners/", { headers: header });
-      setData(res?.results);
-      setLoading(false);
+      const res = await Axios.patch(`adminside/partner/${id}`, {
+        ceos_name: formValues.ceo,
+        bank_name: formValues.nameBank,
+        inn: formValues.inn,
+        mfo: formValues.mfo,
+        company_address: formValues.addressComp,
+        bank_account: formValues.accountNum,
+        user: {id, phone: formValues.phoneNum, name: formValues.compName },
+      });
+      console.log(res);
     } catch (error) {
-      setLoading(false);
+      console.log(error);
     }
-  }
-  useEffect(() => {
-    getPartners()
-  }, []);
-
-  const handleAccess = (id) => {
-    setData(
-      data.map((item) => {
-        if (item.id == id) item.hasAccess = !item.hasAccess;
-        return item;
+  };
+  const handleAccess = async (id, status) => {
+    try {
+      const res = await Axios.patch(
+        `adminside/partner/${id}`,
+        { id, active: status},
+        { headers: header }
+      );
+      partnerList?.results.map((item) => {
+        if (item.id == id) item.active = !item.active;
+            return item;
       })
-    );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getCompInfo = async (id) => {
-    let filterData = await data.filter((item) => item.id == id)[0];
-    if (filterData) {
-      setModalData(filterData);
+    try {
+      const res = await Axios.get(`adminside/partner/${id}`, {
+        headers: header,
+      });
+      console.log(res);
+      setModalData(res?.data);
+      setFormValues({
+        compName: res?.data?.user?.name,
+        ceo: res?.data?.ceos_name,
+        nameBank: res?.data?.bank_name,
+        inn: res?.data?.inn,
+        mfo: res?.data?.mfo,
+        addressComp: res?.data?.company_address,
+        phoneNum: res?.data?.user?.phone,
+        accountNum: res?.data?.bank_account,
+      });
       openModal();
+    } catch (error) {
+      // console.log(error);
     }
   };
 
@@ -93,6 +121,12 @@ function Partners() {
       [e.target.name]: value,
     });
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formValues);
+  };
+
   return (
     <StyledPartners>
       <div className="wrapper">
@@ -102,7 +136,7 @@ function Partners() {
         <Table
           thead={false}
           columns={columns}
-          dataSource={data}
+          dataSource={partnerList?.results}
           loading={loading}
         />
         <Modal visible={isVisible} footer={null} onCancel={closeModal}>
@@ -202,7 +236,7 @@ function Partners() {
                       <h5>Полное наименование</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>{modalData?.compName}</h5>
+                      <h5>{modalData?.user?.name}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -214,7 +248,7 @@ function Partners() {
                       <h5>Генеральный директор</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>Test test tes</h5>
+                      <h5>{modalData?.ceos_name}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -226,7 +260,7 @@ function Partners() {
                       <h5>Наименование банка</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>test test</h5>
+                      <h5>{modalData?.bank_name}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -238,7 +272,7 @@ function Partners() {
                       <h5>ИНН</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>1234556778</h5>
+                      <h5>{modalData?.inn}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -250,7 +284,7 @@ function Partners() {
                       <h5>МФО</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>123456789</h5>
+                      <h5>{modalData?.mfo}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -262,7 +296,7 @@ function Partners() {
                       <h5>Адрес компании</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>test test</h5>
+                      <h5>{modalData?.company_address}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -274,7 +308,7 @@ function Partners() {
                       <h5>Номер телефона</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>+998 99 999 99 99</h5>
+                      <h5>{modalData?.user?.phone}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -286,7 +320,7 @@ function Partners() {
                       <h5>Расчетный счет</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>220022002200220022002200</h5>
+                      <h5>{modalData?.bank_account}</h5>
                     </Col>
                   </Row>
                 </>
@@ -303,7 +337,7 @@ function Partners() {
                         <Button
                           type="primary"
                           htmlType="submit"
-                          onClick={console.log(formValues)}
+                          onClick={(e) => updatePartner(e, modalData?.id)}
                         >
                           Submit
                         </Button>

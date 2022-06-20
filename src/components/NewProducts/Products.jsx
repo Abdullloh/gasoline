@@ -56,7 +56,7 @@ const Products = (props) => {
               type="primary"
               ghost
             >
-              Показать ещё
+            Показать все товары
             </Button>
           </div>
         </div>

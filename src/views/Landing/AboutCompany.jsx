@@ -12,8 +12,8 @@ const AboutCompany = () => {
     <StyledLanding img={CompanyImg}>
       <Main
         leftSideText={"Добро пожаловать на GAZOIL "}
-        buttonText={"Разместить товар"}
-        aboutPageButtonText={"Купить товар"}
+        buttonText={"Купить товар"}
+        aboutPageButtonText={"Разместить товар "}
         flexDirection={"column"}
         isFlexTrue={true}
       />
@@ -64,7 +64,7 @@ const AboutCompany = () => {
           <AboutPageStyle>
             <ul>
               <li>
-                <span>Полное название:</span>{" "}
+                <span>Полное название:</span>
                 <span>PETROL AUTO AND INDRUSTRIAL</span>
               </li>
               <li>

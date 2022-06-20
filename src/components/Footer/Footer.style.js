@@ -74,6 +74,11 @@ export const StyledFooter = styled.footer`
   .ant-modal-content {
     border-radius: 90px;
   }
+  .socials_media,
+  .contact_message {
+    margin: 20px 0px;
+  }
+  
   @media only screen and (max-width: 768px) {
     padding: 28px 0;
   }

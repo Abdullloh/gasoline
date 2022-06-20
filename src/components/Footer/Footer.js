@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from "react";
-import { Col, Row, Button, Form, Input } from "antd";
+import { Col, Row, Button, Form, Input, message } from "antd";
 import { FaTelegramPlane, FaInstagram } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "antd/lib/modal/Modal";
 import { StyledContainer } from "../../styles/Container.style";
 import { StyledFooter } from "./Footer.style";
+import Axios from "../../utils/axios";
 import InstagramIcon from "../../assets/img/instagram.svg";
 import FacebookIcon from "../../assets/img/facebook.svg";
 
@@ -21,9 +22,24 @@ function Footer() {
     const { name, value } = e.target;
     setFormValue((state) => ({ ...state, [name]: value }));
   }, []);
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValue);
+    let formData = {
+      name: formValue.fullName,
+      phone: formValue.phoneNumber,
+      text: formValue.description,
+      type: "question",
+    };
+    try {
+      const res = await Axios.post("/adminside/request_create/", formData);
+      console.log(res);
+      if (res.status == 201) {
+        message.success("Submitted");
+        handleShowModal();
+      }
+    } catch (error) {
+      message.error("Something went wrong");
+    }
   };
 
   const handleShowModal = () => {
@@ -40,38 +56,42 @@ function Footer() {
             onCancel={handleShowModal}
             footer={null}
           >
-            <Form layout="vertical">
-              <Form.Item label="Ф.И.О.">
-                <Input
-                  onChange={handleInputChange}
-                  name="fullName"
-                  value={formValue.fullName}
-                />
-              </Form.Item>
-              <Form.Item label="Номер телефона">
-                <Input
-                  onChange={handleInputChange}
-                  name="phoneNumber"
-                  value={formValue.phoneNumber}
-                />
-              </Form.Item>
-              <Form.Item label="Опишите проблему или вопрос">
-                <TextArea
-                  onChange={handleInputChange}
-                  name="description"
-                  value={formValue.description}
-                  rows={6}
-                />
-              </Form.Item>
+            <Form layout="vertical" onSubmit={handleSubmit}>
+              <label htmlFor="fullName">Ф.И.О.</label>
+              <Input
+                required
+                onChange={handleInputChange}
+                name="fullName"
+                id="fullName"
+                value={formValue.fullName}
+              />
+              <label htmlFor="phoneNumber">Номер телефона</label>
+              <Input
+                required
+                onChange={handleInputChange}
+                name="phoneNumber"
+                id="phoneNumber"
+                minLength={7}
+                value={formValue.phoneNumber}
+              />
+              <label htmlFor="description">Опишите проблему или вопрос</label>
+              <TextArea
+                required
+                onChange={handleInputChange}
+                name="description"
+                id="description"
+                value={formValue.description}
+                rows={6}
+              />
               <div
                 style={{
                   width: "100%",
                   display: "flex",
-                  "alignItems": "center",
-                  "justifyContent": "center",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
-                <Button type="primary" onClick={handleSubmit}>
+                <Button type="primary" htmlType="submite">
                   Отправить
                 </Button>
               </div>

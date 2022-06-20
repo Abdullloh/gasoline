@@ -4,9 +4,9 @@ import PurchaserBodyImg from "../../assets/img/purchaser-body-img.png";
 import { StyledLanding } from "../../styles/Landing.style";
 import BodyInfo from "../../components/BodyInfo/BodyInfo";
 import CardList from "../../components/CardList/CardList";
-import Bar from "../../assets/img/bar.svg";
-import Purchase from "../../assets/img/purchase.svg";
-import Download from "../../assets/img/download.svg";
+import Bar from "../../assets/img/bar-new.svg";
+import Purchase from "../../assets/img/operator.svg";
+import Download from "../../assets/img/technic.svg";
 import PurchaserImg from "../../assets/img/purchaser-bg.png";
 import { Col, Row } from "antd";
 import Text from "../../components/Text/Text";
@@ -38,65 +38,58 @@ const Purchaser = () => {
       />
       <StyledContainer>
         <div className="container">
-          <Row>
-            <Col
-              style={style}
-              sm={{
-                span: 24,
-                offset: 0,
-              }}
-              lg={{
-                span: 8,
-                offset: 0,
-              }}
-            >
-              <CardList
-                img={Bar}
-                heading={"Выгодно"}
-                text={
-                  "Вам не надо создавать свой собственный интернет-магазин для онлайн продаж"
-                }
-              />
-            </Col>
-            <Col
-              style={style}
-              sm={{
-                span: 24,
-                offset: 0,
-              }}
-              lg={{
-                span: 8,
-                offset: 0,
-              }}
-            >
-              <CardList
-                img={Purchase}
-                heading={"Выгодно"}
-                text={
-                  "Вам не надо создавать свой собственный интернет-магазин для онлайн продаж"
-                }
-              />
-            </Col>
-            <Col
-              style={style}
-              sm={{
-                span: 24,
-                offset: 0,
-              }}
-              lg={{
-                span: 8,
-                offset: 0,
-              }}
-            >
-              <CardList
-                img={Download}
-                heading={"Выгодно"}
-                text={
-                  "Вам не надо создавать свой собственный интернет-магазин для онлайн продаж"
-                }
-              />
-            </Col>
-          </Row>
+          <div className="conveniences_block">
+            <Row>
+              <Col
+                style={style}
+                sm={{
+                  span: 24,
+                  offset: 0,
+                }}
+                lg={{
+                  span: 8,
+                  offset: 0,
+                }}
+              >
+                <CardList
+                  img={Bar}
+                  text={"Отображение всех товаров  в каталоге"}
+                />
+              </Col>
+              <Col
+                style={style}
+                sm={{
+                  span: 24,
+                  offset: 0,
+                }}
+                lg={{
+                  span: 8,
+                  offset: 0,
+                }}
+              >
+                <CardList
+                  img={Purchase}
+                  text={"Удаленный менеджер по обслуживанию"}
+                />
+              </Col>
+              <Col
+                style={style}
+                sm={{
+                  span: 24,
+                  offset: 0,
+                }}
+                lg={{
+                  span: 8,
+                  offset: 0,
+                }}
+              >
+                <CardList
+                  img={Download}
+                  text={"Бесплатная  техническая поддержка"}
+                />
+              </Col>
+            </Row>
+          </div>
         </div>
       </StyledContainer>
       <Service />
