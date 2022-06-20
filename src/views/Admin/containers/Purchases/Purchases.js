@@ -61,7 +61,7 @@ function Purchases() {
             <div>
               <h3 className="product_name">{text}</h3>
               <Checkbox checked={record?.available} size="small">
-                В наличии
+                В наличи
               </Checkbox>
             </div>
           </div>

@@ -106,9 +106,9 @@ function Footer() {
               <div className="contact">
                 <h4 className="footer_heading">Контакты</h4>
                 <a href="https://www.google.com/maps/place/41°19'55.0%22N+69°14'56.7%22E/@41.331939,69.2468823,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xce22268ab1beb8ec!8m2!3d41.331939!4d69.249071">
-                  Адрес: г. Ташкент, массив Себзор Ц 17/18, кв. 137{" "}
+                Аддресс: г. Ташкент, массив Себзор Ц 17/18, кв. 137
                 </a>
-                <a href="mailto:info@gazoil.uz">О Эл. почта: info@gazoil.uz </a>
+                <a href="mailto:info@gazoil.uz">Эл. почта: info@gazoil.uz </a>
                 <a href="tel:+998 77 777 73 13"> Телефон: +998 77 777 73 13</a>
               </div>
             </Col>

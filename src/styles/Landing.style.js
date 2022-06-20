@@ -3,6 +3,9 @@ import COLORS from "../constants/colors";
 
 export const StyledLanding = styled.div`
   background-color: ${COLORS.white};
+  .conveniences_block {
+    padding: 40px 0px;
+  }
   .entry-section {
     background: url(${(props) => props.img});
     background-size: cover;
@@ -10,6 +13,17 @@ export const StyledLanding = styled.div`
     background-position: center;
     height: 600px;
     padding: 50px 0px;
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      /* align-items: center; */
+      .heading_btn {
+        width: 215px;
+        height: 45px;
+        margin: 10px 0px;
+      }
+    }
     .img-block {
       display: flex;
       flex-direction: column;
@@ -37,14 +51,8 @@ export const StyledLanding = styled.div`
       font-size: 18px;
       line-height: 22px;
       text-align: center;
-      color: ${COLORS.white};
-      border-radius: 6px;
-      background-color: ${COLORS.main};
-      border: none;
-      outline: none;
       cursor: pointer;
       width: 215px;
-      padding: 14px;
       margin-top: 50px;
     }
     .oilImg {
@@ -73,6 +81,9 @@ export const StyledLanding = styled.div`
   }
 
   @media only screen and (max-width: 992px) {
+    .buttonContainer {
+      display: none !important;
+    }
     .headeing-btn {
       display: none;
     }

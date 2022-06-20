@@ -37,8 +37,8 @@ const Main = (props) => {
                       ...colStyle,
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      // alignItems: "center",
+                      // justifyContent: "center",
                     }
                   : colStyle
               }
@@ -68,19 +68,23 @@ const Main = (props) => {
                 {leftSidePar}
               </p>
               <div className="buttonContainer">
-                <button
+                <Button
+                  type="primary"
+                  size="large"
                   onClick={() => navigate("/products")}
-                  className="headeing-btn"
+                  className="heading_btn"
                 >
                   {buttonText}
-                </button>
+                </Button>
                 {aboutPageButtonText && (
-                  <button
-                    style={{ marginLeft: "70px" }}
-                    className="headeing-btn"
+                  <Button
+                    type="primary"
+                    ghost
+                    size="large"
+                    className="heading_btn"
                   >
                     {aboutPageButtonText}
-                  </button>
+                  </Button>
                 )}
               </div>
             </Col>
@@ -104,11 +108,11 @@ const Main = (props) => {
             >
               <div className="img-block">
                 {/* {img && <img src={img} alt="oil" className="oilImg" />} */}
-                <button className="headeing-btn">{buttonText}</button>
+                <Button type="primary" size='large' className="headeing-btn">{buttonText}</Button>
                 {aboutPageButtonText && (
-                  <button className="headeing-btn">
+                  <Button type="primary "size='large' ghost className="headeing-btn">
                     {aboutPageButtonText}
-                  </button>
+                  </Button>
                 )}
               </div>
             </Col>
