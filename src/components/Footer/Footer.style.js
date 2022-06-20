@@ -39,6 +39,7 @@ export const StyledFooter = styled.footer`
     div {
       margin: 0 4px;
       width: 39px;
+      margin: 15px 4px;
       height: 39px;
       border-radius: 39px;
       background-color: ${COLORS.white};

@@ -36,10 +36,20 @@ function Navbar() {
   const selector = useSelector((state) => state);
   console.log(selector);
   const { user } = selector.signin;
+  const [cartList,setCartList] = useState()
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef();
+  const getCarts  = async() => {
+    try {
+      const res = await Axios.get('/cart')
+      setCartList(res?.data?.results)
+    } catch (error) {
+      
+    }
+  }
   const openModal = async() => {
+    getCarts()
       setShowModal(true);
   };
   const handleCancel = () => {
@@ -62,7 +72,17 @@ function Navbar() {
   const focusInput = () => {
     inputRef.current.focus();
   };
-
+  const removeItemFromBasket = async(id) => {
+    try {
+      const res = await Axios.delete(`/cart/cartitem/${id}`)
+      console.log(res);
+      if(res.status === 200){
+        getCarts() 
+      }
+    } catch (error) {
+      
+    }
+  };
   const loginToAccount = () => {
     let user = JSON.parse(localStorage.getItem('user'))
     if(user?.token){
@@ -106,7 +126,7 @@ function Navbar() {
   }, [search]);
   return (
     <>
-      <Basket isVisible={showModal}  handleCancel={handleCancel} />
+      <Basket isVisible={showModal} cartList={cartList} removeItemFromBasket={removeItemFromBasket} handleCancel={handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
         <StyledContainer>

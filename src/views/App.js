@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollToTop from "../ScrollToTop";
 import Admin from "./Admin/Admin";
 import MainLanding from "./Landing/MainLanding";
 
@@ -7,7 +8,10 @@ function App() {
   console.log(data);
 
   return (
-    data?.admin?.role === 'Manager' ? <Admin/> : <MainLanding />
+    <>
+    <ScrollToTop/>
+    {data?.admin?.role === 'Manager' ? <Admin/> : <MainLanding />}
+    </>
   )
 }
 

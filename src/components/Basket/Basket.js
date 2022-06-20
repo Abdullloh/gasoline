@@ -10,9 +10,10 @@ import { ProductDetailStyle } from "../ProductDetail/ProductDetailStyle";
 
 export default function Basket(props) {
   const [state, setState] = useState();
-  const { isVisible, handleCancel } = props;
-
-  const cartIds = state?.map(item=> {
+  const { isVisible, handleCancel,removeItemFromBasket } = props;
+  let {cartList} = props
+  console.log(cartList);
+  const cartIds = cartList?.map(item=> {
     return (
       {
         'id':item?.id
@@ -27,23 +28,14 @@ export default function Basket(props) {
     try {
       const res = await Axios.get('/cart')
       setState(res?.data?.results)
+      cartList = res.data.results
     } catch (error) {
       
     }
   }
 
 
-  const removeItemFromBasket = async(id) => {
-    try {
-      const res = await Axios.delete(`/cart/cartitem/${id}`,{id:4})
-      console.log(res);
-      if(res.status === 200){
-        getCarts() 
-      }
-    } catch (error) {
-      
-    }
-  };
+  
 
 
   const makeOrder = async() => {
@@ -66,7 +58,7 @@ export default function Basket(props) {
     },[])
   return (
     <Modal footer={null} visible={isVisible} onCancel={handleCancel}>
-      {state?.map((item) => {
+      {cartList?.map((item) => {
         let cartId = item.id
         const { images, price, title, id, count } = item.product;
         return (

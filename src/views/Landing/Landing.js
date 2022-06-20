@@ -65,7 +65,7 @@ function Landing() {
       </div>
       <Products headTitle={"Новые товары"} />
       <Discount />
-      <Products headTitle={"Хиты продаж"} />
+      {/* <Products headTitle={"Хиты продаж"} /> */}
       <Service />
     </StyledLanding>
   );

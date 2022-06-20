@@ -16,8 +16,12 @@ export const StyledProductCard = styled.div`
     box-shadow: 0px 21px 20px rgba(84, 81, 81, 0.17);
   }
   .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
     img {
-      width: 100%;
+      width: 60%;
     }
   }
   .card-body {
