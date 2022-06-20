@@ -77,6 +77,7 @@ export const StyledFooter = styled.footer`
   .contact_message {
     margin: 20px 0px;
   }
+  
   @media only screen and (max-width: 768px) {
     padding: 28px 0;
   }

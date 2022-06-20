@@ -19,6 +19,9 @@ export const ProductDetailStyle = styled.div`
       }
       div {
         width: 20%;
+        margin: 8px;
+        display: flex;
+        flex-direction: column;
         img {
           width: 100%;
         }
@@ -26,6 +29,18 @@ export const ProductDetailStyle = styled.div`
     }
     .heading-info {
       width: 50%;
+      h3 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 28px;
+        line-height: 26px;
+      }
+      h4 {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 46px;
+      }
       button {
         width: 50%;
         margin-top: 30px;
