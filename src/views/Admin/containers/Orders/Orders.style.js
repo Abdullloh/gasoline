@@ -6,6 +6,9 @@ export const StyledOrders = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0px;
+  .wrapper{
+    width: 100%;
+  }
   .modalInfo {
     h4 {
       font-style: normal;

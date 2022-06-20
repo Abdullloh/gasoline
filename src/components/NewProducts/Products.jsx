@@ -13,7 +13,7 @@ import useFetchHook from "../../customhooks/useFetchHook";
 const Products = (props) => {
   const [productList] = useFetchHook("/products");
   console.log(productList);
-  const results = productList.results
+  const results = productList.results;
   console.log(results);
   const navigate = useNavigate();
   return (
@@ -56,7 +56,7 @@ const Products = (props) => {
               type="primary"
               ghost
             >
-            Показать все товары
+              Показать все товары
             </Button>
           </div>
         </div>

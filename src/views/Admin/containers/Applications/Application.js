@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal, Table, Row, Col } from "antd";
+import moment from "moment";
 import { StyledApplication } from "./Application.style";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
@@ -68,8 +69,6 @@ function Application() {
     setApplicationModal((prev) => !prev);
   };
 
-
-  
   return (
     <StyledApplication>
       <div className="wrapper">
@@ -137,7 +136,7 @@ function Application() {
                 </Button>
               </Col>
               <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                <h5>{questionData.created_at}</h5>
+                <h5>{moment(questionData?.created_at).format("DD.MM.YYYY")}</h5>
               </Col>
             </Row>
           </div>
@@ -206,7 +205,7 @@ function Application() {
               <h5>Дата сделки</h5>
             </Col>
             <Col xs={{ span: 24 }} md={{ span: 12 }}>
-              <h5>{applicationData?.created_at}</h5>
+              <h5>{moment(applicationData?.created_at).format("DD.MM.YYYY")}</h5>
             </Col>
           </Row>
           <Row

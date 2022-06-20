@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 import { Button, Checkbox, Modal, Table, Space, Spin, Row, Col } from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
@@ -11,18 +12,27 @@ function Orders() {
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
-  const [ordersList, loading] = useFetchHook("/adminside/orders/", { header });
-  console.log(ordersList);
 
   const handleShow = () => {
     setVisible((prev) => !prev);
   };
 
+  const getOrders = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get("/adminside/orders/", { headers: header });
+      setData(res?.data?.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   const getById = async (id) => {
     setReqLoading(true);
     try {
@@ -36,6 +46,39 @@ function Orders() {
     } catch (error) {
       console.log(error);
       setReqLoading(false);
+    }
+  };
+
+  const handlePayment = async (id, status) => {
+    setLoading(true);
+    try {
+      const res = await Axios.patch(
+        `/adminside/order/${id}`,
+        { id, paid: status },
+        { headers: header }
+      );
+      if (res?.status == 200) {
+        getOrders();
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const handleDelivered = async (id, status) => {
+    setLoading(true);
+    try {
+      const res = await Axios.patch(
+        `/adminside/order/${id}`,
+        { id, delivered: status },
+        { headers: header }
+      );
+      if (res?.status == 200) {
+        getOrders();
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
     }
   };
   const columns = [
@@ -55,7 +98,7 @@ function Orders() {
             }}
           >
             <h2>#{record?.product?.vendor_code}</h2>
-            <p>{record?.created_at}</p>
+            <p>{moment(record?.created_at).format("DD.MM.YYYY")}</p>
           </div>
           <h4>{record?.customer_name}</h4>
           <h4>Телефон: {record?.customer_phone}</h4>
@@ -80,10 +123,18 @@ function Orders() {
       render: (text, record) => (
         <div className="order_payment">
           <h2>{record?.price} UZS</h2>
-          <Checkbox size="large" checked={record?.paid}>
+          <Checkbox
+            size="large"
+            checked={record?.paid}
+            onClick={() => handlePayment(record.id, !record.paid)}
+          >
             Оплачено
           </Checkbox>
-          <Checkbox size="large" checked={record?.delivered}>
+          <Checkbox
+            size="large"
+            checked={record?.delivered}
+            onClick={() => handleDelivered(record.id, !record?.delivered)}
+          >
             Доставлено
           </Checkbox>
         </div>
@@ -91,76 +142,88 @@ function Orders() {
     },
   ];
 
+  useEffect(() => {
+    getOrders();
+  }, []);
   return (
     <StyledOrders>
-      <Modal footer={null} visible={visible} onCancel={handleShow} className="modalInfo" >
+      <Modal
+        footer={null}
+        visible={visible}
+        onCancel={handleShow}
+        className="modalInfo"
+      >
         <Row>
           <Col span={12}>
-          <h4>Ф.И.О.</h4>
+            <h4>Ф.И.О.</h4>
           </Col>
           <Col span={12}>
-          <h4>{modalData?.customer_name}</h4>
+            <h4>{modalData?.customer_name}</h4>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-          <h4>Номер телефона</h4>
+            <h4>Номер телефона</h4>
           </Col>
           <Col span={12}>
-          <h4>{modalData?.customer_phone}</h4>
+            <h4>{modalData?.customer_phone}</h4>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-          <h4>ИНН</h4>
+            <h4>ИНН</h4>
           </Col>
           <Col span={12}>
-          <h4>{modalData?.inn}</h4>
+            <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-          <h4>Наименование организации</h4>
+            <h4>Наименование организации</h4>
           </Col>
           <Col span={12}>
-          <h4>{modalData?.inn}</h4>
+            <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-          <h4>Email</h4>
+            <h4>Email</h4>
           </Col>
           <Col span={12}>
-          <h4>{modalData?.email}</h4>
+            <h4>{modalData?.email}</h4>
           </Col>
         </Row>
-        <Button onClick={handleShow} type='primary'>Закрыть</Button>
+        <Button onClick={handleShow} type="primary">
+          Закрыть
+        </Button>
       </Modal>
-      {reqLoading ? (
+      <div className="wrapper">
+        {reqLoading ? (
           <Spin size="large" />
-      ) : (
-        <div>
-          <header>
-            <h4 className="title">Заказы</h4>
-            <div className="search_block">
-              <div>
-                <input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
+        ) : (
+          <div style={{ width: "100%" }}>
+            <header>
+              <h4 className="title">Заказы</h4>
+              <div className="search_block">
+                <div>
+                  <input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </div>
+                <Button type="link">Поиск</Button>
               </div>
-              <Button type="link">Поиск</Button>
+            </header>
+            <div className="table_block">
+              <Table
+                columns={columns}
+                dataSource={data}
+                loading={loading}
+              ></Table>
             </div>
-          </header>
-          <div className="table_block">
-            <Table
-              columns={columns}
-              dataSource={ordersList?.results}
-              loading={loading}
-            ></Table>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </StyledOrders>
   );
 }

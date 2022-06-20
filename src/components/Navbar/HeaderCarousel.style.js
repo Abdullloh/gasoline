@@ -26,6 +26,14 @@ export const StyledHeaderCarousel = styled.div`
     }
   }
 
+  .price_block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div {
+      text-align: end;
+    }
+  }
   .card {
     width: 160px;
     border-left: 0.5px solid ${COLORS.white};

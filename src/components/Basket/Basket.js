@@ -6,6 +6,7 @@ import useFetchHook from "../../customhooks/useFetchHook";
 import { deleteItem } from "../../store/actios/publicActions";
 import Axios from "../../utils/axios";
 import { ProductDetailStyle } from "../ProductDetail/ProductDetailStyle";
+import BasketDetail from "./BasketDetail";
 
 
 export default function Basket(props) {
@@ -63,13 +64,14 @@ export default function Basket(props) {
 
     useEffect(()=>{
     getCarts()
-    },[])
+    },[props?.dependency])
   return (
     <Modal footer={null} visible={isVisible} onCancel={handleCancel}>
       {state?.map((item) => {
         let cartId = item.id
         const { images, price, title, id, count } = item.product;
         return (
+          // <BasketDetail quantity={item?.quantity} images={images} title={title}/>
           <ProductDetailStyle>
             <div className="detail-heading">
               <div className="heading-images">
@@ -82,6 +84,7 @@ export default function Basket(props) {
               </div>
               <div className="heading-info">
                 <h3>{title}</h3>
+                <h3>{item?.quantity}</h3>
                 {/* <div>
                   <span onClick={() => decrement(id)} className="counter">
                     -

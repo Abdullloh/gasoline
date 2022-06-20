@@ -7,14 +7,13 @@ import { addToCard } from "../../store/actios/publicActions";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../utils/axios";
 
-const ProductCard = ({ data, margin}) => {
+const ProductCard = ({ data, margin }) => {
   const { images = [], title = "", price = "" } = data;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
-  let userInfo = JSON.parse(localStorage.getItem('user'))
-
+  let userInfo = JSON.parse(localStorage.getItem("user"));
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -24,24 +23,26 @@ const ProductCard = ({ data, margin}) => {
     setIsModalVisible(!isModalVisible);
   };
   console.log(userInfo);
-  const addCard = async(e) => {
+  const addCard = async (e) => {
     e.stopPropagation();
-    if(userInfo?.token){
+    if (userInfo?.token) {
+      if (state > 0) {
         try {
-          const res = await Axios.post('/cart/',{
-            product:data.id,
-            quantity:state
-          })
+          const res = await Axios.post("/cart/", {
+            product: data.id,
+            quantity: state,
+          });
           console.log(res);
-        } catch (error) {
-          
-        }
-      dispatch(addToCard({ ...data, count: state }));
-      message.success('Добавлено в корзину',1)
-    } 
-    else{
-      navigate('/sign-up')
-    } 
+        } catch (error) {}
+        dispatch(addToCard({ ...data, count: state }));
+        message.success("Добавлено в корзину", 1);
+      }
+      else{
+        message.warning("add count");
+      }
+    } else {
+      navigate("/sign-up");
+    }
   };
 
   const increment = (e) => {
@@ -77,7 +78,6 @@ const ProductCard = ({ data, margin}) => {
             </span>
             <span>{state} шт</span>
             <span onClick={increment} className="counter">
-              {" "}
               +
             </span>
           </div>

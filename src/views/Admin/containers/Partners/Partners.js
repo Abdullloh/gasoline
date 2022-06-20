@@ -9,6 +9,7 @@ function Partners() {
   const [editComp, setEditComp] = useState(false);
   const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [partnerData, setPartnerData] = useState({});
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let adminInfo = JSON.parse(localStorage.getItem("user"));
@@ -16,10 +17,17 @@ function Partners() {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
-  const [partnerList, loading] = useFetchHook("/adminside/partners/", {
-    header,
-  });
-  console.log(partnerList);
+
+  const getPartners = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get("/adminside/partners/", { headers: header });
+      setData(res.data.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   const [formValues, setFormValues] = useState({
     compName: modalData?.user?.name,
     ceo: modalData?.ceos_name,
@@ -52,7 +60,10 @@ function Partners() {
     {
       dataIndex: "active",
       render: (text, record) => (
-        <Checkbox onChange={() => handleAccess(record.id, !text)} checked={text} />
+        <Checkbox
+          onChange={() => handleAccess(record.id, !text)}
+          checked={text}
+        />
       ),
     },
   ];
@@ -67,7 +78,7 @@ function Partners() {
         mfo: formValues.mfo,
         company_address: formValues.addressComp,
         bank_account: formValues.accountNum,
-        user: {id, phone: formValues.phoneNum, name: formValues.compName },
+        user: { id, phone: formValues.phoneNum, name: formValues.compName },
       });
       console.log(res);
     } catch (error) {
@@ -75,19 +86,20 @@ function Partners() {
     }
   };
   const handleAccess = async (id, status) => {
+    setLoading(true);
     try {
       const res = await Axios.patch(
         `adminside/partner/${id}`,
-        { id, active: status},
+        { id, active: status },
         { headers: header }
-      );
-      partnerList?.results.map((item) => {
-        if (item.id == id) item.active = !item.active;
-            return item;
-      })
-      console.log(res);
+        );
+        setLoading(false);
+      if (res.status == 200) {
+         getPartners()
+      }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -127,6 +139,9 @@ function Partners() {
     console.log(formValues);
   };
 
+  useEffect(() => {
+    getPartners();
+  }, []);
   return (
     <StyledPartners>
       <div className="wrapper">
@@ -136,7 +151,7 @@ function Partners() {
         <Table
           thead={false}
           columns={columns}
-          dataSource={partnerList?.results}
+          dataSource={data}
           loading={loading}
         />
         <Modal visible={isVisible} footer={null} onCancel={closeModal}>

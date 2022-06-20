@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StyledHeaderCarousel } from "./HeaderCarousel.style";
+import Down from "../../assets/img/Arrow-down.svg";
+import Up from "../../assets/img/Arrow-up.svg";
 
 function HeaderCarousel() {
   const [data, setData] = useState([]);
@@ -114,12 +116,21 @@ function HeaderCarousel() {
                 <div className="text_block">
                   <h4>{item?.title}</h4>
                 </div>
-                <p className="price">{item.price} UZS</p>
-                {item?.hasincrease ? (
-                  <p className="increasing">+{item.amount}%</p>
-                ) : (
-                  <p className="decreasing">-{item.amount}%</p>
-                )}
+                <div className="price_block">
+                  <div>
+                    <p className="price">{item.price} UZS</p>
+                    {item?.hasincrease ? (
+                      <p className="increasing">+{item.amount}%</p>
+                    ) : (
+                      <p className="decreasing">-{item.amount}%</p>
+                    )}
+                  </div>
+                  {item?.hasincrease ? (
+                    <img src={Up} alt="increasing" />
+                  ) : (
+                    <img src={Down} alt="decreasing" />
+                  )}
+                </div>
               </div>
             ))}
           </span>

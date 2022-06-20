@@ -10,6 +10,7 @@ import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Purchases() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
@@ -17,7 +18,35 @@ function Purchases() {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
-  const [productList, loading] = useFetchHook("/products/");
+  const getProducts = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get("/adminside/products/", {headers: header});
+      setData(res.data.results);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+   
+  const handleProductSale = async (id, status) => {
+    setLoading(true);
+    try {
+      const res = await Axios.patch(
+        `/products/product/${id}`,
+        { available: status },
+        { headers: header }
+      );
+      if (res?.status == 200) {
+        getProducts();
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+
 
   const datas = [
     {
@@ -60,7 +89,7 @@ function Purchases() {
             )}
             <div>
               <h3 className="product_name">{text}</h3>
-              <Checkbox checked={record?.available} size="small">
+              <Checkbox checked={record?.available} size="small" onClick={() => handleProductSale(record?.id, !record?.available)}>
                 В наличи
               </Checkbox>
             </div>
@@ -104,6 +133,10 @@ function Purchases() {
     try {
       const res = await Axios.delete(`/products/product/${id}`);
       console.log(res);
+      if (res.status == 204) {
+        let filterData = data.filter((item) => item.id !== id);
+        setData(filterData);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -120,20 +153,11 @@ function Purchases() {
     reviewed: false,
   };
 
-  // const getPurchases = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const res = Axios.post("/adminside/request_create/", questionData, {
-  //       headers: header,
-  //     });
-  //     // console.log(res);
-  //     setData(res?.results);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     // console.log(error);
-  //     setLoading(false);
-  //   }
-  // };
+
+  useEffect(() => {
+    getProducts();
+  }, [])
+
   return (
     <StyledPurchases>
       <header>
@@ -153,11 +177,7 @@ function Purchases() {
         </div>
       </header>
       <div className="wrapper">
-        <Table
-          dataSource={productList?.results}
-          columns={columns}
-          loading={loading}
-        />
+        <Table dataSource={data} columns={columns} loading={loading} />
       </div>
     </StyledPurchases>
   );
