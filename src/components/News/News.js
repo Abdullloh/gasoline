@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Button } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import { StyledNews } from "./News.style";
 import PageHeader from "../PageHeader/PageHeader";
@@ -91,6 +91,7 @@ function News() {
                     </h4>
                     <p className="date">17 июня. 2022</p>
                   </div>
+            <Button>news</Button>
                 </Col>
               </Row>
             </Col>

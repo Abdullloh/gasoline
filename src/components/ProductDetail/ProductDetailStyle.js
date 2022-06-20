@@ -4,6 +4,7 @@ export const ProductDetailStyle = styled.div`
   .detail-heading {
     padding: 15px 7px;
     display: flex;
+    border-bottom: 1px solid;
     .heading-images {
       width: 50%;
       display: flex;
@@ -29,6 +30,11 @@ export const ProductDetailStyle = styled.div`
     }
     .heading-info {
       width: 50%;
+      button {
+        background: #000000;
+        border: 1px solid #000000;
+border-radius: 8px;
+      }
       h3 {
         font-style: normal;
         font-weight: 400;

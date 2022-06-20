@@ -59,11 +59,13 @@ export default function Basket(props) {
     },[props?.dependency])
   return (
     <Modal footer={null} visible={isVisible} onCancel={handleCancel}>
+      <div style={{overflowY:'scroll',margin:'22px 0',maxHeight:'475px'}}>
       {cartList?.map((item) => {
         let cartId = item.id
         const { images, price, title, id, count } = item.product;
         return (
           // <BasketDetail quantity={item?.quantity} images={images} title={title}/>
+          
           <ProductDetailStyle>
             <div className="detail-heading">
               <div className="heading-images">
@@ -76,7 +78,7 @@ export default function Basket(props) {
               </div>
               <div className="heading-info">
                 <h3>{title}</h3>
-                <h3>{item?.quantity}</h3>
+                <h4>Количество: {item?.quantity}</h4>
                 {/* <div>
                   <span onClick={() => decrement(id)} className="counter">
                     -
@@ -95,7 +97,10 @@ export default function Basket(props) {
           </ProductDetailStyle>
         );
       })}
-      <Button type="primary" onClick={makeOrder}>Заказать</Button>
+      </div>
+      <div style={{display:'flex',justifyContent:'center',margin:'8px 0'}} className="footer-button">
+        <Button style={{borderRadius:'10px'}} type="primary" onClick={makeOrder}>Заказать</Button>
+      </div>
     </Modal>
   );
 }

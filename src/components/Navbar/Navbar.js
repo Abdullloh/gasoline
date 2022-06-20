@@ -168,13 +168,17 @@ function Navbar() {
                   <div className="user-account">
                     <button onClick={loginToAccount}>
                       <UserIcon />
-                      Личный кабинет
+                      <span>
+                        Личный кабинет
+                      </span>
                     </button>
                   </div>
                   <div className="user-shopCart">
                     <button onClick={openModal}>
                       <ShopCartIcon />
-                      Корзина
+                      <span>
+                        Корзина
+                      </span>
                     </button>
                   </div>
                 </div>
