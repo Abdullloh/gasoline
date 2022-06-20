@@ -10,14 +10,16 @@ function Register() {
   const [phoneNum, setPhoneNum] = useState(null);
   const [email, setEmail] = useState(null);
   const navigate = useNavigate();
+  const [inn,setInn] = useState()
+  const [password,setPassword] = useState()
   const [compName, setCompName] = useState(null);
   const userData = {
     name: userName,
     phone: phoneNum,
     email: email,
+    inn,
     company_name: compName,
-    inn: "123",
-    password: "123",
+    password,
   };
   const handleSubmite = async (e) => {
     e.preventDefault();
@@ -46,22 +48,34 @@ function Register() {
                     value={userName}
                   />
                 </Form.Item>
-                <Form.Item label="Номер телефона">
-                  <Input
-                    onChange={(e) => setPhoneNum(e.target.value)}
-                    value={phoneNum}
-                  />
-                </Form.Item>
                 <Form.Item label="Email">
                   <Input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
                 </Form.Item>
-                <Form.Item label="Название компании">
+                <Form.Item label="ИНН">
+                  <Input
+                    onChange={(e) => setInn(e.target.value)}
+                    value={inn}
+                  />
+                </Form.Item>
+                <Form.Item label="Наименование организации ">
                   <Input
                     onChange={(e) => setCompName(e.target.value)}
                     value={compName}
+                  />
+                </Form.Item>
+                <Form.Item label="Номер телефона">
+                  <Input
+                    onChange={(e) => setPhoneNum(e.target.value)}
+                    value={phoneNum}
+                  />
+                </Form.Item>
+                <Form.Item label="Пароль">
+                  <Input
+                    onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                   />
                 </Form.Item>
                 <div
