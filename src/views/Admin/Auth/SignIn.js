@@ -61,6 +61,7 @@ function SignIn() {
             <h2 className="auth_title">Вход</h2>
             <div className="form_block">
               <Radio.Group onChange={onChange} value={value}>
+                <Radio value={"admin"}>Admin</Radio>
                 <Radio value={"customer"}>Покупатель</Radio>
                 <Radio value={"partner"}>Партнер</Radio>
               </Radio.Group>

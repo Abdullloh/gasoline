@@ -58,7 +58,7 @@ const Main = (props) => {
                     }
               }
             >
-              <h1 style={{ color: props.textColor }} className="heading-title">
+              <h1 style={{ color: props.textColor,width:props.width,lineHeight:'72px' }} className="heading-title">
                 {leftSideText}
               </h1>
               <p
@@ -71,7 +71,7 @@ const Main = (props) => {
                 <Button
                   type="primary"
                   size="large"
-                  onClick={() => navigate("/products")}
+                onClick={() => navigate("/about")}
                   className="heading_btn"
                 >
                   {buttonText}

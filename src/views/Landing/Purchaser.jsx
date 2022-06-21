@@ -25,6 +25,7 @@ const Purchaser = () => {
       <Main
         leftSideText={leftSideText}
         buttonText={"Купить товар"}
+        width={'60%'}
         flexDirection={"column"}
         isFlexTrue={true}
         textColor={"white"}

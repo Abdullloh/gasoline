@@ -307,8 +307,8 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
-              <Button type="primary" onClick={handleSubmite} htmlFor="submit">
-                Submit
+              <Button type="primary" size="large" onClick={handleSubmite} htmlFor="submit">
+                Разместить
               </Button>
             </div>
           </Col>
