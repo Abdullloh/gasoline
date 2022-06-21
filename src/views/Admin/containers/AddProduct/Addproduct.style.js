@@ -48,10 +48,15 @@ export const StyledAddProduct = styled.div`
       display: none;
     }
   }
-  .imgs_block{
+  .imgs_block {
     display: flex;
     align-items: center;
     justify-content: start;
     gap: 20px;
+  }
+  .sbm_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;

@@ -1,39 +1,76 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Row, Col, Table } from "antd";
 import PageTitle from "../../../../components/PageTitle/PageTitle";
 import ReportCard from "./ReportCards/ReportCard";
 import OilImg from "../../../../assets/img/oil-img.svg";
 import { StyledHome } from "./Home.style";
+import Axios from "../../../../utils/axios";
 
 function Home() {
+  const [orders, setOrders] = useState([]);
+  const [views, setViews] = useState([]);
+  const [users, setUsers] = useState(0);
+  const [profit, setProfit] = useState(0);
+
+  const getUsers = async () => {
+    try {
+      const res = await Axios.get("/adminside/customers-count/");
+      console.log(res);
+      setUsers(res.data.customers);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getViewers = async () => {
+    try {
+      const res = await Axios.get("/adminside/product-views/");
+      console.log(res);
+      setViews(res.data.views);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getProfit = async () => {
+    try {
+      const res = await Axios.get("/adminside/revenue/");
+      console.log(res);
+      setProfit(res?.revenue?.total_revenue);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getOrders = async () => {
+    try {
+      const res = await Axios.get("/adminside/orders/");
+      console.log(res);
+      setOrders(res?.data?.count);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const reports = [
     {
       title: "Прибыль",
-      price: "40 000 000 UZS",
+      price: `${profit ? profit : 0} UZS`,
       hasIncrease: true,
       amount: "18",
     },
     {
       title: "Заказы",
-      price: "451 штук",
+      price: `${orders ? orders : 0} штук`,
       hasIncrease: false,
       amount: "25",
     },
     {
-      title: "Выручка",
-      price: "30 000 000 UZS",
-      hasIncrease: false,
-      amount: "35",
-    },
-    {
       title: "Пользователи",
-      price: "4 551 штук",
+      price: `${users ? users : 0} штук`,
       hasIncrease: true,
       amount: "25",
     },
     {
       title: "Сколько посетителей смотрели товары",
-      price: "187",
+      price: `${views ? views : 0} раз`,
       hasIncrease: true,
       amount: "25",
     },
@@ -159,12 +196,17 @@ function Home() {
     },
   ];
 
+  useEffect(() => {
+    getProfit();
+    getViewers();
+    getUsers();
+    getOrders();
+  }, []);
   return (
     <StyledHome>
       <div className="top_block">
         <header>
           <PageTitle title={"Главная страница"} />
-          <Button>Sort</Button>
         </header>
         <Row gutter={[16, 16]}>
           {reports?.map((item, index) => (
@@ -172,7 +214,7 @@ function Home() {
               className="gutter-row"
               key={index}
               sm={{ span: 12 }}
-              md={{span: 8}}
+              md={{ span: 8 }}
               lg={{ span: 6 }}
             >
               <ReportCard

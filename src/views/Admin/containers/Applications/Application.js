@@ -7,6 +7,8 @@ import useFetchHook from "../../../../customhooks/useFetchHook";
 import axios from "axios";
 
 function Application() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [questionModal, setQuestionModal] = useState(false);
   const [applicationModal, setApplicationModal] = useState(false);
   const [questionData, setQuestionData] = useState({});
@@ -18,10 +20,18 @@ function Application() {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
-  const [requestsList, loading] = useFetchHook("/adminside/requests/", {
-    header,
-  });
-  console.log(requestsList);
+  const getQuestions = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get("/adminside/requests/", { headers: header });
+      if (res.status === 200) {
+        setData(res?.data?.results);
+      }
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   const columns = [
     {
       render: (record) => (
@@ -40,8 +50,23 @@ function Application() {
         </>
       ),
     },
+    {
+      render: (record) => (
+        <>{record?.reviewed ? <h5 >Просмотрено</h5> : <h5 style={{'color': 'green'}}>Не рассматривается</h5>}</>
+      ),
+    },
   ];
 
+  const handleReviewd = async (id) => {
+    try {
+      const res = await Axios.patch(
+        `/adminside/request/${id}`,
+        { id, reviewed: true },
+        { headers: header }
+      );
+      getQuestions();
+    } catch (error) {}
+  };
   const getRequestById = async (id) => {
     try {
       const res = await Axios.get(`/adminside/request/${id}`, {
@@ -51,10 +76,12 @@ function Application() {
       if (res?.data?.type == "question") {
         setQuestionData(res?.data);
         handleQuestionModal();
+        handleReviewd(id);
         console.log(questionData);
       } else {
         setApplicationData(res?.data);
         handleApplicationModal();
+        handleReviewd(id);
         console.log(applicationData);
       }
     } catch (error) {
@@ -69,6 +96,11 @@ function Application() {
     setApplicationModal((prev) => !prev);
   };
 
+  // getQuestions();
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
   return (
     <StyledApplication>
       <div className="wrapper">
@@ -78,7 +110,7 @@ function Application() {
         <Table
           thead={false}
           columns={columns}
-          dataSource={requestsList?.results}
+          dataSource={data}
           loading={loading}
         />
       </div>
@@ -205,7 +237,9 @@ function Application() {
               <h5>Дата сделки</h5>
             </Col>
             <Col xs={{ span: 24 }} md={{ span: 12 }}>
-              <h5>{moment(applicationData?.created_at).format("DD.MM.YYYY")}</h5>
+              <h5>
+                {moment(applicationData?.created_at).format("DD.MM.YYYY")}
+              </h5>
             </Col>
           </Row>
           <Row

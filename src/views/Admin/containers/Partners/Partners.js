@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Table, Checkbox, Modal, Row, Col, Button, Form, Input } from "antd";
+import {
+  Table,
+  Checkbox,
+  Modal,
+  Row,
+  Col,
+  Button,
+  Form,
+  Input,
+  message,
+} from "antd";
 import { StyledPartners } from "./Partners.style";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
@@ -80,9 +90,13 @@ function Partners() {
         bank_account: formValues.accountNum,
         user: { id, phone: formValues.phoneNum, name: formValues.compName },
       });
-      console.log(res);
+      if (res?.status == 200) {
+        message.success("Успешно завершено");
+        closeModal();
+        getPartners();
+      }
     } catch (error) {
-      console.log(error);
+      message.error("Что-то пошло не так");
     }
   };
   const handleAccess = async (id, status) => {
@@ -92,10 +106,10 @@ function Partners() {
         `adminside/partner/${id}`,
         { id, active: status },
         { headers: header }
-        );
-        setLoading(false);
+      );
+      setLoading(false);
       if (res.status == 200) {
-         getPartners()
+        getPartners();
       }
     } catch (error) {
       console.log(error);
@@ -345,7 +359,7 @@ function Partners() {
                 {editComp ? (
                   <Row gutter={[16, 16]}>
                     <Col>
-                      <Button onClick={handleEditComp}>Cancel</Button>
+                      <Button onClick={handleEditComp}>Отмена</Button>
                     </Col>
                     <Col>
                       <Form.Item>
@@ -354,7 +368,7 @@ function Partners() {
                           htmlType="submit"
                           onClick={(e) => updatePartner(e, modalData?.id)}
                         >
-                          Submit
+                          Разместить
                         </Button>
                       </Form.Item>
                     </Col>
