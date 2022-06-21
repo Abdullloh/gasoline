@@ -90,9 +90,9 @@ function Addproduct() {
         { headers: header }
       );
       console.log(resProduct);
-      openSuccesMessage()
+      openSuccesMessage();
     } catch (error) {
-      openErrorMessage()
+      openErrorMessage();
       console.log(error);
     }
   };
@@ -307,9 +307,11 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
-              <Button type="primary" onClick={handleSubmite} htmlFor="submit">
-                Submit
+             <div className="sbm_btn">
+             <Button type="primary" onClick={handleSubmite} htmlFor="submit">
+                Разместить
               </Button>
+             </div>
             </div>
           </Col>
         </Row>

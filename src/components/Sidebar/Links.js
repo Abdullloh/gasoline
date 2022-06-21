@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { HiOutlineClipboardList } from "react-icons/hi";
+import { IoMdListBox } from "react-icons/io";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { CategoryIcon, HomeIcon, OrdersIcon, PartnerIcon, shopBagIcon, UserIcon } from "../../utils/Images";
 import { FoodsIcon } from "../../utils/Images";
@@ -45,5 +46,11 @@ export default [
     // element: OrderList,
     icon: <HiOutlineClipboardList  size={24} />,
     title: "Партнеры",
+  },
+  {
+    path: "/exchanges",
+    // element: OrderList,
+    icon: <IoMdListBox  size={24} />,
+    title: "Бегущая дорожка",
   },
 ];

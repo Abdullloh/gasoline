@@ -52,7 +52,7 @@ export const StyledApp = styled.main`
     padding: 10px !important;
     color: ${COLORS.dark};
     border-radius: 5px;
-    font-family: "Roboto-Medium";
+    font-family: "Gilroy";
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
