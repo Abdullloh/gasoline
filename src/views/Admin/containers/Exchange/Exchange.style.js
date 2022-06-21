@@ -24,7 +24,6 @@ export const StyledExchange = styled.div`
 `;
 
 export const StyledExchangeDetails = styled.div`
-  width: 100%;
   margin: 4px 0px;
   display: flex;
   align-items: center;
@@ -34,7 +33,7 @@ export const StyledExchangeDetails = styled.div`
     font-size: 14px;
     line-height: 16px;
     color: ${COLORS.black};
-    margin-top: 10px;
+    margin-top: 18px;
   }
   .respons_label{
     display: none;

@@ -34,7 +34,7 @@ function Purchases() {
     setLoading(true);
     try {
       const res = await Axios.patch(
-        `/products/product/${id}`,
+        `/adminside/products/${id}`,
         { available: status },
         { headers: header }
       );

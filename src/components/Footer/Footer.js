@@ -10,6 +10,11 @@ import InstagramIcon from "../../assets/img/instagram.svg";
 import FacebookIcon from "../../assets/img/facebook.svg";
 
 const { TextArea } = Input;
+const initialState = {
+  fullName: "",
+  phoneNumber: "",
+  description: "",
+};
 function Footer() {
   const [formValue, setFormValue] = useState({
     fullName: "",
@@ -33,12 +38,13 @@ function Footer() {
     try {
       const res = await Axios.post("/adminside/request_create/", formData);
       console.log(res);
+      setFormValue(initialState)
       if (res.status == 201) {
-        message.success("Submitted");
+        message.success("Отправлено");
         handleShowModal();
       }
     } catch (error) {
-      message.error("Something went wrong");
+      message.error("Что-то пошло не так, попробуйте еще раз");
     }
   };
 
@@ -91,7 +97,7 @@ function Footer() {
                   justifyContent: "center",
                 }}
               >
-                <Button type="primary" htmlType="submite">
+                <Button type="primary" htmlType="submite" onClick={handleSubmit}>
                   Отправить
                 </Button>
               </div>
@@ -126,9 +132,9 @@ function Footer() {
               <div className="contact">
                 <h4 className="footer_heading">Контакты</h4>
                 <a href="https://www.google.com/maps/place/41°19'55.0%22N+69°14'56.7%22E/@41.331939,69.2468823,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xce22268ab1beb8ec!8m2!3d41.331939!4d69.249071">
-                Адрес: г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137{" "}
+                  Адрес: г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137{" "}
                 </a>
-                <a href="mailto:info@email.com" >Эл. почта: info@gazoil.uz </a>
+                <a href="mailto:info@email.com">Эл. почта: info@gazoil.uz </a>
                 <a href="tel:+998 77 777 73 13"> Телефон: +998 77 777 73 13</a>
               </div>
             </Col>
