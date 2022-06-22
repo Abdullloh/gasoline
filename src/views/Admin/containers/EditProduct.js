@@ -11,20 +11,14 @@ function EditProduct() {
   const navigate = useNavigate();
   const [data, setData] = useState({});
   const { productId } = useParams();
-  const [title, setProductName] = useState("");
-  const [article, setArticle] = useState("");
-  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState();
   const [statusProduct, setStatusProduct] = useState(true);
-  const [quantity, setQuantity] = useState(0);
   const [formValues, setFormValues] = useState({
     title: "",
     vendor_code: "",
     price: "",
     in_stock: "",
     description: "",
-    categories: [{id: category}],
   });
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
@@ -34,12 +28,33 @@ function EditProduct() {
   const imgRef3 = useRef();
   const imgRef4 = useRef();
 
-  const key = "updatable";
+
+  useEffect(() => {
+    const ids = uploadedImgs.map(item => ({id: item.id}))
+    setUplodedImgsId(ids)
+  }, [uploadedImgs.length])
+
+  console.log(uplodedImgsId, 'idssss');
+  console.log(uploadedImgs, 'images');
+
+  useEffect(() => {
+    getProduct();
+    getCategories();
+    setFormValues({
+      title: data?.title,
+      vendor_code: data?.vendor_code,
+      price: data?.price,
+      in_stock: data?.in_stock,
+      description: data?.description,
+    });
+  }, []);
+
   const handleSubmite = async (e) => {
     e.preventDefault();
     try {
       const res = await Axios.patch(`/adminside/product/${data.id}`, {
-        // images: uplodedImgsId,
+        images: uplodedImgsId,
+        categories: [{id: category}],
         ...formValues,
       });
       console.log(res);
@@ -47,46 +62,29 @@ function EditProduct() {
         navigate("/purchases");
       }
     } catch (error) {
-      console.log(error);
     }
   };
   const deleteImg = (id) => {
-    console.log(id);
     let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
     setUploadedImgs(filteredImgs);
   };
-  // console.log({
-  //    images: uplodedImgsId,
-  //     ...formValues
-  // });
 
-  const openSuccesMessage = () => {
-    message.loading({ content: "Loading...", key });
-    setTimeout(() => {
-      message.success({ content: "Succes", key, duration: 2 });
-    }, 1000);
-  };
-  const openErrorMessage = () => {
-    message.loading({ content: "Loading...", key });
-    setTimeout(() => {
-      message.error({ content: "Error", key, duration: 2 });
-    }, 1000);
-  };
+
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
       const res = await Axios.post(`/products/upload_image/`, formData);
-      console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
-      console.log(uploadedImgs);
     } catch (error) {}
   };
 
   const handleFocus = (inp) => {
     inp.current.click();
   };
+
+
   const getProduct = async () => {
     try {
       const res = await Axios.get(`/products/product/${productId}`);
@@ -102,34 +100,20 @@ function EditProduct() {
     } catch (error) {}
   };
 
-  const handleInputChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormValues((state) => ({ ...state, [name]: value }));
-  }, []);
   const getCategories = () => {
     Axios.get("/products/categories/").then((response) =>
       setProductCategory(response?.data?.results)
     );
   };
-  console.log(productCategory);
-  useEffect(() => {
-    uploadedImgs.map((item) => {
-      setUplodedImgsId({ id: item.id });
-    });
-    console.log(uplodedImgsId);
-  }, [uploadedImgs]);
-
-  useEffect(() => {
-    getProduct();
-    getCategories();
-    setFormValues({
-      title: data?.title,
-      vendor_code: data?.vendor_code,
-      price: data?.price,
-      in_stock: data?.in_stock,
-      description: data?.description,
-    });
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
+
+
+
+
+  
   return (
     <EditProStyle>
       <form>

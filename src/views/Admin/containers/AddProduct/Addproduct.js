@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { BsPlusLg } from "react-icons/bs";
 import axios from "axios";
@@ -18,15 +19,15 @@ function Addproduct() {
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
+  const navigate = useNavigate();
   const imgRef1 = useRef();
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let token =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU2MjA3MjIzLCJpYXQiOjE2NTU0ODcyMjMsImp0aSI6IjVjZGEyODcyNDczMjQ2YjQ4ZmM3ZjllM2IzY2UxNGMxIiwidXNlcl9pZCI6MX0.JBUgzySnpNY4kKVhmU4PJNTd3SFgdobGNCN2WovoWMk";
+  let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${adminInfo.token.access}`,
   };
 
   const key = "updatable";
@@ -65,8 +66,6 @@ function Addproduct() {
   console.log(productCategory);
 
   const handleSubmite = async (e) => {
-    //   const uplodedImgsId = []
-    //   uploadedImgs.map((item) => uploadedImgsId.push(item.id))
     e.preventDefault();
     const productData = {
       title: productName,
@@ -75,7 +74,7 @@ function Addproduct() {
       images: uplodedImgsId,
       categories: [
         {
-          id: 1,
+          id: category,
         },
       ],
       price: price,
@@ -89,11 +88,10 @@ function Addproduct() {
         { ...productData },
         { headers: header }
       );
-      console.log(resProduct);
       openSuccesMessage();
+      navigate("/purchases");
     } catch (error) {
       openErrorMessage();
-      console.log(error);
     }
   };
   useEffect(() => {
@@ -259,6 +257,7 @@ function Addproduct() {
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
                     >
+                      <option>Выберите категории</option>
                       {productCategory?.map((item, index) => (
                         <option key={index} value={item?.id}>
                           {item?.name}
@@ -307,11 +306,11 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
-             <div className="sbm_btn">
-             <Button type="primary" onClick={handleSubmite} htmlFor="submit">
-                Разместить
-              </Button>
-             </div>
+              <div className="sbm_btn">
+                <Button type="primary" onClick={handleSubmite} htmlFor="submit">
+                  Разместить
+                </Button>
+              </div>
             </div>
           </Col>
         </Row>

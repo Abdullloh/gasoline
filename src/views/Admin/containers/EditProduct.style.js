@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import COLORS from '../../../constants/colors'
+import styled from "styled-components";
+import COLORS from "../../../constants/colors";
 
 export const EditProStyle = styled.div`
   .left_side,
@@ -59,4 +59,4 @@ export const EditProStyle = styled.div`
     align-items: center;
     justify-content: center;
   }
-`
+`;

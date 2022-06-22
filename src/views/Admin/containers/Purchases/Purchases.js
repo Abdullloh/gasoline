@@ -8,14 +8,18 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
 import axios from "axios";
-import EditIcon from '../../../../assets/img/edit-alt.svg'
+import EditIcon from "../../../../assets/img/edit-alt.svg";
 
 function Purchases() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
   const navigate = useNavigate();
 
-
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
@@ -34,9 +38,9 @@ function Purchases() {
       setLoading(false);
     }
   };
-const getById =  (id) => {
-  navigate(`/purchases/${id}`)
-}
+  const getById = (id) => {
+    navigate(`/purchases/${id}`);
+  };
   const handleProductSale = async (id, status) => {
     setLoading(true);
     try {
@@ -53,30 +57,6 @@ const getById =  (id) => {
       setLoading(false);
     }
   };
-
-  const datas = [
-    {
-      id: 2,
-      productName: "Моторное масло",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-    {
-      id: 4,
-      productName: "Моторное ",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-    {
-      id: 5,
-      productName: "Моторное ",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-  ];
 
   const columns = [
     {
@@ -157,20 +137,20 @@ const getById =  (id) => {
     }
   };
 
-  let questionData = {
-    name: "Qo'chqor",
-    phone: "+998994567898",
-    inn: "123456789",
-    company_name: "UzGazOil",
-    email: "test@gmail.com",
-    text: "Make a contract",
-    type: "question",
-    reviewed: false,
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      let searchedData = data.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(searchedData);
+    } else {
+      setFilteredResults(data);
+    }
   };
-
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   return (
     <StyledPurchases>
@@ -186,12 +166,22 @@ const getById =  (id) => {
           <input
             type="text"
             placeholder="Название товара,артикул,уникальный код"
+            value={searchInput}
+            onChange={(e) => searchItems(e.target.value)}
           />
           <AiOutlineSearch color="#000" size="24" />
         </div>
       </header>
       <div className="wrapper">
-        <Table dataSource={data} columns={columns} loading={loading} />
+        {searchInput.length > 1 ? (
+          <Table
+            dataSource={filteredResults}
+            columns={columns}
+            loading={loading}
+          />
+        ) : (
+          <Table dataSource={data} columns={columns} loading={loading} />
+        )}
       </div>
     </StyledPurchases>
   );
