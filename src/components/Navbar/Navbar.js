@@ -33,9 +33,9 @@ const { Option } = Select;
 function Navbar() {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const selector = useSelector((state) => state);
-  console.log(selector);
-  const { user } = selector.signin;
+  // const selector = useSelector((state) => state);
+  // console.log(selector);
+  // const { user } = selector.signin;
   const [cartList,setCartList] = useState()
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();

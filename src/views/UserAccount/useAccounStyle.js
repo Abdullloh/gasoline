@@ -22,5 +22,16 @@ export const UserAccountWrapper = styled.div`
   .right-side {
     width: 70%;
     background: #F4F7FA;
+    overflow-y: scroll;
+    height:100%;
+    padding:15px;
+  }
+  .flex-item{
+    display:flex;
+    width:300px;
+    justify-content:space-between;
+  }
+  .item{
+    width:45%;
   }
 `;
