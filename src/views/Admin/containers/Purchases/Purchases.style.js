@@ -46,7 +46,14 @@ export const StyledPurchases = styled.div`
     color: ${COLORS.grey};
   }
   .edit_column {
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    div {
+      margin: 0px 6px;
+      cursor: pointer;
+      padding: 6px;
+    }
   }
   .img_column {
     display: flex;
