@@ -2,6 +2,7 @@ import { lazy } from "react";
 import AboutCompany from "../views/Landing/AboutCompany";
 import Register from "../views/Admin/Auth/Register";
 import SignIn from "../views/Admin/Auth/SignIn";
+import AdminSignIn from "../views/Admin/Auth/AdminSignIn";
 import Landing from "../views/Landing/Landing";
 import Partner from "../views/Landing/Partner";
 import Purchaser from "../views/Landing/Purchaser";
@@ -46,5 +47,9 @@ export const ROUTES = [
   {
     path: "/my-account",
     component: <UserAccount />,
+  },
+  {
+    path: "/admin-auth",
+    component: <AdminSignIn />,
   },
 ];

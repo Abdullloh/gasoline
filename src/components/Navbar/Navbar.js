@@ -30,7 +30,7 @@ import HeaderCarousel from "./HeaderCarousel";
 const { Search } = Input;
 const { Option } = Select;
 
-function Navbar() {
+function Navbar(props) {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
   // const selector = useSelector((state) => state);
@@ -126,7 +126,7 @@ function Navbar() {
   }, [search]);
   return (
     <>
-      <Basket isVisible={showModal} cartList={cartList} removeItemFromBasket={removeItemFromBasket} handleCancel={handleCancel} />
+      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
         <StyledContainer>

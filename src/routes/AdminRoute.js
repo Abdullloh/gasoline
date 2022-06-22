@@ -6,6 +6,7 @@ import Orders from "../views/Admin/containers/Orders/Orders";
 import Purchases from "../views/Admin/containers/Purchases/Purchases";
 import Addproduct from "../views/Admin/containers/AddProduct/Addproduct";
 import Exchange from "../views/Admin/containers/Exchange/Exchange";
+import EditProduct from "../views/Admin/containers/EditProduct";
 
 
 export const ADMIN_ROUTES = [
@@ -20,6 +21,10 @@ export const ADMIN_ROUTES = [
   {
     path: "/purchases",
     component: <Purchases />,
+  },
+  {
+    path: "/purchases/:productId",
+    component: <EditProduct />,
   },
   {
     path: "/questions",

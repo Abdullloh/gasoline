@@ -24,9 +24,7 @@ function SignIn() {
     password: password,
   };
   const urlLink =
-    value == "admin"
-      ? "manager-login/"
-      : value == "customer"
+    value == "customer"
       ? "customer-login/"
       : value == "partner"
       ? "partner-login/"

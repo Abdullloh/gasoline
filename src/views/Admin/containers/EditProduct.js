@@ -1,104 +1,121 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button, Row, Col, Input, message, Select, Checkbox } from "antd";
+import Axios from "../../../utils/axios";
+import { EditProStyle } from "./EditProduct.style";
 import { BsPlusLg } from "react-icons/bs";
-import axios from "axios";
-import { Row, Col, Input, Select, Checkbox, Button } from "antd";
-import { StyledAddProduct } from "./Addproduct.style";
-import Axios from "../../../../utils/axios";
 const { TextArea } = Input;
-const { Option } = Select;
-function Addproduct() {
-  const [productName, setProductName] = useState("");
-  const [article, setArticle] = useState("");
-  const [description, setDescription] = useState("");
+
+function EditProduct() {
+  const baseUrl = "http://137.184.114.36:7774";
+  const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const { productId } = useParams();
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState();
   const [statusProduct, setStatusProduct] = useState(true);
-  const [quantity, setQuantity] = useState(0);
+  const [formValues, setFormValues] = useState({
+    title: "",
+    vendor_code: "",
+    price: "",
+    in_stock: "",
+    description: "",
+  });
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
-  const navigate = useNavigate();
   const imgRef1 = useRef();
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let adminInfo = JSON.parse(localStorage.getItem("user"));
-  let header = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${adminInfo.token.access}`,
+
+
+  useEffect(() => {
+    const ids = uploadedImgs.map(item => ({id: item.id}))
+    setUplodedImgsId(ids)
+  }, [uploadedImgs.length])
+
+  console.log(uplodedImgsId, 'idssss');
+  console.log(uploadedImgs, 'images');
+
+  useEffect(() => {
+    getProduct();
+    getCategories();
+    setFormValues({
+      title: data?.title,
+      vendor_code: data?.vendor_code,
+      price: data?.price,
+      in_stock: data?.in_stock,
+      description: data?.description,
+    });
+  }, []);
+
+  const handleSubmite = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await Axios.patch(`/adminside/product/${data.id}`, {
+        images: uplodedImgsId,
+        categories: [{id: category}],
+        ...formValues,
+      });
+      console.log(res);
+      if (res?.status == 200) {
+        navigate("/purchases");
+      }
+    } catch (error) {
+    }
+  };
+  const deleteImg = (id) => {
+    let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
+    setUploadedImgs(filteredImgs);
   };
 
-  const key = "updatable";
 
-  const openSuccesMessage = () => {
-    message.loading({ content: "Loading...", key });
-    setTimeout(() => {
-      message.success({ content: "Succes", key, duration: 2 });
-    }, 1000);
-  };
-  const openErrorMessage = () => {
-    message.loading({ content: "Loading...", key });
-    setTimeout(() => {
-      message.error({ content: "Error", key, duration: 2 });
-    }, 1000);
-  };
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
       const res = await Axios.post(`/products/upload_image/`, formData);
-      console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
-      console.log(uploadedImgs);
     } catch (error) {}
   };
+
   const handleFocus = (inp) => {
     inp.current.click();
   };
-  const getCategories = () => {
-    axios
-      .get("http://137.184.114.36:7774/products/categories/")
-      .then((response) => setProductCategory(response?.data?.results));
-  };
-  console.log(productCategory);
 
-  const handleSubmite = async (e) => {
-    e.preventDefault();
-    const productData = {
-      title: productName,
-      description: description,
-      vendor_code: article,
-      images: uplodedImgsId,
-      categories: [
-        {
-          id: category,
-        },
-      ],
-      price: price,
-      in_stock: quantity,
-    };
 
-    console.log(productData);
+  const getProduct = async () => {
     try {
-      const resProduct = await Axios.post(
-        `/products/`,
-        { ...productData },
-        { headers: header }
-      );
-      openSuccesMessage();
-      navigate("/purchases");
-    } catch (error) {
-      openErrorMessage();
-    }
+      const res = await Axios.get(`/products/product/${productId}`);
+      setData(res?.data);
+      setFormValues({
+        title: res?.data?.title,
+        vendor_code: res?.data?.vendor_code,
+        price: res?.data?.price,
+        in_stock: res?.data?.in_stock,
+        description: res?.data?.description,
+      });
+      setUploadedImgs(res?.data?.images);
+    } catch (error) {}
   };
-  useEffect(() => {
-    getCategories();
+
+  const getCategories = () => {
+    Axios.get("/products/categories/").then((response) =>
+      setProductCategory(response?.data?.results)
+    );
+  };
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
+
+
+
+
+  
   return (
-    <StyledAddProduct>
+    <EditProStyle>
       <form>
         <Row gutter={[20, 20]}>
           <Col sm={{ span: 24 }} lg={{ span: 16 }}>
@@ -120,7 +137,8 @@ function Addproduct() {
                           height: "100%",
                           "object-fit": "cover",
                         }}
-                        src={uploadedImgs[0]?.image}
+                        onClick={() => deleteImg(uploadedImgs[0]?.id)}
+                        src={`${baseUrl}${uploadedImgs[0]?.image}`}
                         alt="productImg"
                       />
                     ) : (
@@ -147,7 +165,8 @@ function Addproduct() {
                           height: "100%",
                           "object-fit": "cover",
                         }}
-                        src={uploadedImgs[1]?.image}
+                        onClick={() => deleteImg(uploadedImgs[1]?.id)}
+                        src={`${baseUrl}${uploadedImgs[1]?.image}`}
                         alt="productImg"
                       />
                     ) : (
@@ -174,7 +193,8 @@ function Addproduct() {
                           height: "100%",
                           "object-fit": "cover",
                         }}
-                        src={uploadedImgs[2]?.image}
+                        onClick={() => deleteImg(uploadedImgs[2]?.id)}
+                        src={`${baseUrl}${uploadedImgs[2]?.image}`}
                         alt="productImg"
                       />
                     ) : (
@@ -201,7 +221,8 @@ function Addproduct() {
                           height: "100%",
                           "object-fit": "cover",
                         }}
-                        src={uploadedImgs[3]?.image}
+                        onClick={() => deleteImg(uploadedImgs[3]?.id)}
+                        src={`${baseUrl}${uploadedImgs[3]?.image}`}
                         alt="productImg"
                       />
                     ) : (
@@ -221,13 +242,14 @@ function Addproduct() {
               </div>
               <Row gutter={[20, 20]}>
                 <Col span={16}>
-                  <label htmlFor="productName">Название</label>
+                  <label htmlFor="title">Название</label>
                   <Input
                     required
                     type="text"
-                    value={productName}
-                    onChange={(e) => setProductName(e.target.value)}
-                    id="productName"
+                    value={formValues.title}
+                    onChange={handleInputChange}
+                    id="title"
+                    name="title"
                   />
                 </Col>
                 <Col span={8}>
@@ -235,9 +257,10 @@ function Addproduct() {
                   <Input
                     required
                     type="text"
-                    value={article}
-                    onChange={(e) => setArticle(e.target.value)}
+                    value={formValues.vendor_code}
+                    onChange={handleInputChange}
                     id="article"
+                    name="vendor_code"
                   />
                 </Col>
                 <Col span={24}>
@@ -245,8 +268,9 @@ function Addproduct() {
                   <TextArea
                     rows={8}
                     id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    value={formValues.description}
+                    onChange={handleInputChange}
+                    name="description"
                   />
                 </Col>
                 <Col span={24}>
@@ -256,8 +280,9 @@ function Addproduct() {
                       className="select_category"
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
+                      name="category"
                     >
-                      <option>Выберите категории</option>
+                      <option>Выбрать категорию</option>
                       {productCategory?.map((item, index) => (
                         <option key={index} value={item?.id}>
                           {item?.name}
@@ -277,19 +302,17 @@ function Addproduct() {
                   <Input
                     required
                     type="text"
-                    onChange={(e) => setPrice(e.target.value)}
-                    value={price}
+                    onChange={handleInputChange}
+                    value={formValues.price}
                     placeholder="0.00"
+                    name="price"
                   />
                 </Col>
                 <Col span={6}>Сум</Col>
               </Row>
               <div className="status_product">
                 <h2>Статус товара</h2>
-                <Checkbox
-                  checked={statusProduct}
-                  onChange={() => setStatusProduct(!statusProduct)}
-                >
+                <Checkbox checked={statusProduct} onChange={handleInputChange}>
                   Доступен в каталоге
                 </Checkbox>
               </div>
@@ -300,14 +323,19 @@ function Addproduct() {
                   <Col span={4}>
                     <Input
                       required
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
+                      value={formValues.in_stock}
+                      onChange={handleInputChange}
+                      name="in_stock"
                     />
                   </Col>
                 </Row>
               </div>
               <div className="sbm_btn">
-                <Button type="primary" onClick={handleSubmite} htmlFor="submit">
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onClick={handleSubmite}
+                >
                   Разместить
                 </Button>
               </div>
@@ -315,8 +343,8 @@ function Addproduct() {
           </Col>
         </Row>
       </form>
-    </StyledAddProduct>
+    </EditProStyle>
   );
 }
 
-export default Addproduct;
+export default EditProduct;

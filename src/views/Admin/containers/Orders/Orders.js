@@ -7,7 +7,8 @@ import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Orders() {
-  const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [modalData, setModalData] = useState({});
@@ -145,6 +146,21 @@ function Orders() {
   useEffect(() => {
     getOrders();
   }, []);
+
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      let searchedData = data.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(searchedData);
+    } else {
+      setFilteredResults(data);
+    }
+  };
   return (
     <StyledOrders>
       <Modal
@@ -207,19 +223,27 @@ function Orders() {
               <div className="search_block">
                 <div>
                   <input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    value={searchInput}
+                    onChange={(e) => searchItems(e.target.value)}
                   />
                 </div>
                 <Button type="link">Поиск</Button>
               </div>
             </header>
             <div className="table_block">
-              <Table
-                columns={columns}
-                dataSource={data}
-                loading={loading}
-              ></Table>
+              {searchInput.length > 1 ? (
+                <Table
+                  columns={columns}
+                  dataSource={filteredResults}
+                  loading={loading}
+                ></Table>
+              ) : (
+                <Table
+                  columns={columns}
+                  dataSource={data}
+                  loading={loading}
+                ></Table>
+              )}
             </div>
           </div>
         )}

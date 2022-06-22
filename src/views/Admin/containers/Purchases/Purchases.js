@@ -4,13 +4,22 @@ import { FiPlus } from "react-icons/fi";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { StyledPurchases } from "./Purchases.style";
 import OilImg from "../../../../assets/img/oil-img.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
+import axios from "axios";
+import EditIcon from "../../../../assets/img/edit-alt.svg";
 
 function Purchases() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   let adminInfo = JSON.parse(localStorage.getItem("user"));
   let header = {
@@ -21,7 +30,7 @@ function Purchases() {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/products/", {headers: header});
+      const res = await Axios.get("/adminside/products/", { headers: header });
       setData(res.data.results);
       setLoading(false);
     } catch (error) {
@@ -29,48 +38,25 @@ function Purchases() {
       setLoading(false);
     }
   };
-   
+  const getById = (id) => {
+    navigate(`/purchases/${id}`);
+  };
   const handleProductSale = async (id, status) => {
     setLoading(true);
     try {
-      const res = await Axios.patch(
-        `/adminside/products/${id}`,
-        { available: status },
-        { headers: header }
-      );
+      const res = await Axios.patch(`/adminside/product/${id}`, {
+        id,
+        available: status,
+      });
       if (res?.status == 200) {
         getProducts();
       }
+      console.log(res);
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
-
-
-  const datas = [
-    {
-      id: 2,
-      productName: "Моторное масло",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-    {
-      id: 4,
-      productName: "Моторное ",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-    {
-      id: 5,
-      productName: "Моторное ",
-      inStock: true,
-      productPrice: 40000,
-      productImg: OilImg,
-    },
-  ];
 
   const columns = [
     {
@@ -89,7 +75,13 @@ function Purchases() {
             )}
             <div>
               <h3 className="product_name">{text}</h3>
-              <Checkbox checked={record?.available} size="small" onClick={() => handleProductSale(record?.id, !record?.available)}>
+              <Checkbox
+                checked={record?.available}
+                size="small"
+                onClick={() =>
+                  handleProductSale(record?.id, !record?.available)
+                }
+              >
                 В наличи
               </Checkbox>
             </div>
@@ -98,7 +90,7 @@ function Purchases() {
       ),
     },
     {
-      dataIndex: "productPrice",
+      dataIndex: "price",
       render: (text) => (
         <td className="ant-table-cell">
           <h3 className="product_price">{text}</h3>
@@ -110,6 +102,9 @@ function Purchases() {
       render: (text, record) => (
         <td className="ant-table-cell">
           <div className="edit_column">
+            <div onClick={() => getById(text)}>
+              <img src={EditIcon} alt="edit-icon" />
+            </div>
             <div>
               <Popconfirm
                 title="Are you sure？"
@@ -131,7 +126,7 @@ function Purchases() {
   ];
   const handleDelete = async (id) => {
     try {
-      const res = await Axios.delete(`/products/product/${id}`);
+      const res = await Axios.delete(`/adminside/product/${id}`);
       console.log(res);
       if (res.status == 204) {
         let filterData = data.filter((item) => item.id !== id);
@@ -142,21 +137,20 @@ function Purchases() {
     }
   };
 
-  let questionData = {
-    name: "Qo'chqor",
-    phone: "+998994567898",
-    inn: "123456789",
-    company_name: "UzGazOil",
-    email: "test@gmail.com",
-    text: "Make a contract",
-    type: "question",
-    reviewed: false,
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      let searchedData = data.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(searchedData);
+    } else {
+      setFilteredResults(data);
+    }
   };
-
-
-  useEffect(() => {
-    getProducts();
-  }, [])
 
   return (
     <StyledPurchases>
@@ -172,12 +166,22 @@ function Purchases() {
           <input
             type="text"
             placeholder="Название товара,артикул,уникальный код"
+            value={searchInput}
+            onChange={(e) => searchItems(e.target.value)}
           />
           <AiOutlineSearch color="#000" size="24" />
         </div>
       </header>
       <div className="wrapper">
-        <Table dataSource={data} columns={columns} loading={loading} />
+        {searchInput.length > 1 ? (
+          <Table
+            dataSource={filteredResults}
+            columns={columns}
+            loading={loading}
+          />
+        ) : (
+          <Table dataSource={data} columns={columns} loading={loading} />
+        )}
       </div>
     </StyledPurchases>
   );
