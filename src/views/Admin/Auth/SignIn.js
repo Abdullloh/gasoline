@@ -20,9 +20,7 @@ function SignIn() {
     password: password,
   };
   const urlLink =
-    value == "admin"
-      ? "manager-login/"
-      : value == "customer"
+    value == "customer"
       ? "customer-login/"
       : value == "partner"
       ? "partner-login/"
@@ -41,10 +39,10 @@ function SignIn() {
         dispatch(signUpAction(data.data));
         localStorage.setItem("user", JSON.stringify(data.data));
         console.log(data);
-        if(data?.data?.admin?.role === "Customer"){
-          navigate('/my-account')
-        }else {
-          window.location.reload()
+        if (data?.data?.admin?.role === "Customer") {
+          navigate("/my-account");
+        } else {
+          window.location.reload();
         }
       }
     } catch (error) {}
@@ -61,7 +59,6 @@ function SignIn() {
             <h2 className="auth_title">Вход</h2>
             <div className="form_block">
               <Radio.Group onChange={onChange} value={value}>
-                <Radio value={"admin"}>Администратор</Radio>
                 <Radio value={"customer"}>Покупатель</Radio>
                 <Radio value={"partner"}>Партнер</Radio>
               </Radio.Group>
