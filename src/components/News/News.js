@@ -1,12 +1,26 @@
-import React from "react";
-import { Row, Col, Button } from "antd";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Row, Col, Button, Carousel } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import { StyledNews } from "./News.style";
 import PageHeader from "../PageHeader/PageHeader";
 import NewsImg from "../../assets/img/news_img.svg";
 import NewsImg2 from "../../assets/img/news_img2.svg";
+import Axios from "../../utils/axios";
 
 function News() {
+  const [news, setNews] = useState([]);
+
+  const getNews = async () => {
+    try {
+      const res = await Axios.get("/blog/");
+      console.log(res);
+      setNews(res?.data?.results);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getNews();
+  }, []);
   return (
     <StyledNews>
       <StyledContainer>
@@ -14,86 +28,41 @@ function News() {
           <PageHeader title="Новости" />
           <Row gutter={[20, 20]}>
             <Col sm={{ span: 24 }} lg={{ span: 14 }}>
-              <div className="img_card">
-                <img src={NewsImg} alt="news" />
-              </div>
-              <p className="date">17 июня. 2022</p>
-              <h3 className="title">
-                Российский "Сибур" заинтересовался проектами Узбекистана в
-                нефтехимии
-              </h3>
-              <h5 className="sub_title">
-                Речь идет о проектах, вносящих развитие и динамичные изменения в
-                области глубокой переработки углеводородов в РУз и темпы
-                развития нефтехимии.
-              </h5>
+              <Carousel autoplay>
+                {news.map((item, index) => (
+                  <>
+                    <div className="img_card">
+                      <img src={item.cover_image.image} alt="news" />
+                    </div>
+                    <p className="date">17 июня. 2022</p>
+                    <h3 className="title">
+                     {item.title}
+                    </h3>
+                    <h5 className="sub_title">
+                    {item.short_description}
+                    </h5>
+                  </>
+                ))}
+              </Carousel>
             </Col>
             <Col sm={{ span: 24 }} lg={{ span: 10 }}>
-              <Row gutter={[20, 20]}>
-                <Col lg={{span: 10 }} sm={{span: 24}}>
+              {news.slice(0, 4).map((item, index) =>(
+                <Row gutter={[20, 20]} key={index}>
+                <Col lg={{ span: 10 }} sm={{ span: 24 }}>
                   <div className="img_card_small">
-                    <img src={NewsImg2} alt="news" />
+                    <img src={item?.cover_image?.image} alt="news" />
                   </div>
                 </Col>
                 <Col sm={{ span: 24 }} lg={{ span: 14 }}>
                   <div className="other_news">
                     <h4>
-                      Российский "Сибур" заинтересовался проектами Узбекистана в
-                      нефтехимии
+                      {item.title}
                     </h4>
                     <p className="date">17 июня. 2022</p>
                   </div>
                 </Col>
               </Row>
-              <Row gutter={[20, 20]}>
-                <Col lg={{span: 10 }} sm={{span: 24}}>
-                  <div className="img_card_small">
-                    <img src={NewsImg2} alt="news" />
-                  </div>
-                </Col>
-                <Col sm={{ span: 24 }} lg={{ span: 14 }}>
-                  <div className="other_news">
-                    <h4>
-                      Российский "Сибур" заинтересовался проектами Узбекистана в
-                      нефтехимии
-                    </h4>
-                    <p className="date">17 июня. 2022</p>
-                  </div>
-                </Col>
-              </Row>
-              <Row gutter={[20, 20]}>
-                <Col lg={{span: 10 }} sm={{span: 24}}>
-                  <div className="img_card_small">
-                    <img src={NewsImg2} alt="news" />
-                  </div>
-                </Col>
-                <Col sm={{ span: 24 }} lg={{ span: 14 }}>
-                  <div className="other_news">
-                    <h4>
-                      Российский "Сибур" заинтересовался проектами Узбекистана в
-                      нефтехимии
-                    </h4>
-                    <p className="date">17 июня. 2022</p>
-                  </div>
-                </Col>
-              </Row>
-              <Row gutter={[20, 20]}>
-                <Col lg={{span: 10 }} sm={{span: 24}}>
-                  <div className="img_card_small">
-                    <img src={NewsImg2} alt="news" />
-                  </div>
-                </Col>
-                <Col sm={{ span: 24 }} lg={{ span: 14 }}>
-                  <div className="other_news">
-                    <h4>
-                      Российский "Сибур" заинтересовался проектами Узбекистана в
-                      нефтехимии
-                    </h4>
-                    <p className="date">17 июня. 2022</p>
-                  </div>
-            <Button>news</Button>
-                </Col>
-              </Row>
+              ))}
             </Col>
           </Row>
         </div>

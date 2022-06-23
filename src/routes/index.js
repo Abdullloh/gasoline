@@ -9,6 +9,8 @@ import Purchaser from "../views/Landing/Purchaser";
 import ProductView from "../views/ProductView/ProductView";
 import UserAccount from "../views/UserAccount/UserAccount";
 import EditProduct from "../views/Admin/containers/EditProduct";
+import LandingNews from "../views/Landing/LandingNews/LandingNews";
+import NewsDetail from "../views/Landing/LandingNews/NewsDetail";
 
 const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
@@ -28,6 +30,14 @@ export const ROUTES = [
   {
     path: "/service",
     component: <Purchaser />,
+  },
+  {
+    path: "/news",
+    component: <LandingNews />,
+  },
+  {
+    path: "/news/:newsId",
+    component: <NewsDetail />,
   },
   {
     path: "/sign-in",
