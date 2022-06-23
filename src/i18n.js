@@ -2,15 +2,14 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-import en from "../src/containers/lang/en.json";
-import uz from "../src/containers/lang/uz.json";
-import ru from "../src/containers/lang/ru.json";
 
+import ru from "./lang/ru.json";
+import uz from "./lang/uz.json";
+// the translations
+// (tip move them in a JSON file and import them,
+// or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 
 const resources = {
-  en: {
-    translation: en,
-  },
   ru: {
     translation: ru,
   },
@@ -19,6 +18,7 @@ const resources = {
   },
 };
 i18n
+  // .use(Backend)
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -34,10 +34,13 @@ i18n
     debug: true,
     whitelist: resources,
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false,
+
+      // react already safes from xss
     },
     react: { useSuspense: false },
   });
+
 export default i18n;
 
 // Importing translation files

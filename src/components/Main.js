@@ -53,7 +53,7 @@ const Main = (props) => {
                       offset: 0,
                     }
                   : {
-                      span: 12,
+                      span: 18,
                       offset: 0,
                     }
               }
