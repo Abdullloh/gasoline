@@ -42,4 +42,8 @@ export const ADMIN_ROUTES = [
     path: "/exchanges",
     component: <Exchange />,
   },
+  {
+    path: "/exchanges",
+    component: <Exchange />,
+  },
 ];

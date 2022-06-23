@@ -24,6 +24,7 @@ function Orders() {
     setVisible((prev) => !prev);
   };
 
+  console.log(data, 'ordersssssssss');
   const getOrders = async () => {
     setLoading(true);
     try {
@@ -98,14 +99,14 @@ function Orders() {
               "justify-content": "space-between",
             }}
           >
-            <h2>#{record?.product?.vendor_code}</h2>
+            <h2>#{record?.id}</h2>
             <p>{moment(record?.created_at).format("DD.MM.YYYY")}</p>
           </div>
           <h4>{record?.customer_name}</h4>
           <h4>Телефон: {record?.customer_phone}</h4>
           <h2>{record?.product?.title}</h2>
           <p>
-            {record?.product?.in_stock}x{record?.product?.price}
+            {record?.quantity}x{record?.product?.price}
           </p>
         </td>
       ),
