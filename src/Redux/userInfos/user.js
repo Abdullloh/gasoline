@@ -22,6 +22,8 @@ export const getUserInfo = createAsyncThunk(
     }
 )
 
+
+
 export const getUserOrders = createAsyncThunk(
     "userSlice/getUserOrders",
     async function (data,{rejectWithValue,dispatch}){
@@ -29,6 +31,24 @@ export const getUserOrders = createAsyncThunk(
             let response = await api.get("/cart/orders")
             if (response.status === 200 || response.status === 201){
                 dispatch(setUserOrders(response.data))
+            }
+            if(!response.status){
+                throw new Error("Internal Server Error")
+            }
+            return 
+        } catch (error) {
+            return rejectWithValue(error.message)
+        }        
+    }
+)
+
+export const editPartnerInfo = createAsyncThunk(
+    "userSlice/editPartnerInfo",
+    async function (data,{rejectWithValue,dispatch}){
+        try {
+            let response = await api.put(`/adminside/partner/${data.id}`,data.content)
+            if (response.status === 200 || response.status === 201){
+                return
             }
             if(!response.status){
                 throw new Error("Internal Server Error")
@@ -54,9 +74,19 @@ export const user = createSlice({
         phone:null,   
         status:null,
         error:null,
+        id:null,
+        bank_account:null,
+        bank_name:null,
+        ceos_name:null,
+        company_address:null,
+        mfo:null,
        },
        userOrders:{
         data:[],
+        status:null,
+        error:null,
+       },
+       partnerEditInfo:{
         status:null,
         error:null,
        }
@@ -69,6 +99,13 @@ export const user = createSlice({
             state.userInfo.email = action.payload?.details?.user?.email
             state.userInfo.name = action.payload?.details?.user?.name
             state.userInfo.phone = action.payload?.details?.user?.phone
+            state.userInfo.id = action.payload?.details?.id
+
+            state.userInfo.bank_account = action.payload?.details?.bank_account
+            state.userInfo.bank_name = action.payload?.details?.bank_name
+            state.userInfo.ceos_name = action.payload?.details?.ceos_name
+            state.userInfo.company_address = action.payload?.details?.company_address
+            state.userInfo.mfo = action.payload?.details?.mfo
         },
         setUserOrders:(state,action)=>{
             state.userOrders.data = action.payload
@@ -96,6 +133,18 @@ export const user = createSlice({
          [getUserOrders.rejected]:(state,action)=>{
            state.userOrders.status = "rejected";
            state.userOrders.error = action.payload;
+         },
+
+         [editPartnerInfo.pending]:(state)=>{
+            state.partnerEditInfo.status = 'pending'
+            state.partnerEditInfo.error = null
+         },
+         [editPartnerInfo.fulfilled]:(state,action)=>{
+            state.partnerEditInfo.status = "resolved"
+         }, 
+         [editPartnerInfo.rejected]:(state,action)=>{
+           state.partnerEditInfo.status = "rejected";
+           state.partnerEditInfo.error = action.payload;
          },
     }
 })
