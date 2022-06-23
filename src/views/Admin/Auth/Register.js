@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input, message, Radio } from "antd";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 import Axios from "../../../utils/axios";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [userName, setUserName] = useState(null);
+  const [userType, setUserType] = useState(null);
+
   const [phoneNum, setPhoneNum] = useState(null);
   const [email, setEmail] = useState(null);
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ function Register() {
     inn,
     company_name: compName,
     password,
+    type:userType
   };
   const handleSubmite = async (e) => {
     e.preventDefault();
@@ -34,6 +37,11 @@ function Register() {
       message.warn(error?.response?.data?.message)
     }
   };
+
+  const onChange = (e) => {
+    setUserType(e.target.value);
+  };
+
   return (
     <StyledSignIn>
       <StyledContainer>
@@ -48,6 +56,15 @@ function Register() {
                     value={userName}
                   />
                 </Form.Item>
+            
+              <Form.Item>  
+              <Radio.Group onChange={onChange} value={userType}>
+                <Radio value={"customer"}>Покупатель</Radio>
+                <Radio value={"partner"}>Партнер</Radio>
+              </Radio.Group>
+              </Form.Item>
+
+                
                 <Form.Item label="Email">
                   <Input
                     onChange={(e) => setEmail(e.target.value)}

@@ -11,6 +11,12 @@ import AddProduct from "./AddProduct/Addproduct"
 import Purchases from "./Purchases/Purchases";
 import Addproduct from "./AddProduct/Addproduct";
 import EditProduct from "./EditProduct/EditProduct";
+import homeIcon from "../../assets/img/home-black.svg"
+import chartIcon from "../../assets/img/chart-black.svg"
+import userIcon from "../../assets/img/user-black.svg"
+import orderIcon from "../../assets/img/orders.svg"
+
+
 
 export default function UserAccount() {
   const navigate = useNavigate()
@@ -139,8 +145,8 @@ const handleSubmit = async (data,{resetForm})=>{
         <UserAccountWrapper>
            <div className="left-side">
               <ul>
-                <li onClick = {toUserDetail}>Личные данные</li>
-                <li onClick={toOrdersSection}>Заказы</li>
+                <li onClick = {toUserDetail}> <img src={userIcon} alt="user" />  Личные данные</li>
+                <li onClick={toOrdersSection}><img src={orderIcon} alt="chart" /> Заказы</li>
               <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
               </ul>
            </div>
@@ -209,9 +215,9 @@ const handleSubmit = async (data,{resetForm})=>{
       <UserAccountWrapper>
       <div className="left-side">
          <ul>
-           <li onClick = {()=>navigate("/")}>Bosh sahifa</li>
-           <li onClick = {handleViewPurchase}>Tavarlar</li>
-           <li onClick = {()=>set_edit_partnerInfo(false)}>Shaxsiy malumot</li>
+           <li onClick = {()=>navigate("/")}> <img src={homeIcon} alt="home" />  Главная страница</li>
+           <li onClick = {handleViewPurchase}><img src={orderIcon} alt="chart" />Товары</li>
+           <li onClick = {()=>set_edit_partnerInfo(false)}><img src={userIcon} alt="user" />   Личные данные</li>
          <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
          </ul>
       </div>
@@ -261,7 +267,7 @@ const handleSubmit = async (data,{resetForm})=>{
 
 
         <div>
-          <button onClick = {handlePartnerInfo}>Изменить</button>
+          <button className = "changeAccountBtn" onClick = {handlePartnerInfo}>Изменить</button>
         </div>
         
         
@@ -284,53 +290,53 @@ const handleSubmit = async (data,{resetForm})=>{
       <Form>
         <div className = "flex-item">
         <label className = "item" htmlFor = "ceos_name">Полное наименование</label> 
-        <Field type="text"  id = "ceos_name"  name = "ceos_name"/> 
+        <Field className = "inputField" type="text"  id = "ceos_name"  name = "ceos_name"/> 
         </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "name">Генеральный директор</label>
-   <Field type="text"  id = "name"  name = "name"/> 
+   <Field className = "inputField" type="text"  id = "name"  name = "name"/> 
    </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "bank_name">Наименование банка</label>
-   <Field type="text"  id = "bank_name"  name = "bank_name"/> 
+   <Field className = "inputField" type="text"  id = "bank_name"  name = "bank_name"/> 
    </div> 
    
 
    <div className = "flex-item">
   <label className = "item" htmlFor = "phone">Номер телефона</label> 
-  <Field type="number"  id = "phone"  name = "phone"/> 
+  <Field className = "inputField" type="number"  id = "phone"  name = "phone"/> 
    </div> 
    
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "inn">ИНН</label>   
-   <Field type="string"  id = "inn"  name = "inn"/> 
+   <Field className = "inputField" type="string"  id = "inn"  name = "inn"/> 
    </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor ="mfo">МФО</label>
-   <Field type="string"  id = "mfo"  name = "mfo"/> 
+   <Field className = "inputField" type="string"  id = "mfo"  name = "mfo"/> 
    </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "company_address">Адрес компании</label>
-   <Field type="string"  id = "company_address"  name = "company_address"/> 
+   <Field className = "inputField" type="string"  id = "company_address"  name = "company_address"/> 
    </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "bank_account">Расчетный счет</label>
-   <Field type="string"  id = "bank_account"  name = "bank_account"/> 
+   <Field className = "inputField" type="string"  id = "bank_account"  name = "bank_account"/> 
    </div> 
 
    <div className = "flex-item">
    <label className = "item" htmlFor = "email">Логин</label> 
-   <Field type="email"  id = "email"  name = "email"/> 
+   <Field className = "inputField" type="email"  id = "email"  name = "email"/> 
    </div>
 
    <div>
-    <button disabled={formik.isSubmitting || !formik.isValid } type = "submit">Сохранить</button>
+    <button disabled={formik.isSubmitting || !formik.isValid } type = "submit" className = "changeAccountBtn">Сохранить</button>
   </div>
 
       </Form>

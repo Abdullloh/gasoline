@@ -2,6 +2,7 @@ import styled from "styled-components";
 import COLORS from "../../constants/colors";
 
 export const StyledNews = styled.div`
+  margin: 20px 0px;
   .img_card {
     border-radius: 8px;
     max-width: 692px;
@@ -9,7 +10,10 @@ export const StyledNews = styled.div`
     height: 432px;
     margin-bottom: 20px;
     img {
+      max-width: 692px;
       width: 100%;
+      height: 432px;
+      object-fit: cover;
     }
   }
   .date {
@@ -34,10 +38,12 @@ export const StyledNews = styled.div`
     color: #999999;
   }
   .img_card_small {
-    width: 100%;
-    max-width: 180px;
+    margin: 5px;
     img {
+      max-width: 180px;
       width: 100%;
+      height: 120px;
+      object-fit: cover;
     }
   }
   .other_news {
