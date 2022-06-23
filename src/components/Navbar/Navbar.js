@@ -174,7 +174,7 @@ function Navbar(props) {
                     </button>
                   </div>
                   <div className="user-shopCart">
-                    <button onClick={openModal}>
+                    <button onClick={props.openModal}>
                       <ShopCartIcon />
                       <span>
                         Корзина

@@ -9,6 +9,7 @@ import { btnStyle } from "./Button.style";
 import { StyledProducts } from "./Product.style";
 import { useNavigate } from "react-router-dom";
 import useFetchHook from "../../customhooks/useFetchHook";
+import Axios from "../../utils/axios";
 
 const Products = (props) => {
   const [productList] = useFetchHook("/products");
@@ -16,6 +17,15 @@ const Products = (props) => {
   const results = productList.results;
   console.log(results);
   const navigate = useNavigate();
+
+
+  // const getProducts = async () => {
+  //   try {
+  //     const res = await Axios.
+  //   } catch (error) {
+      
+  //   }
+  // }
   return (
     <StyledProducts>
       <StyledContainer>
