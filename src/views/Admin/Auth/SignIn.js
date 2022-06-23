@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Radio } from "antd";
+import {useSelector,useDispatch} from "react-redux"
 import Footer from "../../../components/Footer/Footer";
 import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../utils/axios";
-import { useDispatch } from "react-redux";
 import { signUpAction } from "../../../store/actios/authAcions";
+import {postUserInfo} from "../../../Redux/login/user"
+import Home from "../containers/Home/Home";
+import {Navigate} from "react-router-dom"
 
 function SignIn() {
   const [userName, setUserName] = useState(null);
@@ -15,6 +18,7 @@ function SignIn() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
+
   const userData = {
     login: userName,
     password: password,
@@ -25,33 +29,33 @@ function SignIn() {
       : value == "partner"
       ? "partner-login/"
       : "";
-  const handleSubmite = async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let data = {userData,url:urlLink}
     try {
-      const res = await Axios.post(`/accounts/${urlLink}`, {
-        ...userData,
-      });
-      console.log(res);
-      const { data } = res;
-      const { success } = data;
-      console.log(data);
-      if (success == true) {
-        dispatch(signUpAction(data.data));
-        localStorage.setItem("user", JSON.stringify(data.data));
-        console.log(data);
-        if (data?.data?.admin?.role === "Customer") {
-          navigate("/my-account");
-        } else {
-          window.location.reload();
-        }
-      }
-    } catch (error) {}
-  };
+      const originalPromiseResult = await dispatch(postUserInfo(data)).unwrap()
+      // handle result here
+      navigate('/my-account')
+    } catch (rejectedValueOrSerializedError) {
+      // handle error here
+
+    }
+  }
+
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
+
+  let role = JSON.parse(localStorage.getItem("user_info"))?.data?.user?.role
+
   return (
+    <>
+    {
+          role ? <Navigate exact = {true}  to = "/my-account"/> : null
+    }
+
     <StyledSignIn>
       <StyledContainer>
         <div className="container">
@@ -59,24 +63,41 @@ function SignIn() {
             <h2 className="auth_title">Вход</h2>
             <div className="form_block">
               <Radio.Group onChange={onChange} value={value}>
+                {/* <Radio value={"admin"}>Администратор</Radio> */}
                 <Radio value={"customer"}>Покупатель</Radio>
                 <Radio value={"partner"}>Партнер</Radio>
               </Radio.Group>
               <Form layout="vertical">
-                <Form.Item label="Логин">
+                <Form.Item label="E-mail"  name="email"
+                rules={[
+                 {
+                  type: 'email',
+                  message: 'emailingizni togri kiriting!',
+                },
+                {
+                  required: true,
+                   message: 'emailingizni kiriting!',
+                 },
+                 ]}>
                   <Input
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
                   />
                 </Form.Item>
-                <Form.Item label="Пароль">
+                <Form.Item label="Пароль" name="password"
+                 rules={[
+                {
+                  required: true,
+                  message: 'Iltimos parolingizni kiriting!',
+                },
+                 ]}>
                   <Input.Password
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
                   />
                 </Form.Item>
                 <div className="sbt_block">
-                  <Button type="primary" onClick={handleSubmite}>
+                  <Button type="primary" onClick={handleSubmit}>
                     Войти
                   </Button>
                   <Link to="/sign-up">
@@ -89,6 +110,7 @@ function SignIn() {
         </div>
       </StyledContainer>
     </StyledSignIn>
+    </>
   );
 }
 

@@ -8,15 +8,22 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store, { persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
+
+//importing redux toolkit store
+import {store as reduxToolkitStore} from "./Redux/store"
+import { Provider  as ReduxToolkitProvider} from "react-redux";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
+  <ReduxToolkitProvider store={reduxToolkitStore}>
+  {/* <Provider store={store}> */}
     <PersistGate persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </PersistGate>
-  </Provider>
+  {/* </Provider> */}
+  </ReduxToolkitProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
