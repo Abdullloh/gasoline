@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../utils/axios";
 import EditIcon from "../../../assets/img/edit-alt.svg";
 
-function Purchases() {
+function Purchases({handleViewAddProduct,handleViewEditProduct}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -37,7 +37,8 @@ function Purchases() {
     }
   };
   const getById = (id) => {
-    navigate(`/purchases/${id}`);
+    handleViewEditProduct(id)
+    // navigate(`/purchases/${id}`);
   };
   const handleProductSale = async (id, status) => {
     setLoading(true);
@@ -154,12 +155,10 @@ function Purchases() {
     <StyledPurchases>
       <header>
         <h2 className="title">Товары</h2>
-        <Link to="/add-product">
-          <Button type="primary" size="large  ">
+          <Button type="primary" size="large" onClick={handleViewAddProduct}>
             <FiPlus color="#fff" size="16" />
             Добавить новый товар
           </Button>
-        </Link>
         <div className="search_block">
           <input
             type="text"

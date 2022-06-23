@@ -8,6 +8,7 @@ import Partner from "../views/Landing/Partner";
 import Purchaser from "../views/Landing/Purchaser";
 import ProductView from "../views/ProductView/ProductView";
 import UserAccount from "../views/UserAccount/UserAccount";
+import EditProduct from "../views/Admin/containers/EditProduct";
 
 const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
@@ -51,5 +52,5 @@ export const ROUTES = [
   {
     path: "/admin-auth",
     component: <AdminSignIn />,
-  },
+  }
 ];

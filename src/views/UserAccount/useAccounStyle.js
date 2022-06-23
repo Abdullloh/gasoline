@@ -18,6 +18,10 @@ export const UserAccountWrapper = styled.div`
         color: red ;
         cursor: pointer;
     }
+    li{
+      margin-bottom:10px;
+      cursor:pointer;
+    }
   }
   .right-side {
     width: 70%;

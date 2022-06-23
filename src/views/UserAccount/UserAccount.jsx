@@ -9,6 +9,8 @@ import { getUserOrders, getUserInfo, editPartnerInfo } from "../../Redux/userInf
 import exit from "../../assets/img/exit.svg"
 import AddProduct from "./AddProduct/Addproduct"
 import Purchases from "./Purchases/Purchases";
+import Addproduct from "./AddProduct/Addproduct";
+import EditProduct from "./EditProduct/EditProduct";
 
 export default function UserAccount() {
   const navigate = useNavigate()
@@ -18,6 +20,11 @@ export default function UserAccount() {
   //belong to partner
   const [edit_partnerInfo,set_edit_partnerInfo] = useState(false)
   const [viewPurchase,setViewPurchase] = useState(false)
+  const [viewAddProduct,setViewAddProduct] = useState(false)
+  const [viewEditProduct,setViewEditProduct] = useState(false)
+  const [edit_id,set_edit_id] = useState("")
+
+  
 
   
   const userInfo = useSelector(state=>state.user.userInfo)
@@ -45,6 +52,9 @@ export default function UserAccount() {
 const toUserDetail = ()=>{
   setOrderSection(false)
   setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(false)
+
   dispatch(getUserInfo())
 }
 
@@ -52,6 +62,9 @@ const toUserDetail = ()=>{
   const toOrdersSection = ()=>{
      setOrderSection(true)
     setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(false)
+
      dispatch(getUserOrders())
   }
 
@@ -59,14 +72,38 @@ const toUserDetail = ()=>{
  const handlePartnerInfo = ()=>{
     set_edit_partnerInfo(true)
     setViewPurchase(false)
+    setViewAddProduct(false)
+  setViewEditProduct(false)
+
+
  }
 
  //belong to partner
  const handleViewPurchase = ()=>{
     set_edit_partnerInfo(true)
     setViewPurchase(true)
+    setViewAddProduct(false)
+  setViewEditProduct(false)
+
 }
 
+
+//belong to partner
+const handleViewAddProduct = ()=>{
+  set_edit_partnerInfo(true)
+  setViewPurchase(false)
+  setViewAddProduct(true)
+  setViewEditProduct(false)
+
+}
+
+const handleViewEditProduct = (id)=>{
+  set_edit_id(id)
+  set_edit_partnerInfo(true)
+  setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(true)
+}
 
  let initialValues = {
   inn:userInfo?.inn || null,
@@ -175,7 +212,6 @@ const handleSubmit = async (data,{resetForm})=>{
            <li onClick = {()=>navigate("/")}>Bosh sahifa</li>
            <li onClick = {handleViewPurchase}>Tavarlar</li>
            <li onClick = {()=>set_edit_partnerInfo(false)}>Shaxsiy malumot</li>
-           <li>Kompaniya</li>
          <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
          </ul>
       </div>
@@ -232,7 +268,7 @@ const handleSubmit = async (data,{resetForm})=>{
 
       </>:<>
        {
-        viewPurchase ? <Purchases/>:
+        viewPurchase && !viewAddProduct && !viewEditProduct ? <Purchases handleViewAddProduct = {handleViewAddProduct} handleViewEditProduct = {handleViewEditProduct}/>:  !viewPurchase && viewAddProduct && !viewEditProduct ? <Addproduct/>:  !viewPurchase && !viewAddProduct && viewEditProduct ? <EditProduct productId = {edit_id}/> :
         <>
          <h2>Изменение данных*</h2>
 
