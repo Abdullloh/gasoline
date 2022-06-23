@@ -13,8 +13,8 @@ const ProductCard = ({ data, margin }) => {
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
-  let userInfo = JSON.parse(localStorage.getItem("user"));
-
+  let userInfo = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access;
+  console.log(userInfo)
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -25,7 +25,7 @@ const ProductCard = ({ data, margin }) => {
   console.log(userInfo);
   const addCard = async (e) => {
     e.stopPropagation();
-    if (userInfo?.token) {
+    if (userInfo) {
       if (state > 0) {
         try {
           const res = await Axios.post("/cart/", {

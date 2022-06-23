@@ -14,6 +14,9 @@ export default function Basket(props) {
   const { isVisible, handleCancel,removeItemFromBasket } = props;
   let {cartList} = props
   console.log(cartList);
+
+  console.log(state,"state");
+
   const cartIds = cartList?.map(item=> {
     return (
       {
@@ -40,7 +43,7 @@ export default function Basket(props) {
 
 
   const makeOrder = async() => {
-      if(state?.length > 0){
+      if(cartList?.length > 0){
         try {
           const res = await Axios.post('/cart/orders',{
             cartitems:[...cartIds],

@@ -24,7 +24,7 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let adminInfo = JSON.parse(localStorage.getItem("user")) || JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo =  JSON.parse(localStorage.getItem("user_info"))?.data;
   
 
   let header = {

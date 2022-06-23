@@ -59,7 +59,7 @@ function EditProduct({productId}) {
       });
       console.log(res);
       if (res?.status == 200) {
-        navigate("/purchases");
+        navigate("/my-account");
       }
     } catch (error) {
     }
