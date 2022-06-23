@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
+import {Link} from 'react-router-dom'
 import Carousel from "react-elastic-carousel";
 import { StyledLanding } from "../../styles/Landing.style";
 import { StyledContainer } from "../../styles/Container.style";
@@ -32,6 +33,11 @@ function Landing() {
         <StyledContainer>
           <div className="container">
             <News />
+            <div className="news_link">
+            <Link to="/news">
+              <Button type="primary" size="large">Все новости</Button>
+            </Link>
+            </div>
           </div>
         </StyledContainer>
       </div>

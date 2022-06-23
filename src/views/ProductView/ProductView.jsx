@@ -12,6 +12,9 @@ export default function ProductView() {
   const [productList] = useFetchHook("/products");
   const { results = [] } = productList;
   const [visible, setVisible] = useState(false);
+  const [searchData,setSearchData] = useState({
+    min
+  })
   const [width, setWidth] = useState(window.innerWidth);
   console.log(width);
   const { Panel } = Collapse;

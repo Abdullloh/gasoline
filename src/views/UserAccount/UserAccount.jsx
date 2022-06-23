@@ -137,6 +137,7 @@ const handleSubmit = async (data,{resetForm})=>{
   // resetForm({})
 }
 
+console.log(userOrders)
 
   return <StyledContainer>
     <div className="container">
@@ -180,30 +181,25 @@ const handleSubmit = async (data,{resetForm})=>{
                 userOrders?.map(item=>{
                   return <div key = {item.id} className = "flex-item">
                   
-                  {
-                    item?.items?.map(nested=>{
-                      return <React.Fragment key = {nested.id}>
-                       <p className = "item"><img style = {{width:"100px"}} src = {"http://137.184.114.36:7774"+nested?.product?.cover_image} alt = "images"/></p>
+                       <React.Fragment>
+                       <p className = "item">
+                        <img style = {{width:"100px"}} src = {"http://137.184.114.36:7774"+item?.product?.cover_image} alt = "images"/>
+                      </p>
                     </React.Fragment>
-                    })
-                   }
                   
                   
                     <p className = "item">
                     
-                   {
-                    item?.items?.map(nested=>{
-                      return <React.Fragment key = {nested.id}>
-                       {nested?.product?.title}
+                      <React.Fragment>
+                       {item?.product?.title}
                       <br />
-                      {nested?.quantity} x {nested?.product?.price}
+                      {item?.quantity} x {item?.product?.price}
                      <br />
-                     Цена:{nested?.product?.price} UZS
+                     Цена:{item?.product?.price} UZS
                     <br />
-                    Количество: {nested?.quantity}шт
+                    Количество: {item?.quantity}шт
                     </React.Fragment>
-                    })
-                   }
+                    
                 </p>
               </div>
                 })

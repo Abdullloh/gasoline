@@ -50,6 +50,15 @@ function Register() {
             <h2 className="auth_title">Регистрация</h2>
             <div className="form_block">
               <Form layout="vertical">
+
+              <Form.Item>  
+              <Radio.Group onChange={onChange} value={userType}>
+                <Radio value={"customer"}>Покупатель</Radio>
+                <Radio value={"partner"}>Поставщик</Radio>
+              </Radio.Group>
+              </Form.Item>
+
+
                 <Form.Item label="Ф.И.О.">
                   <Input
                     onChange={(e) => setUserName(e.target.value)}
@@ -57,12 +66,7 @@ function Register() {
                   />
                 </Form.Item>
             
-              <Form.Item>  
-              <Radio.Group onChange={onChange} value={userType}>
-                <Radio value={"customer"}>Покупатель</Radio>
-                <Radio value={"partner"}>Партнер</Radio>
-              </Radio.Group>
-              </Form.Item>
+             
 
                 
                 <Form.Item label="Email">

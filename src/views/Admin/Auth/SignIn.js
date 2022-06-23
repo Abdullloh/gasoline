@@ -65,7 +65,7 @@ function SignIn() {
               <Radio.Group onChange={onChange} value={value}>
                 {/* <Radio value={"admin"}>Администратор</Radio> */}
                 <Radio value={"customer"}>Покупатель</Radio>
-                <Radio value={"partner"}>Партнер</Radio>
+                <Radio value={"partner"}>Поставщик</Radio>
               </Radio.Group>
               <Form layout="vertical">
                 <Form.Item label="E-mail"  name="email"
