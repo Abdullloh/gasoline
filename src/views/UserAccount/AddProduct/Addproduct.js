@@ -5,7 +5,7 @@ import { BsPlusLg } from "react-icons/bs";
 import axios from "axios";
 import { Row, Col, Input, Select, Checkbox, Button } from "antd";
 import { StyledAddProduct } from "./Addproduct.style";
-import Axios from "../../../../utils/axios";
+import Axios from "../../../utils/axios";
 const { TextArea } = Input;
 const { Option } = Select;
 function Addproduct() {

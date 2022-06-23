@@ -138,7 +138,7 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[0]?.id)}
-                        src={`${baseUrl}${uploadedImgs[0]?.image}`}
+                        src={uploadedImgs[0]?.image.startsWith('ht') ? uploadedImgs[0]?.image : `${baseUrl}${uploadedImgs[0]?.image}` }
                         alt="productImg"
                       />
                     ) : (
@@ -166,7 +166,7 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[1]?.id)}
-                        src={`${baseUrl}${uploadedImgs[1]?.image}`}
+                        src={uploadedImgs[1]?.image.startsWith('ht') ? uploadedImgs[1]?.image : `${baseUrl}${uploadedImgs[1]?.image}` }
                         alt="productImg"
                       />
                     ) : (
@@ -194,7 +194,7 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[2]?.id)}
-                        src={`${baseUrl}${uploadedImgs[2]?.image}`}
+                        src={uploadedImgs[2]?.image.startsWith('ht') ? uploadedImgs[2]?.image : `${baseUrl}${uploadedImgs[2]?.image}` }
                         alt="productImg"
                       />
                     ) : (
@@ -222,7 +222,7 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[3]?.id)}
-                        src={`${baseUrl}${uploadedImgs[3]?.image}`}
+                        src={uploadedImgs[3]?.image.startsWith('ht') ? uploadedImgs[3]?.image : `${baseUrl}${uploadedImgs[3]?.image}` }
                         alt="productImg"
                       />
                     ) : (

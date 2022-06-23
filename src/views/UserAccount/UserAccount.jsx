@@ -7,6 +7,10 @@ import { UserAccountWrapper } from "./useAccounStyle";
 import {useDispatch,useSelector} from "react-redux"
 import { getUserOrders, getUserInfo, editPartnerInfo } from "../../Redux/userInfos/user";
 import exit from "../../assets/img/exit.svg"
+import AddProduct from "./AddProduct/Addproduct"
+import Purchases from "./Purchases/Purchases";
+import Addproduct from "./AddProduct/Addproduct";
+import EditProduct from "./EditProduct/EditProduct";
 
 export default function UserAccount() {
   const navigate = useNavigate()
@@ -15,6 +19,12 @@ export default function UserAccount() {
   const [orderSection,setOrderSection] = useState(false)
   //belong to partner
   const [edit_partnerInfo,set_edit_partnerInfo] = useState(false)
+  const [viewPurchase,setViewPurchase] = useState(false)
+  const [viewAddProduct,setViewAddProduct] = useState(false)
+  const [viewEditProduct,setViewEditProduct] = useState(false)
+  const [edit_id,set_edit_id] = useState("")
+
+  
 
   
   const userInfo = useSelector(state=>state.user.userInfo)
@@ -41,20 +51,59 @@ export default function UserAccount() {
 // universal
 const toUserDetail = ()=>{
   setOrderSection(false)
+  setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(false)
+
   dispatch(getUserInfo())
 }
 
 // belong to customer
   const toOrdersSection = ()=>{
      setOrderSection(true)
+    setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(false)
+
      dispatch(getUserOrders())
   }
 
 //belong to partner
  const handlePartnerInfo = ()=>{
     set_edit_partnerInfo(true)
+    setViewPurchase(false)
+    setViewAddProduct(false)
+  setViewEditProduct(false)
+
+
  }
 
+ //belong to partner
+ const handleViewPurchase = ()=>{
+    set_edit_partnerInfo(true)
+    setViewPurchase(true)
+    setViewAddProduct(false)
+  setViewEditProduct(false)
+
+}
+
+
+//belong to partner
+const handleViewAddProduct = ()=>{
+  set_edit_partnerInfo(true)
+  setViewPurchase(false)
+  setViewAddProduct(true)
+  setViewEditProduct(false)
+
+}
+
+const handleViewEditProduct = (id)=>{
+  set_edit_id(id)
+  set_edit_partnerInfo(true)
+  setViewPurchase(false)
+  setViewAddProduct(false)
+  setViewEditProduct(true)
+}
 
  let initialValues = {
   inn:userInfo?.inn || null,
@@ -81,6 +130,7 @@ const handleSubmit = async (data,{resetForm})=>{
   // dispatch() 
   // resetForm({})
 }
+
 
   return <StyledContainer>
     <div className="container">
@@ -160,14 +210,15 @@ const handleSubmit = async (data,{resetForm})=>{
       <div className="left-side">
          <ul>
            <li onClick = {()=>navigate("/")}>Bosh sahifa</li>
+           <li onClick = {handleViewPurchase}>Tavarlar</li>
            <li onClick = {()=>set_edit_partnerInfo(false)}>Shaxsiy malumot</li>
-           <li>Kompaniya</li>
          <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
          </ul>
       </div>
       <div className="right-side">
       {
        !edit_partnerInfo ? <>
+
        <h2>Личные данные о кампании</h2>
 
        <div className = "flex-item">
@@ -212,76 +263,83 @@ const handleSubmit = async (data,{resetForm})=>{
         <div>
           <button onClick = {handlePartnerInfo}>Изменить</button>
         </div>
+        
+        
 
       </>:<>
-      <h2>Изменение данных*</h2>
+       {
+        viewPurchase && !viewAddProduct && !viewEditProduct ? <Purchases handleViewAddProduct = {handleViewAddProduct} handleViewEditProduct = {handleViewEditProduct}/>:  !viewPurchase && viewAddProduct && !viewEditProduct ? <Addproduct/>:  !viewPurchase && !viewAddProduct && viewEditProduct ? <EditProduct productId = {edit_id}/> :
+        <>
+         <h2>Изменение данных*</h2>
 
-      <Formik
-           initialValues = {initialValues}
-           validationSchema = {validationSchema}
-           onSubmit = {handleSubmit}
-           enableReinitialize
-      >
-         {
-         formik=>{
-           return(
-            <Form>
-              <div className = "flex-item">
-              <label className = "item" htmlFor = "ceos_name">Полное наименование</label> 
-              <Field type="text"  id = "ceos_name"  name = "ceos_name"/> 
-              </div> 
+<Formik
+     initialValues = {initialValues}
+     validationSchema = {validationSchema}
+     onSubmit = {handleSubmit}
+     enableReinitialize
+>
+   {
+   formik=>{
+     return(
+      <Form>
+        <div className = "flex-item">
+        <label className = "item" htmlFor = "ceos_name">Полное наименование</label> 
+        <Field type="text"  id = "ceos_name"  name = "ceos_name"/> 
+        </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "name">Генеральный директор</label>
-         <Field type="text"  id = "name"  name = "name"/> 
-         </div> 
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "name">Генеральный директор</label>
+   <Field type="text"  id = "name"  name = "name"/> 
+   </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "bank_name">Наименование банка</label>
-         <Field type="text"  id = "bank_name"  name = "bank_name"/> 
-         </div> 
-         
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "bank_name">Наименование банка</label>
+   <Field type="text"  id = "bank_name"  name = "bank_name"/> 
+   </div> 
+   
 
-         <div className = "flex-item">
-        <label className = "item" htmlFor = "phone">Номер телефона</label> 
-        <Field type="number"  id = "phone"  name = "phone"/> 
-         </div> 
-         
+   <div className = "flex-item">
+  <label className = "item" htmlFor = "phone">Номер телефона</label> 
+  <Field type="number"  id = "phone"  name = "phone"/> 
+   </div> 
+   
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "inn">ИНН</label>   
-         <Field type="string"  id = "inn"  name = "inn"/> 
-         </div> 
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "inn">ИНН</label>   
+   <Field type="string"  id = "inn"  name = "inn"/> 
+   </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor ="mfo">МФО</label>
-         <Field type="string"  id = "mfo"  name = "mfo"/> 
-         </div> 
+   <div className = "flex-item">
+   <label className = "item" htmlFor ="mfo">МФО</label>
+   <Field type="string"  id = "mfo"  name = "mfo"/> 
+   </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "company_address">Адрес компании</label>
-         <Field type="string"  id = "company_address"  name = "company_address"/> 
-         </div> 
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "company_address">Адрес компании</label>
+   <Field type="string"  id = "company_address"  name = "company_address"/> 
+   </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "bank_account">Расчетный счет</label>
-         <Field type="string"  id = "bank_account"  name = "bank_account"/> 
-         </div> 
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "bank_account">Расчетный счет</label>
+   <Field type="string"  id = "bank_account"  name = "bank_account"/> 
+   </div> 
 
-         <div className = "flex-item">
-         <label className = "item" htmlFor = "email">Логин</label> 
-         <Field type="email"  id = "email"  name = "email"/> 
-         </div>
+   <div className = "flex-item">
+   <label className = "item" htmlFor = "email">Логин</label> 
+   <Field type="email"  id = "email"  name = "email"/> 
+   </div>
 
-         <div>
-          <button disabled={formik.isSubmitting || !formik.isValid } type = "submit">Сохранить</button>
-        </div>
+   <div>
+    <button disabled={formik.isSubmitting || !formik.isValid } type = "submit">Сохранить</button>
+  </div>
 
-            </Form>
-            )} 
-        }   
-      </Formik>  
+      </Form>
+      )} 
+  }   
+</Formik>  
 
+        </>
+       }
       </>
       }
       </div>

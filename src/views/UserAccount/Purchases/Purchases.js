@@ -3,14 +3,12 @@ import { Button, Checkbox, Popconfirm, Table } from "antd";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { StyledPurchases } from "./Purchases.style";
-import OilImg from "../../../../assets/img/oil-img.svg";
+import OilImg from "../../../assets/img/oil-img.svg";
 import { Link, useNavigate } from "react-router-dom";
-import Axios from "../../../../utils/axios";
-import useFetchHook from "../../../../customhooks/useFetchHook";
-import axios from "axios";
-import EditIcon from "../../../../assets/img/edit-alt.svg";
+import Axios from "../../../utils/axios";
+import EditIcon from "../../../assets/img/edit-alt.svg";
 
-function Purchases() {
+function Purchases({handleViewAddProduct,handleViewEditProduct}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -21,7 +19,7 @@ function Purchases() {
     getProducts();
   }, []);
 
-  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
@@ -39,7 +37,8 @@ function Purchases() {
     }
   };
   const getById = (id) => {
-    navigate(`/purchases/${id}`);
+    handleViewEditProduct(id)
+    // navigate(`/purchases/${id}`);
   };
   const handleProductSale = async (id, status) => {
     setLoading(true);
@@ -156,12 +155,10 @@ function Purchases() {
     <StyledPurchases>
       <header>
         <h2 className="title">Товары</h2>
-        <Link to="/add-product">
-          <Button type="primary" size="large  ">
+          <Button type="primary" size="large" onClick={handleViewAddProduct}>
             <FiPlus color="#fff" size="16" />
             Добавить новый товар
           </Button>
-        </Link>
         <div className="search_block">
           <input
             type="text"
