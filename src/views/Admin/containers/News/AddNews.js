@@ -2,32 +2,52 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { StyledAddNews } from "./News.style";
 import Axios from "../../../../utils/axios";
-import { Input } from "antd";
+import { Button, Input } from "antd";
 
 const { TextArea } = Input;
 
 function AddNews() {
   const imgRef1 = useRef();
-  const [uploadedImgs, setUploadedImgs] = useState([]);
-  const [items, setItems] = useState([{ id: "", description: "" }]);
+  const [uploadedImgs, setUploadedImgs] = useState();
+  const [items, setItems] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
-  const [components, setComponents] = useState([]);
+  const [image,setImage] = useState()
+  const [componentId, setComponentId] = useState([]);
+  const counts = new Date().getUTCMilliseconds();
+  const [description,setDescription] = useState('')
   const [formValues, setFormValues] = useState({
     title: "",
     short_description: "",
-    cover_image: uplodedImgsId[0],
   }); 
-  const addItem = () => {
+  const img = useRef()
+  console.log(componentId);
+  const addItem = async() => {
     console.log("added");
+    console.log(img.current.files[0]);
+    const formData = new FormData()
+    formData.append("image",img.current.files[0])
+    formData.append('text',description)
+    try {
+      const res = await Axios.post('/blog/component/',formData)
+      console.log(res);
+      const {status,data} = res
+      if(status == 201){
+        setComponentId([...componentId,{id:data.id}])
+      }
+    } catch (error) {
+      
+    }
     setItems([
       ...items,
       {
-        id: 45,
-        description: 45,
+        id: counts,
+        description: '',
+        image:''
       },
     ]);
   };
-  console.log(items);
+  console.log(img);
+
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
@@ -36,13 +56,25 @@ function AddNews() {
   const handleFocus = (inp) => {
     inp.current.click();
   };
+
+  // const inputHandler = (e,id) =>{
+  //   let filteredItems = items.find(item=> item.id == id)
+  //   console.log(filteredItems);
+  //   if(e[0]){
+  //     console.log(e[0]);
+  //     filteredItems.image = e[0]
+  //   }else {
+  //     filteredItems.description = e
+  //   }
+  // }
+
   const uploadImg = async (inpFile) => {
+    console.log(inpFile.current.files[0]);
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
       const res = await Axios.post(`/blog/cover/`, formData);
-      setUploadedImgs([...uploadedImgs, res.data]);
-      setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
+      setUploadedImgs(res?.data.id);
       console.log(uploadedImgs);
     } catch (error) {}
   };
@@ -50,12 +82,11 @@ function AddNews() {
   const handleSubmit = async () => {
     try {
       const res = await Axios.post("/blog/", {
-        components: [],
+        components: [...componentId],
         cover_image: {
-          id: 1,
+          id: uploadedImgs,
         },
-        title: "BBC",
-        short_description: "Short",
+        ...formValues,
       });
       console.log(res);
     } catch (error) {
@@ -65,7 +96,7 @@ function AddNews() {
   return (
     <StyledAddNews>
       <div className="main">
-        <h1 className="title" onClick={handleSubmit}>
+        <h1 className="title">
           Добавить Новость
         </h1>
         <div>
@@ -99,6 +130,7 @@ function AddNews() {
             <label htmlFor="title">Название</label>
             <Input
               type="text"
+              onChange={handleInputChange}
               name="title"
               id="title"
               value={formValues.title}
@@ -108,31 +140,48 @@ function AddNews() {
             <label htmlFor="short_description">Краткое описание</label>
             <TextArea
               rows={4}
+              onChange={handleInputChange}
               name="short_description"
               id="short_description"
               value={formValues.short_description}
             />
           </div>
+              <div className="extra_news">
+                <div className="input_block">
+                  <label name="extra_description">Описание</label>
+                  <TextArea
+                    rows={4}
+                    onChange={(e)=> setDescription(e.target.value)}
+                    name="short_description"
+                    id="short_description"
+                  />
+                </div>
+                <div className="input_block">
+                  <input  type="file" ref={img} />
+                </div>
+              </div>
           {items.map((item) => {
+            const {id,description} = item
             return (
               <div className="extra_news">
                 <div className="input_block">
                   <label name="extra_description">Описание</label>
                   <TextArea
                     rows={4}
+                    onChange={(e)=> setDescription(e.target.value)}
                     name="short_description"
                     id="short_description"
                   />
                 </div>
                 <div className="input_block">
-                  <input type="file" />
+                  <input  type="file" ref={img} />
                 </div>
               </div>
-            );
+             );
           })}
-          <button onClick={addItem}>add</button>
+          <button className="add-button" onClick={addItem}>+</button>
           <div className="input_block">
-            <div className="date_bock">
+            <div className="date_block">
               <label htmlFor="date">Дата</label>
               <Input
                 type="date"
@@ -142,6 +191,7 @@ function AddNews() {
           </div>
           {/* </form> */}
         </div>
+        <Button type="primary" className="submit_btn" onClick={handleSubmit}> Опубликовать</Button>
       </div>
     </StyledAddNews>
   );
