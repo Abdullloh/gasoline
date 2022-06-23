@@ -109,4 +109,9 @@ export const StyledLanding = styled.div`
       }
     }
   }
+  .news_link{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
 `;
