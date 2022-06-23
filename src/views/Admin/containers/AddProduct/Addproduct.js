@@ -38,12 +38,14 @@ function Addproduct() {
       message.success({ content: "Succes", key, duration: 2 });
     }, 1000);
   };
+
   const openErrorMessage = () => {
     message.loading({ content: "Loading...", key });
     setTimeout(() => {
       message.error({ content: "Error", key, duration: 2 });
     }, 1000);
   };
+
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
@@ -55,13 +57,17 @@ function Addproduct() {
       console.log(uploadedImgs);
     } catch (error) {}
   };
+
   const handleFocus = (inp) => {
     inp.current.click();
   };
-  const getCategories = () => {
-    axios
-      .get("http://137.184.114.36:7774/products/categories/")
-      .then((response) => setProductCategory(response?.data?.results));
+
+  const getCategories = async () => {
+    try {
+      const res = await Axios.get("products/categories/");
+      setProductCategory(res?.data?.results)
+    } catch (error) {}
+  
   };
   console.log(productCategory);
 
@@ -110,6 +116,7 @@ function Addproduct() {
                 <h3>Фотографии</h3>
                 <div className="imgs_block">
                   <div
+                   
                     className="img_upload"
                     onClick={() => handleFocus(imgRef1)}
                   >
