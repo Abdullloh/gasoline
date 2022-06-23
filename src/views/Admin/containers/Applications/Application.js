@@ -14,7 +14,7 @@ function Application() {
   const [questionData, setQuestionData] = useState({});
   const [applicationData, setApplicationData] = useState({});
 
-  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,

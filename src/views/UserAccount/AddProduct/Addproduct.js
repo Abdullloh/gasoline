@@ -24,7 +24,7 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let adminInfo = JSON.parse(localStorage.getItem("user")) || JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
   
 
   let header = {
@@ -91,7 +91,7 @@ function Addproduct() {
         { headers: header }
       );
       openSuccesMessage();
-      navigate("/purchases");
+      navigate("/my-account");
     } catch (error) {
       openErrorMessage();
     }
@@ -297,9 +297,9 @@ function Addproduct() {
               </div>
               <div className="status_product">
                 <h2>Наличие на складе</h2>
-                <Row gutter={[5, 5]}>
-                  <Col span={6}>В наличии</Col>
-                  <Col span={4}>
+                <Row>
+                  <Col>В наличии</Col>
+                  <Col>
                     <Input
                       required
                       value={quantity}
