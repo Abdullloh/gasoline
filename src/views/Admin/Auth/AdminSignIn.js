@@ -32,7 +32,7 @@ function AdminSignIn() {
       console.log(data);
       if (success == true) {
         dispatch(signUpAction(data.data));
-        localStorage.setItem("user", JSON.stringify(data.data));
+        localStorage.setItem("user_info", JSON.stringify(data.data));
         console.log(data);
         window.location.reload()
       }
