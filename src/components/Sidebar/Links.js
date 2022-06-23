@@ -1,13 +1,20 @@
 import { lazy } from "react";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { IoMdListBox } from "react-icons/io";
-import { IoFastFoodOutline } from "react-icons/io5";
-import { CategoryIcon, HomeIcon, OrdersIcon, PartnerIcon, shopBagIcon, UserIcon } from "../../utils/Images";
+import { BsNewspaper } from "react-icons/bs";
+import {
+  CategoryIcon,
+  HomeIcon,
+  OrdersIcon,
+  PartnerIcon,
+  shopBagIcon,
+  UserIcon,
+} from "../../utils/Images";
 import { FoodsIcon } from "../../utils/Images";
 import { OrderListIcon } from "../../utils/Images";
 import { DashboardIcon } from "../../utils/Images";
-import {BiShoppingBag, BiTask, BiHome} from 'react-icons/bi' 
-import {MdOutlinePersonOutline} from 'react-icons/md' 
+import { BiShoppingBag, BiTask, BiHome } from "react-icons/bi";
+import { MdOutlinePersonOutline } from "react-icons/md";
 
 // const OrderList = lazy(() => import("../../views/OrderList"));
 // const SignUp = lazy(() => import("../../views/Auth/SignUp"));
@@ -44,13 +51,19 @@ export default [
   {
     path: "/partners",
     // element: OrderList,
-    icon: <HiOutlineClipboardList  size={24} />,
+    icon: <HiOutlineClipboardList size={24} />,
     title: "Партнеры",
   },
   {
     path: "/exchanges",
     // element: OrderList,
-    icon: <IoMdListBox  size={24} />,
+    icon: <IoMdListBox size={24} />,
     title: "Бегущая дорожка",
+  },
+  {
+    path: "/news",
+    // element: OrderList,
+    icon: <BsNewspaper size={24} />,
+    title: "Новости",
   },
 ];

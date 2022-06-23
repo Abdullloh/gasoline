@@ -7,6 +7,8 @@ import Purchases from "../views/Admin/containers/Purchases/Purchases";
 import Addproduct from "../views/Admin/containers/AddProduct/Addproduct";
 import Exchange from "../views/Admin/containers/Exchange/Exchange";
 import EditProduct from "../views/Admin/containers/EditProduct";
+import News from "../views/Admin/containers/News/News";
+import AddNews from "../views/Admin/containers/News/AddNews";
 
 
 export const ADMIN_ROUTES = [
@@ -43,7 +45,11 @@ export const ADMIN_ROUTES = [
     component: <Exchange />,
   },
   {
-    path: "/exchanges",
-    component: <Exchange />,
+    path: "/news",
+    component: <News />,
+  },
+  {
+    path: "/add-news",
+    component: <AddNews />,
   },
 ];

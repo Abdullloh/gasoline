@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./store";
 import { PersistGate } from "redux-persist/integration/react";
 
+import './i18n'
 //importing redux toolkit store
 import {store as reduxToolkitStore} from "./Redux/store"
 import { Provider  as ReduxToolkitProvider} from "react-redux";

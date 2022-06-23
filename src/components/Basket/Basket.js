@@ -1,4 +1,4 @@
-import { Button, Image, Modal } from "antd";
+import { Button, Image, message, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -48,14 +48,15 @@ export default function Basket(props) {
           const res = await Axios.post('/cart/orders',{
             cartitems:[...cartIds],
           })
+          if(res?.data?.message === "Item ordered"){
+            message.success('Успешно заказанные продукты')
+          }
           console.log(res);
         } catch (error) {
           
         }
-      }else {
-        alert("Mahsulot tanlang")
-      }
     }
+  }
 
     useEffect(()=>{
     getCarts()

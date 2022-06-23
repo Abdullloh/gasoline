@@ -17,6 +17,7 @@ function MainLanding() {
   const getCarts = async () => {
     try {
       const res = await Axios.get("/cart");
+      console.log(res);
       setCartList(res?.data?.results);
     } catch (error) {}
   };
@@ -46,6 +47,7 @@ function MainLanding() {
             cartList={cartList}
             removeItemFromBasket={removeItemFromBasket}
             handleCancel={handleCancel}
+            openModal={openModal}
           />
           <Routes>
             {ROUTES?.map((item) => (
