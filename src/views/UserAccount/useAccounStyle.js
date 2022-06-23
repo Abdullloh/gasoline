@@ -28,8 +28,10 @@ export const UserAccountWrapper = styled.div`
   }
   .flex-item{
     display:flex;
-    width:300px;
+    width:350px;
+    margin-bottom:10px;
     justify-content:space-between;
+    align-items:center;
   }
   .item{
     width:45%;
