@@ -62,6 +62,7 @@ function News() {
                 <p className="news_date">23.06.22</p>
                 <FiEdit color="#364a7e" size="20" />
                 <AiOutlineDelete
+                style={{'cursor':'pointer'}}
                   color="red"
                   size="20"
                   onClick={() => deleteNew(item.id)}

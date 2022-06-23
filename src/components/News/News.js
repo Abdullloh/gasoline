@@ -7,10 +7,11 @@ import PageHeader from "../PageHeader/PageHeader";
 import NewsImg from "../../assets/img/news_img.svg";
 import NewsImg2 from "../../assets/img/news_img2.svg";
 import Axios from "../../utils/axios";
+import { useTranslation } from "react-i18next";
 
 function News() {
   const [news, setNews] = useState([]);
-
+  const {t} = useTranslation()
   const getNews = async () => {
     try {
       const res = await Axios.get("/blog/");
@@ -25,7 +26,7 @@ function News() {
     <StyledNews>
       <StyledContainer>
         <div className="container">
-          <PageHeader title="Новости" />
+          <PageHeader title={t("p11")}/>
           <Row gutter={[20, 20]}>
             <Col sm={{ span: 24 }} lg={{ span: 14 }}>
               <Carousel autoplay>

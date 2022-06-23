@@ -20,44 +20,13 @@ import News from "../../components/News/News";
 import { useTranslation } from "react-i18next";
 
 function Landing() {
-  const { t } = useTranslation();
-  console.log("landing started");
-  let leftSideText = "Добро пожаловать на первую биржу по ГСМ в Узбекистане";
-  let leftSidePar =
-    "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";
-  const data = [
-    {
-      title: "Моторные масла",
-      imgUrl: CategoryOil,
-    },
-    {
-      title: "Шины под заказ",
-      imgUrl: Tyre,
-    },
-    {
-      title: "Масло и тех-жидкости",
-      imgUrl: Antfreez,
-    },
-    {
-      title: "Авто-химия",
-      imgUrl: Chimical,
-    },
-  ];
-  const carouselBreakpoint = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
-  ];
-  const colStyle = {
-    width: "100%",
-  };
+  const {t} = useTranslation()
   return (
     <StyledLanding img={OilImg}>
       <Main
-        buttonText={"Подробнее"}
+        buttonText={t("p10")}
         leftSideText={t("p8")}
-        leftSidePar={leftSidePar}
+        leftSidePar={t("p9")}
         flexDirection={"row"}
       />
       <div className="category-section">
@@ -72,9 +41,8 @@ function Landing() {
           </div>
         </StyledContainer>
       </div>
-      <Products headTitle={"Новые товары"} />
+      <Products headTitle={t("p12")} />
       <Discount />
-      {/* <Products headTitle={"Хиты продаж"} /> */}
       <Service />
     </StyledLanding>
   );

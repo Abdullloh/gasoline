@@ -10,6 +10,7 @@ import { StyledProducts } from "./Product.style";
 import { useNavigate } from "react-router-dom";
 import useFetchHook from "../../customhooks/useFetchHook";
 import Axios from "../../utils/axios";
+import { useTranslation } from "react-i18next";
 
 const Products = (props) => {
   const [productList] = useFetchHook("/products");
@@ -17,7 +18,7 @@ const Products = (props) => {
   const results = productList.results;
   console.log(results);
   const navigate = useNavigate();
-
+  const {t} = useTranslation()
 
   // const getProducts = async () => {
   //   try {
@@ -66,7 +67,7 @@ const Products = (props) => {
               type="primary"
               ghost
             >
-              Показать все товары
+             {t("p13")}
             </Button>
           </div>
         </div>

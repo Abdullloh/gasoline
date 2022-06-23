@@ -3,11 +3,10 @@ import { useTranslation } from "react-i18next";
 import { StyledPageHeader } from './PageHeader.style'
 
 function PageHeader({title}) {
-  const {t} = useTranslation()
   return (
     <StyledPageHeader>
       <h2>
-         {t("p0")}
+         {title}
       </h2>
     </StyledPageHeader>
   )
