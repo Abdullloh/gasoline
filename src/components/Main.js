@@ -58,7 +58,14 @@ const Main = (props) => {
                     }
               }
             >
-              <h1 style={{ color: props.textColor,width:props.width,lineHeight:'72px' }} className="heading-title">
+              <h1
+                style={{
+                  color: props.textColor,
+                  width: props.width,
+                  lineHeight: "72px",
+                }}
+                className="heading-title"
+              >
                 {leftSideText}
               </h1>
               <p
@@ -71,7 +78,7 @@ const Main = (props) => {
                 <Button
                   type="primary"
                   size="large"
-                onClick={() => navigate("/about")}
+                  onClick={() => navigate("/about")}
                   className="heading_btn"
                 >
                   {buttonText}
@@ -108,9 +115,16 @@ const Main = (props) => {
             >
               <div className="img-block">
                 {/* {img && <img src={img} alt="oil" className="oilImg" />} */}
-                <Button type="primary" size='large' className="headeing-btn">{buttonText}</Button>
+                <Button type="primary" size="large" className="headeing-btn">
+                  {buttonText}
+                </Button>
                 {aboutPageButtonText && (
-                  <Button type="primary "size='large' ghost className="headeing-btn">
+                  <Button
+                    type="primary "
+                    size="large"
+                    ghost
+                    className="headeing-btn"
+                  >
                     {aboutPageButtonText}
                   </Button>
                 )}

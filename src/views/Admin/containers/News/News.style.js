@@ -14,16 +14,16 @@ export const StyledNews = styled.div`
       line-height: 46px;
     }
   }
-  .no_data{
+  .no_data {
     display: flex;
     align-items: center;
     justify-content: center;
-    h2{
-        font-family: "Gilroy";
+    h2 {
+      font-family: "Gilroy";
       font-style: normal;
       font-weight: 400;
       font-size: 30px;
-      line-height: 46px; 
+      line-height: 46px;
     }
   }
   .main {
@@ -82,11 +82,7 @@ export const StyledNews = styled.div`
 `;
 
 export const StyledAddNews = styled.div`
-
-
-
-
-.img_upload {
+  .img_upload {
     width: 156px;
     height: 138px;
     display: flex;
@@ -98,4 +94,29 @@ export const StyledAddNews = styled.div`
       display: none;
     }
   }
-`
+  .input_block {
+    margin-top: 12px;
+    .date_block {
+      display: flex;
+      align-items: center;
+      input {
+        width: 30%;
+        margin-left: 22px;
+      }
+    }
+  }
+  .add-button {
+    position: absolute;
+    right: 35px;
+    padding: 5px 15px;
+    background: ${COLORS.main};
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  .submit_btn {
+    margin-top: 16px;
+  }
+`;
