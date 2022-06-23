@@ -74,7 +74,7 @@ function Purchases() {
               <img className="product_img" src={OilImg} alt="Product" />
             )}
             <div>
-              <h3 className="product_name">{text}</h3>
+              <h3 className="product_name">{record.title}</h3>
               <Checkbox
                 checked={record?.available}
                 size="small"
