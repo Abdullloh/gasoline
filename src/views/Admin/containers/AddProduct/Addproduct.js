@@ -24,10 +24,12 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let adminInfo = JSON.parse(localStorage.getItem("user"));
+  let adminInfo = JSON.parse(localStorage.getItem("user")) || JSON.parse(localStorage.getItem("user_info"))?.data;
+  
+
   let header = {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${adminInfo.token.access}`,
+    Authorization: `Bearer ${adminInfo.token?.access}`,
   };
 
   const key = "updatable";

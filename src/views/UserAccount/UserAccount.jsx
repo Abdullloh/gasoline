@@ -7,6 +7,7 @@ import { UserAccountWrapper } from "./useAccounStyle";
 import {useDispatch,useSelector} from "react-redux"
 import { getUserOrders, getUserInfo, editPartnerInfo } from "../../Redux/userInfos/user";
 import exit from "../../assets/img/exit.svg"
+import AddProduct from "../Admin/containers/AddProduct/Addproduct"
 
 export default function UserAccount() {
   const navigate = useNavigate()
@@ -81,6 +82,7 @@ const handleSubmit = async (data,{resetForm})=>{
   // dispatch() 
   // resetForm({})
 }
+
 
   return <StyledContainer>
     <div className="container">
@@ -160,6 +162,7 @@ const handleSubmit = async (data,{resetForm})=>{
       <div className="left-side">
          <ul>
            <li onClick = {()=>navigate("/")}>Bosh sahifa</li>
+           <li onClick = {()=>navigate("/")}>Tavarlar</li>
            <li onClick = {()=>set_edit_partnerInfo(false)}>Shaxsiy malumot</li>
            <li>Kompaniya</li>
          <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
@@ -168,6 +171,7 @@ const handleSubmit = async (data,{resetForm})=>{
       <div className="right-side">
       {
        !edit_partnerInfo ? <>
+
        <h2>Личные данные о кампании</h2>
 
        <div className = "flex-item">
@@ -212,6 +216,8 @@ const handleSubmit = async (data,{resetForm})=>{
         <div>
           <button onClick = {handlePartnerInfo}>Изменить</button>
         </div>
+
+        <AddProduct/>
 
       </>:<>
       <h2>Изменение данных*</h2>
@@ -281,6 +287,10 @@ const handleSubmit = async (data,{resetForm})=>{
             )} 
         }   
       </Formik>  
+
+
+
+ 
 
       </>
       }
