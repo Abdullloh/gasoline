@@ -16,8 +16,11 @@ import Service from "../../components/Servise/Service";
 import Main from "../../components/Main";
 import useFetchHook from "../../customhooks/useFetchHook";
 import News from "../../components/News/News";
+import { useTranslation } from "react-i18next";
 
 function Landing() {
+  const {t} = useTranslation()
+  console.log('landing started');
   let leftSideText = "Добро пожаловать на первую биржу по ГСМ в Узбекистане";
   let leftSidePar =
     "Мы предлагаем моторные, трансмиссионные, гидравлические и компрессорные масла таких брендов, как ROWE, Shell, Micking и Winiron. ";
@@ -52,7 +55,7 @@ function Landing() {
     <StyledLanding img={OilImg}>
       <Main
         buttonText={"Подробнее"}
-        leftSideText={leftSideText}
+        leftSideText={t("p8")}
         leftSidePar={leftSidePar}
         flexDirection={"row"}
       />

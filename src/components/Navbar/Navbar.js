@@ -8,6 +8,7 @@ import { Col, Row } from "antd";
 import Logo from "../../assets/img/logo2.svg";
 import Birja from "../../assets/img/Birja.svg";
 import Neft from "../../assets/img/neft-logo.svg";
+import i18n from '../../i18n'
 import HomeIcon from "../../assets/img/home-icon.svg";
 import CompanyIcon from "../../assets/img/company-icon.svg";
 import PartnerIcon from "../../assets/img/partner-icon.svg";
@@ -26,6 +27,7 @@ import Axios from "../../utils/axios";
 import Basket from "../Basket/Basket";
 import { useSelector } from "react-redux";
 import HeaderCarousel from "./HeaderCarousel";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -40,6 +42,7 @@ function Navbar(props) {
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef();
+  const {t,i18n}  = useTranslation()
   const getCarts  = async() => {
     try {
       const res = await Axios.get('/cart')
@@ -124,11 +127,19 @@ function Navbar(props) {
       clearTimeout(timer);
     };
   }, [search]);
+  const changeLangugae = (e) =>{
+    const langugae = e.target.value
+    i18n.changeLanguage(langugae)
+  }
   return (
     <>
       <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
+        <select onChange={changeLangugae}>
+          <option value="ru">Ru</option>
+          <option value="uz">Uz</option>
+        </select>
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -169,15 +180,15 @@ function Navbar(props) {
                     <button onClick={loginToAccount}>
                       <UserIcon />
                       <span>
-                        Личный кабинет
+                        {t("p0")}
                       </span>
                     </button>
                   </div>
                   <div className="user-shopCart">
-                    <button onClick={openModal}>
+                    <button onClick={props.openModal}>
                       <ShopCartIcon />
                       <span>
-                        Корзина
+                        {t("p1")}
                       </span>
                     </button>
                   </div>
@@ -221,37 +232,37 @@ function Navbar(props) {
                   <div className="nav_link" to="/">
                     <img src={Neft} />
                     <Dropdown overlay={menu} placement="bottomLeft">
-                      <Space>Нефтепродукты</Space>
+                      <Space>{t("p2")}</Space>
                     </Dropdown>
                   </div>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/">
                     <img src={HomeIcon} />
-                    Главная
+                    {t("p3")}
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/about">
-                    <img src={CompanyIcon} />О компании
+                    <img src={CompanyIcon} />{t("p4")}
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/partner">
                     <img src={PartnerIcon} />
-                    Для партнеров
+                    {t("p5")}
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/service">
                     <img src={PurchaserIcon} />
-                    Покупателям
+                    {t("p6")}
                   </NavLink>
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/products">
                     <img src={ProductIcon} />
-                    Товары
+                    {t("p7")}
                   </NavLink>
                 </div>
               </nav>

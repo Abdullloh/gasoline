@@ -5,7 +5,7 @@ import { BsPlusLg } from "react-icons/bs";
 import axios from "axios";
 import { Row, Col, Input, Select, Checkbox, Button } from "antd";
 import { StyledAddProduct } from "./Addproduct.style";
-import Axios from "../../../../utils/axios";
+import Axios from "../../../utils/axios";
 const { TextArea } = Input;
 const { Option } = Select;
 function Addproduct() {
@@ -40,14 +40,12 @@ function Addproduct() {
       message.success({ content: "Succes", key, duration: 2 });
     }, 1000);
   };
-
   const openErrorMessage = () => {
     message.loading({ content: "Loading...", key });
     setTimeout(() => {
       message.error({ content: "Error", key, duration: 2 });
     }, 1000);
   };
-
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
@@ -59,17 +57,13 @@ function Addproduct() {
       console.log(uploadedImgs);
     } catch (error) {}
   };
-
   const handleFocus = (inp) => {
     inp.current.click();
   };
-
-  const getCategories = async () => {
-    try {
-      const res = await Axios.get("products/categories/");
-      setProductCategory(res?.data?.results)
-    } catch (error) {}
-  
+  const getCategories = () => {
+    axios
+      .get("http://137.184.114.36:7774/products/categories/")
+      .then((response) => setProductCategory(response?.data?.results));
   };
   console.log(productCategory);
 
@@ -118,7 +112,6 @@ function Addproduct() {
                 <h3>Фотографии</h3>
                 <div className="imgs_block">
                   <div
-                   
                     className="img_upload"
                     onClick={() => handleFocus(imgRef1)}
                   >

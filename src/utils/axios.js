@@ -8,10 +8,10 @@ const Axios = axios.create({
 
 Axios.interceptors.request.use(
   (configs) => {
-    const userInfo = JSON.parse(localStorage.getItem("user"));
+    const userInfo = JSON.parse(localStorage.getItem("user_info"));
     console.log('token 2',userInfo);
-    if (userInfo?.token) {
-      configs.headers.Authorization = `Bearer ${userInfo.token.access }` 
+    if (userInfo?.data?.token) {
+      configs.headers.Authorization = `Bearer ${userInfo.data.token.access }` 
     }
     // configs.headers["Accept-language"] = lang ?? "uz";
     return configs;
