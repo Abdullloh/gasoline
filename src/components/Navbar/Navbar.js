@@ -161,7 +161,7 @@ function Navbar(props) {
                     value={search}
                     onChange={handleInput}
                     ref={inputRef}
-                    placeholder="Поиск по товарам"
+                    placeholder={t("p24")}
                   />
                   <SearchOutlined
                     style={{

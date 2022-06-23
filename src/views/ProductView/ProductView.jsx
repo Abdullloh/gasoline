@@ -97,7 +97,6 @@ export default function ProductView() {
             <div className="product-container">
               <Row>
                 {results.map((item, index) => {
-                  const { title, images, price } = item;
                   return (
                     <Col
                       sm={{
