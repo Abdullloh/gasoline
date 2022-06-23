@@ -1,6 +1,6 @@
-// import {  } from "";
-// import {  } from "";
-// import {  } from "";
+// import { loginData } from "";
+// import { SidebarData } from "";
+// import {othersData  } from "";
 
 export const data = {
     uz: {
