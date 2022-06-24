@@ -2,41 +2,21 @@ import styled from "styled-components";
 import COLORS from "../constants/colors";
 
 export const AboutPageStyle = styled.div`
-  width: 45%;
-  margin-top: 80px;
-  p {
+margin: 25px 0px;
+  .title {
+    font-family: "Gilroy";
+    font-style: normal;
     font-weight: 600;
     font-size: 18px;
-    word-spacing: 3px;
-    line-height: 25px;
+    line-height: 21px;
+    color: ${COLORS.black};
   }
-  ul {
-    padding: 0;
-    li {
-      font-size: 20px;
-      font-weight: 600;
-      display: flex;
-      text-align: start;
-      span:first-child {
-        width: 305px;
-        margin-right: 90px;
-      }
-      span:last-child {
-        width: 500px;
-      }
-    }
-  }
-  @media only screen and (max-width: 1024px) {
-    width: 80%;
-  }
-  @media only screen and (max-width: 476px) {
-    width: 100%;
-    ul {
-      li {
-        font-weight: 600;
-        font-size: 12px;
-        flex-direction: column;
-      }
-    }
+  .sub_title {
+    font-family: "Gilroy";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: ${COLORS.black};
   }
 `;

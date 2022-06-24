@@ -6,7 +6,6 @@ import axios from "axios";
 
 function ExchangeDetail(props) {
   const [formValues, setFormValues] = useState({
-    // id: props.id,
     product: props?.product,
     price: props?.price,
     percentage: props?.percentage,
@@ -24,11 +23,6 @@ function ExchangeDetail(props) {
   }, []);
 
   const updateExchanges = async () => {
-    let form = {
-      product: formValues.product,
-      price: formValues.price,
-      percentage: formValues.percentage,
-    };
     try {
       const res = await Axios.patch(
         `products/product_prices/${props.id}`,
@@ -39,17 +33,13 @@ function ExchangeDetail(props) {
         },
         { headers: header }
       );
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
-  //   if (props.submit !== props.submit) {
-  //     updateExchanges();
-  //   }
+
   useEffect(() => {
     updateExchanges();
-    console.log(formValues);
   }, [props.submit]);
   return (
     <StyledExchangeDetails>

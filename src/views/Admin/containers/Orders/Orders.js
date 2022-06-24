@@ -24,7 +24,6 @@ function Orders() {
     setVisible((prev) => !prev);
   };
 
-  console.log(data, 'ordersssssssss');
   const getOrders = async () => {
     setLoading(true);
     try {
@@ -41,7 +40,6 @@ function Orders() {
       const res = await Axios.get(`/adminside/order/${id}`, {
         headers: header,
       });
-      console.log(res);
       setModalData(res.data);
       setReqLoading(false);
       handleShow();
@@ -50,7 +48,7 @@ function Orders() {
       setReqLoading(false);
     }
   };
-
+console.log(modalData, 'modalDat5aaaaaaaaaa');
   const handlePayment = async (id, status) => {
     setLoading(true);
     try {

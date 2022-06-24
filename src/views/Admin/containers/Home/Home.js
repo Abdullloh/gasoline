@@ -34,7 +34,7 @@ function Home() {
     try {
       const res = await Axios.get("/adminside/revenue/");
       console.log(res);
-      setProfit(res?.revenue?.total_revenue);
+      setProfit(res?.data?.revenue?.total_revenue);
     } catch (error) {
       console.log(error);
     }

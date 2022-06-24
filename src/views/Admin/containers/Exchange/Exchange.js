@@ -20,7 +20,6 @@ function Exchange() {
     setLoading(true);
     try {
       const res = await Axios.get("/products/product_prices/");
-      //   console.log(res);
       setData(res?.data);
       setLoading(false);
     } catch (error) {
@@ -32,7 +31,6 @@ function Exchange() {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
-  console.log(data);
   const handleShow = () => {
     setIsVisible((prev) => !prev);
   };
