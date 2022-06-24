@@ -13,6 +13,23 @@ export const StyledNavbar = styled.div`
       width: 196px;
     }
   }
+  select {
+    opacity: 1;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: none;
+    cursor: pointer;
+    font-weight: 500;
+    max-width: 100%;
+    padding: 8px 10px;
+    color: #36497e;
+    border: none;
+    background-color: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #36497e;
+    border-radius: 4px;
+  }
   .user-account,
   .user-shopCart {
     button {

@@ -16,10 +16,9 @@ import { Col, Row } from "antd";
 import Text from "../../components/Text/Text";
 import { StyledContainer } from "../../styles/Container.style";
 import Service from "../../components/Servise/Service";
+import { useTranslation } from "react-i18next";
 const Partner = () => {
-  let leftSideText = "Развивайте бизнес и зарабатывайте вместе с нами";
-  let leftSidePar =
-    "Получайте заказы от клиентов, привозите товар и получайте большe прибыли от онлайн продаж";
+  const {t} = useTranslation()
   let style = {
     display: "flex",
     alignItems: "center",
@@ -28,15 +27,15 @@ const Partner = () => {
   return (
     <StyledLanding img={PartnerImage}>
       <Main
-        buttonText={"Разместить товар"}
+        buttonText={t("p35")}
         textColor={"white"}
-        leftSideText={leftSideText}
-        leftSidePar={leftSidePar}
+        leftSideText={t("p37")}
+        leftSidePar={t("p38")}
       />
       <BodyInfo
         img={PartnerBodyImage}
-        title="Партнёрская сеть — это выгодно и просто!"
-        subtitle="GASOIL предоставляет магазинам и предпринимателям возможность получить полный комплекс услуг на одной площадке."
+        title={t("p39")}
+        subtitle={t("p40")}
         subtitleSecond="Вам не надо тратиться на маркетинг, искать различные источники трафика. Мы предоставим вам вышеперечисленные услуги и гарантирукм."
         subtitleThird="Благодаря нативности инструментов средний CTR на площадках наших партнёров — 9%. В некоторых случаях этот показатель достигает "
       />

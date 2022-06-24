@@ -6,6 +6,7 @@ import ProductDetail from "../ProductDetail/ProductDetail";
 import { addToCard } from "../../store/actios/publicActions";
 import { useNavigate } from "react-router-dom";
 import Axios from "../../utils/axios";
+import { t } from "i18next";
 
 const ProductCard = ({ data, margin }) => {
   const { images = [], title = "", price = "" } = data;
@@ -82,7 +83,7 @@ const ProductCard = ({ data, margin }) => {
             </span>
           </div>
           <Button type="primary" onClick={(e) => addCard(e)}>
-            В корзину
+            {t("p32")}
           </Button>
         </div>
       </StyledProductCard>

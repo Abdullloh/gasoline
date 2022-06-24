@@ -35,7 +35,7 @@ function Landing() {
             <News />
             <div className="news_link">
             <Link to="/news">
-              <Button type="primary" size="large">Все новости</Button>
+              <Button type="primary" size="large">{t("p31")}</Button>
             </Link>
             </div>
           </div>

@@ -6,21 +6,23 @@ import { AboutPageStyle } from "../../styles/AboutPageSyle";
 import { StyledContainer } from "../../styles/Container.style";
 import { StyledLanding } from "../../styles/Landing.style";
 import Main from "../../components/Main";
+import { useTranslation } from "react-i18next";
 
 const AboutCompany = () => {
+  const {t} = useTranslation()
   return (
     <StyledLanding img={CompanyImg}>
       <Main
-        leftSideText={"Добро пожаловать на GAZOIL "}
-        buttonText={"Купить товар"}
-        aboutPageButtonText={"Разместить товар "}
+        leftSideText={t("p33")}
+        buttonText={t("p34")}
+        aboutPageButtonText={t("p35")}
         flexDirection={"column"}
         isFlexTrue={true}
       />
       <StyledContainer>
         <div className="container">
           <div style={{ marginTop: "60px" }}>
-            <h2>О компании</h2>
+            <h2>{t("p36")}</h2>
             <p className="text">
               GASOIL - это первый в Узбекистане маркетплейс нефтяных продукций,
               где вы можете легко размещать свои товары и управлять ими. С нами
