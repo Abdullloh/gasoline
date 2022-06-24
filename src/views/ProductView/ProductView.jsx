@@ -112,11 +112,7 @@ export default function ProductView() {
                       }}
                       key={index}
                     >
-                      <ProductCard
-                        margin="10px"
-                        key={index}
-                        data={item}
-                      />
+                      <ProductCard margin="10px" key={index} data={item} />
                     </Col>
                   );
                 })}
