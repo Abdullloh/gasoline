@@ -33,7 +33,7 @@ const Products = (props) => {
         <div className="container">
           <PageHeader title={props.headTitle} />
           <Row gutter={[20, 50]}>
-            {results?.map((item, index) => {
+            {results?.slice(0,8)?.map((item, index) => {
               return (
                 <Col
                   key={index}
