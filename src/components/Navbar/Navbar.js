@@ -135,7 +135,7 @@ const dispatch = useDispatch()
   }
   return (
     <>
-      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
+      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={removeItemFromBasket} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
        
