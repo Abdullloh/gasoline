@@ -116,11 +116,11 @@ function Footer() {
             >
               <div className="navigation">
                 <h4 className="footer_heading">{t("p19")}</h4>
-                <Link to="/">Главная</Link>
-                <Link to="/about">О компании</Link>
-                <Link to="/partner"> Для партнеров</Link>
-                <Link to="/service"> Покупателям</Link>
-                <Link to="/products"> Магазин</Link>
+                <Link to="/">{t("p25")}</Link>
+                <Link to="/about">{t("p26")}</Link>
+                <Link to="/partner"> {t("p27")}</Link>
+                <Link to="/service"> {t("p28")}</Link>
+                <Link to="/products"> {t("p29")}</Link>
               </div>
             </Col>
             <Col
@@ -134,7 +134,7 @@ function Footer() {
               <div className="contact">
                 <h4 className="footer_heading">{t("p20")}</h4>
                 <a href="https://www.google.com/maps/place/41°19'55.0%22N+69°14'56.7%22E/@41.331939,69.2468823,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xce22268ab1beb8ec!8m2!3d41.331939!4d69.249071">
-                  Адрес: г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137{" "}
+                  {t("p30")}
                 </a>
                 <a href="mailto:info@email.com">Эл. почта: info@gazoil.uz </a>
                 <a href="tel:+998 77 777 73 13"> Телефон: +998 77 777 73 13</a>

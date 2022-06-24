@@ -136,10 +136,7 @@ function Navbar(props) {
       <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
-        <select onChange={changeLangugae}>
-          <option value="ru">Ru</option>
-          <option value="uz">Uz</option>
-        </select>
+       
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -192,6 +189,10 @@ function Navbar(props) {
                       </span>
                     </button>
                   </div>
+                  <select onChange={changeLangugae}>
+          <option value="ru">Ru</option>
+          <option value="uz">Uz</option>
+        </select>
                 </div>
               </div>
             </div>

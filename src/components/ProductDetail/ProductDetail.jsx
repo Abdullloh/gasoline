@@ -14,7 +14,7 @@ export default function ProductDetail(props) {
     dispatch(addToCard({ ...props.data }));
   };
   return (
-    <Modal footer={null} visible={isVisible} onCancel={handleCancel} style={{"width": "760px"}}>
+    <Modal footer={null} visible={isVisible} onCancel={handleCancel} style={{width: "760px"}}>
       <ProductDetailStyle>
         <div className="detail-heading">
           <div className="heading-images">
