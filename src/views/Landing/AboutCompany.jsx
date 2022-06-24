@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 const AboutCompany = () => {
   const {t} = useTranslation()
   let lang = useSelector(state=>state.language.languageData)
+
+
   console.log(lang);
   return (
     <StyledLanding img={CompanyImg}>

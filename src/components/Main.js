@@ -16,6 +16,17 @@ const Main = (props) => {
     aboutPageButtonText,
     isFlexTrue,
   } = props;
+  
+  const loginToAccount = () => {
+    let user = JSON.parse(localStorage.getItem('user'))
+    if(user?.token){
+      if (user.admin.role == "Customer") {
+        navigate("/my-account");
+      }
+    }else {
+      navigate('/sign-in')
+    }
+  };
   const colStyle = {
     width: "100%",
   };
@@ -89,7 +100,7 @@ const Main = (props) => {
                     ghost
                     size="large"
                     className="heading_btn"
-                    onClick={() => navigate(props.url)}
+                    onClick={loginToAccount}
                   >
                     {aboutPageButtonText}
                   </Button>
