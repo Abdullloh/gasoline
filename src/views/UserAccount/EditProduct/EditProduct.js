@@ -4,9 +4,11 @@ import { Button, Row, Col, Input, message, Select, Checkbox } from "antd";
 import Axios from "../../../utils/axios";
 import { EditProStyle } from "./EditProduct.style";
 import { BsPlusLg } from "react-icons/bs";
+import { useTranslation } from "react-i18next";
 const { TextArea } = Input;
 
 function EditProduct({productId}) {
+  const {t} = useTranslation()
   const baseUrl = "http://137.184.114.36:7774";
   const navigate = useNavigate();
   const [data, setData] = useState({});
@@ -121,10 +123,10 @@ function EditProduct({productId}) {
           <Col sm={{ span: 24 }} lg={{ span: 16 }}>
             <div className="left_side">
               <header>
-                <h2 className="title">Добавить товар</h2>
+                <h2 className="title">{t("Добавить товар")}</h2>
               </header>
               <div className="upload_pictures">
-                <h3>Фотографии</h3>
+                <h3>{t("Фотографии")}</h3>
                 <div className="imgs_block">
                   <div
                     className="img_upload"
@@ -242,7 +244,7 @@ function EditProduct({productId}) {
               </div>
               <Row gutter={[20, 20]}>
                 <Col span={16}>
-                  <label htmlFor="title">Название</label>
+                  <label htmlFor="title">{t("Название")}</label>
                   <Input
                     required
                     type="text"
@@ -253,7 +255,7 @@ function EditProduct({productId}) {
                   />
                 </Col>
                 <Col span={8}>
-                  <label htmlFor="article">Артикул</label>
+                  <label htmlFor="article">{t("Артикул")}</label>
                   <Input
                     required
                     type="text"
@@ -264,7 +266,7 @@ function EditProduct({productId}) {
                   />
                 </Col>
                 <Col span={24}>
-                  <label htmlFor="description">Описание</label>
+                  <label htmlFor="description">{t("Описание")}</label>
                   <TextArea
                     rows={8}
                     id="description"
@@ -275,7 +277,7 @@ function EditProduct({productId}) {
                 </Col>
                 <Col span={24}>
                   <div className="status_product">
-                    <h2>Категории</h2>
+                    <h2>{t("Категории")}</h2>
                     <select
                       className="select_category"
                       value={category}
@@ -296,7 +298,7 @@ function EditProduct({productId}) {
           </Col>
           <Col sm={{ span: 24 }} lg={{ span: 8 }}>
             <div className="right_side">
-              <h2 className="title">Цена</h2>
+              <h2 className="title">{t("Цена")}</h2>
               <Row gutter={[5, 5]}>
                 <Col span={18}>
                   <Input
@@ -311,15 +313,15 @@ function EditProduct({productId}) {
                 <Col span={6}>Сум</Col>
               </Row>
               <div className="status_product">
-                <h2>Статус товара</h2>
+                <h2>{t("Статус товара")}</h2>
                 <Checkbox checked={statusProduct} onChange={handleInputChange}>
-                  Доступен в каталоге
+                {t("Доступен в каталоге")}
                 </Checkbox>
               </div>
               <div className="status_product">
-                <h2>Наличие на складе</h2>
+                <h2>{t("Наличие на складе")}</h2>
                 <Row gutter={[5, 5]}>
-                  <Col span={6}>В наличии</Col>
+                  <Col span={6}>{t("В наличии")}</Col>
                   <Col span={4}>
                     <Input
                       required
@@ -336,7 +338,7 @@ function EditProduct({productId}) {
                   htmlType="submit"
                   onClick={handleSubmite}
                 >
-                  Разместить
+              {t("Сохранить")}
                 </Button>
               </div>
             </div>
