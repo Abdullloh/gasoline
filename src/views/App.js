@@ -6,7 +6,6 @@ import './App.css';
 import Home from "./Admin/containers/Home/Home";
 
 function App() {
-  let data = JSON.parse(localStorage.getItem('user'))
   let user_info = JSON.parse(localStorage.getItem('user_info'))
 console.log(user_info);
   console.log(user_info);
@@ -14,7 +13,7 @@ console.log(user_info);
   return (
     <>
     <ScrollToTop/>
-    {data?.user?.role === 'Manager' ? <Admin/> : <MainLanding />}
+    {user_info?.user?.role === 'Manager' ? <Admin/> : <MainLanding />}
     </>
   )
 }

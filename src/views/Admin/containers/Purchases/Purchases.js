@@ -21,7 +21,8 @@ function Purchases() {
     getProducts();
   }, []);
 
-  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
+  console.log(adminInfo);
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,

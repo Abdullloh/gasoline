@@ -14,7 +14,7 @@ function Orders() {
   const [modalData, setModalData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
