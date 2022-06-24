@@ -16,10 +16,12 @@ import chartIcon from "../../assets/img/chart-black.svg"
 import userIcon from "../../assets/img/user-black.svg"
 import orderIcon from "../../assets/img/orders.svg"
 import {Navigate} from "react-router-dom"
+import { useTranslation } from "react-i18next";
 
 
 
 export default function UserAccount() {
+  const {t} = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   // belong to customer
@@ -124,6 +126,8 @@ const handleViewEditProduct = (id)=>{
   mfo:userInfo?.mfo || null,
 }
 
+console.log(userInfo)
+
 const handleSubmit = async (data,{resetForm})=>{
   console.log(data)
   try {
@@ -152,36 +156,36 @@ console.log(userOrders)
         <UserAccountWrapper>
            <div className="left-side">
               <ul>
-                <li onClick = {toUserDetail}> <img src={userIcon} alt="user" />  Личные данные</li>
-                <li onClick={toOrdersSection}><img src={orderIcon} alt="chart" /> Заказы</li>
-              <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
+                <li onClick = {toUserDetail}> <img src={userIcon} alt="user" />  {t("Личные данные")}</li>
+                <li onClick={toOrdersSection}><img src={orderIcon} alt="chart" /> {t("Заказы")}</li>
+              <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  {t("Выйти")}</h4>
               </ul>
            </div>
            <div className="right-side">
            {
             !orderSection ? <>
-            <h2>Личные данные</h2>
+            <h2>{t('Личные данные')}</h2>
               <div className = "flex-item">
-              <p className = "item">Ф.И.О</p>  <p className = "item">{userInfo?.name}</p>
+              <p className = "item">{t( "Ф.И.О")}</p>  <p className = "item">{userInfo?.name}</p>
               </div> 
 
               <div className = "flex-item">
-             <p className = "item">Номер телефона</p>  <p className = "item">{userInfo?.phone}</p>
+             <p className = "item">{t("Номер телефона")}</p>  <p className = "item">{userInfo?.phone}</p>
               </div> 
 
               <div className = "flex-item">
-              <p className = "item">ИНН</p>   <p className = "item">{userInfo?.inn}</p>
+              <p className = "item">{t("ИНН")}</p>   <p className = "item">{userInfo?.inn}</p>
               </div> 
 
               <div className = "flex-item">
-              <p className = "item">Организация</p>  <p className = "item">{userInfo?.company_name}</p>
+              <p className = "item">{t("Организация")}</p>  <p className = "item">{userInfo?.company_name}</p>
               </div> 
 
               <div className = "flex-item">
-              <p className = "item">Логин</p>  <p className = "item">{userInfo?.email}</p>
+              <p className = "item">{t("Логин")}</p>  <p className = "item">{userInfo?.email}</p>
               </div> 
            </>:<>
-           <h2>Заказы</h2>
+           <h2>{t("Заказы")}</h2>
               
            {
                 userOrders?.map(item=>{
@@ -201,9 +205,9 @@ console.log(userOrders)
                       <br />
                       {item?.quantity} x {item?.product?.price}
                      <br />
-                     Цена:{item?.product?.price} UZS
+                     {t("Цена")}:{item?.product?.price} UZS
                     <br />
-                    Количество: {item?.quantity}шт
+                    {t("Количество")}: {item?.quantity}шт
                     </React.Fragment>
                     
                 </p>
@@ -217,68 +221,69 @@ console.log(userOrders)
       <UserAccountWrapper>
       <div className="left-side">
          <ul>
-           <li onClick = {()=>navigate("/")}> <img src={homeIcon} alt="home" />  Главная страница</li>
-           <li onClick = {handleViewPurchase}><img src={orderIcon} alt="chart" />Товары</li>
-           <li onClick = {()=>set_edit_partnerInfo(false)}><img src={userIcon} alt="user" />   Личные данные</li>
-         <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>  Выйти</h4>
+           <li onClick = {()=>navigate("/")}> <img src={homeIcon} alt="home" /> {t("Главная страница")}</li>
+           <li onClick = {handleViewPurchase}><img src={orderIcon} alt="chart" />{t("p7")}</li>
+           <li onClick = {()=>set_edit_partnerInfo(false)}><img src={userIcon} alt="user" />  {t("Личные данные")}</li>
+         <h4  onClick={()=> logout()}> <img src={exit} alt="exit"/>{t("Выйти")}</h4>
          </ul>
       </div>
       <div className="right-side">
       {
        !edit_partnerInfo ? <>
 
-       <h2>Личные данные о кампании</h2>
+       <h2>{t("Личные данные о кампании")}</h2>
 
        <div className = "flex-item">
-        <p className = "item">Полное наименование</p>  <p className = "item">{userInfo?.ceos_name}</p>
+        <p className = "item">{t("Полное наименование")}</p>  <p className = "item">{userInfo?.ceos_name}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">Генеральный директор</p>  <p className = "item">{userInfo?.name}</p>
+         <p className = "item">{t("Генеральный директор")}</p>  <p className = "item">{userInfo?.name}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">Наименование банка</p>  <p className = "item">{userInfo?.bank_name}</p>
-         </div> 
-         
-
-         <div className = "flex-item">
-        <p className = "item">Номер телефона</p>  <p className = "item">{userInfo?.phone}</p>
+         <p className = "item">{t("Наименование банка")}</p>  <p className = "item">{userInfo?.bank_name}</p>
          </div> 
          
 
          <div className = "flex-item">
-         <p className = "item">ИНН</p>   <p className = "item">{userInfo?.inn}</p>
+        <p className = "item">{t("Номер телефона")}</p>  <p className = "item">{userInfo?.phone}</p>
+         </div> 
+         
+
+         <div className = "flex-item">
+         <p className = "item">{t('ИНН')}</p>   <p className = "item">{userInfo?.inn}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">МФО</p>   <p className = "item">{userInfo?.mfo}</p>
+         <p className = "item">{t("МФО")}</p>   <p className = "item">{userInfo?.mfo}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">Адрес компании</p>  <p className = "item">{userInfo?.company_address}</p>
+         <p className = "item">{t("Адрес компании")}</p>  <p className = "item">{userInfo?.company_address}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">Расчетный счет</p>  <p className = "item">{userInfo?.bank_account}</p>
+         <p className = "item">{t("Расчетный счет")}</p>  <p className = "item">{userInfo?.bank_account}</p>
          </div> 
 
          <div className = "flex-item">
-         <p className = "item">Логин</p>  <p className = "item">{userInfo?.email}</p>
+         <p className = "item">{t("Логин")}</p>  <p className = "item">{userInfo?.email}</p>
          </div> 
 
 
         <div>
-          <button className = "changeAccountBtn" onClick = {handlePartnerInfo}>Изменить</button>
+          <button className = "changeAccountBtn" onClick = {handlePartnerInfo}>{t("Изменить")}</button>
         </div>
         
         
+
 
       </>:<>
        {
         viewPurchase && !viewAddProduct && !viewEditProduct ? <Purchases handleViewAddProduct = {handleViewAddProduct} handleViewEditProduct = {handleViewEditProduct}/>:  !viewPurchase && viewAddProduct && !viewEditProduct ? <Addproduct/>:  !viewPurchase && !viewAddProduct && viewEditProduct ? <EditProduct productId = {edit_id}/> :
         <>
-         <h2>Изменение данных*</h2>
+         <h2>{t("Изменение данных")}</h2>
 
 <Formik
      initialValues = {initialValues}
@@ -290,54 +295,54 @@ console.log(userOrders)
      return(
       <Form>
         <div className = "flex-item">
-        <label className = "item" htmlFor = "ceos_name">Полное наименование</label> 
+        <label className = "item" htmlFor = "ceos_name">{t("Полное наименование")}</label> 
         <Field className = "inputField" type="text"  id = "ceos_name"  name = "ceos_name"/> 
         </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "name">Генеральный директор</label>
+   <label className = "item" htmlFor = "name">{t("Генеральный директор")}</label>
    <Field className = "inputField" type="text"  id = "name"  name = "name"/> 
    </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "bank_name">Наименование банка</label>
+   <label className = "item" htmlFor = "bank_name">{t("Наименование банка")}</label>
    <Field className = "inputField" type="text"  id = "bank_name"  name = "bank_name"/> 
    </div> 
    
 
    <div className = "flex-item">
-  <label className = "item" htmlFor = "phone">Номер телефона</label> 
-  <Field className = "inputField" type="number"  id = "phone"  name = "phone"/> 
+  <label className = "item" htmlFor = "phone">{t("Номер телефона")}</label> 
+  <Field className = "inputField" type="string"  id = "phone"  name = "phone"/> 
    </div> 
    
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "inn">ИНН</label>   
+   <label className = "item" htmlFor = "inn">{t("ИНН")}</label>   
    <Field className = "inputField" type="string"  id = "inn"  name = "inn"/> 
    </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor ="mfo">МФО</label>
+   <label className = "item" htmlFor ="mfo">{t("МФО")}</label>
    <Field className = "inputField" type="string"  id = "mfo"  name = "mfo"/> 
    </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "company_address">Адрес компании</label>
+   <label className = "item" htmlFor = "company_address">{t("Адрес компании")}</label>
    <Field className = "inputField" type="string"  id = "company_address"  name = "company_address"/> 
    </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "bank_account">Расчетный счет</label>
+   <label className = "item" htmlFor = "bank_account">{t("Расчетный счет")}</label>
    <Field className = "inputField" type="string"  id = "bank_account"  name = "bank_account"/> 
    </div> 
 
    <div className = "flex-item">
-   <label className = "item" htmlFor = "email">Логин</label> 
+   <label className = "item" htmlFor = "email">{t("Логин")}</label> 
    <Field className = "inputField" type="email"  id = "email"  name = "email"/> 
    </div>
 
    <div>
-    <button disabled={formik.isSubmitting || !formik.isValid } type = "submit" className = "changeAccountBtn">Сохранить</button>
+    <button disabled={formik.isSubmitting || !formik.isValid } type = "submit" className = "changeAccountBtn">{t("Сохранить")}</button>
   </div>
 
       </Form>

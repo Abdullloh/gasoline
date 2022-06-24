@@ -16,10 +16,9 @@ import { Col, Row } from "antd";
 import Text from "../../components/Text/Text";
 import { StyledContainer } from "../../styles/Container.style";
 import Service from "../../components/Servise/Service";
+import { useTranslation } from "react-i18next";
 const Partner = () => {
-  let leftSideText = "Развивайте бизнес и зарабатывайте вместе с нами";
-  let leftSidePar =
-    "Получайте заказы от клиентов, привозите товар и получайте большe прибыли от онлайн продаж";
+  const { t } = useTranslation();
   let style = {
     display: "flex",
     alignItems: "center",
@@ -28,17 +27,18 @@ const Partner = () => {
   return (
     <StyledLanding img={PartnerImage}>
       <Main
-        buttonText={"Разместить товар"}
+        buttonText={t("p35")}
         textColor={"white"}
-        leftSideText={leftSideText}
-        leftSidePar={leftSidePar}
+        leftSideText={t("p37")}
+        leftSidePar={t("p38")}
+        url={"/products"}
       />
       <BodyInfo
         img={PartnerBodyImage}
-        title="Партнёрская сеть — это выгодно и просто!"
-        subtitle="GASOIL предоставляет магазинам и предпринимателям возможность получить полный комплекс услуг на одной площадке."
-        subtitleSecond="Вам не надо тратиться на маркетинг, искать различные источники трафика. Мы предоставим вам вышеперечисленные услуги и гарантирукм."
-        subtitleThird="Благодаря нативности инструментов средний CTR на площадках наших партнёров — 9%. В некоторых случаях этот показатель достигает "
+        title={t("p39")}
+        subtitle={t("p40")}
+        subtitleSecond={t("p61")}
+        subtitleThird={t("p62")}
       />
       <StyledContainer>
         <div className="container">
@@ -55,13 +55,7 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Bar1}
-                  heading={"Выгодно"}
-                  text={
-                    "Вам не надо создавать свой собственный интернет-магазин для онлайн продаж"
-                  }
-                />
+                <CardList img={Bar1} heading={t("p41")} text={t("p63")} />
               </Col>
               <Col
                 style={style}
@@ -74,11 +68,7 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Purchase1}
-                  heading={"Быстро"}
-                  text={"Быстрая загрузка товара на сайт GAZOIL.UZ"}
-                />
+                <CardList img={Purchase1} heading={t("p64")} text={t("p65")} />
               </Col>
               <Col
                 style={style}
@@ -91,29 +81,13 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Download1}
-                  heading={"Удобно"}
-                  text={
-                    "Получайте заказ от клиента и привозите нам заказанный товар в удобный временной диапазон"
-                  }
-                />
+                <CardList img={Download1} heading={t("p66")} text={t("p67")} />
               </Col>
             </Row>
           </div>
 
-          <Text
-            heading={"Продвигайте товары"}
-            text={
-              "С помощью продвижения ставками вы можете показывать товары бренда и предложения магазинов-партнёров на более выгодных позициях в результатах поиска, товарной карточке и на страницах категорий"
-            }
-          />
-          <Text
-            heading={"Один шаг до управления брендом на GAZOIL.UZ"}
-            text={
-              "Один шаг до управления брендом на сайте, чтобы получить доступ к кабинету производителя, заполните анкету и наши менеджеры свяжутся с вами!"
-            }
-          />
+          <Text heading={t("p68")} text={t("p69")} />
+          <Text heading={t("p70")} text={t("p71")} />
           <div className="conveniences_block">
             <Row>
               <Col

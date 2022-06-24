@@ -12,6 +12,7 @@ function AddNews() {
   const [items, setItems] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
   const [image,setImage] = useState()
+  const [date,setDate] = useState('')
   const [componentId, setComponentId] = useState([]);
   const counts = new Date().getUTCMilliseconds();
   const [description,setDescription] = useState('')
@@ -87,6 +88,7 @@ function AddNews() {
           id: uploadedImgs,
         },
         ...formValues,
+        published_date:date
       });
       console.log(res);
     } catch (error) {
@@ -185,7 +187,7 @@ function AddNews() {
               <label htmlFor="date">Дата</label>
               <Input
                 type="date"
-                onChange={(e) => console.log(e.target.value)}
+                onChange={(e) =>setDate(e.target.value)}
               />
             </div>
           </div>

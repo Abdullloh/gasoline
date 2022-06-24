@@ -8,6 +8,7 @@ import { StyledFooter } from "./Footer.style";
 import Axios from "../../utils/axios";
 import InstagramIcon from "../../assets/img/instagram.svg";
 import FacebookIcon from "../../assets/img/facebook.svg";
+import { useTranslation } from "react-i18next";
 
 const { TextArea } = Input;
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   description: "",
 };
 function Footer() {
+  const {t} = useTranslation()
   const [formValue, setFormValue] = useState({
     fullName: "",
     phoneNumber: "",
@@ -113,12 +115,12 @@ function Footer() {
               }}
             >
               <div className="navigation">
-                <h4 className="footer_heading">Страницы</h4>
-                <Link to="/">Главная</Link>
-                <Link to="/about">О компании</Link>
-                <Link to="/partner"> Для партнеров</Link>
-                <Link to="/service"> Покупателям</Link>
-                <Link to="/products"> Магазин</Link>
+                <h4 className="footer_heading">{t("p19")}</h4>
+                <Link to="/">{t("p25")}</Link>
+                <Link to="/about">{t("p26")}</Link>
+                <Link to="/partner"> {t("p27")}</Link>
+                <Link to="/service"> {t("p28")}</Link>
+                <Link to="/products"> {t("p29")}</Link>
               </div>
             </Col>
             <Col
@@ -130,9 +132,9 @@ function Footer() {
               }}
             >
               <div className="contact">
-                <h4 className="footer_heading">Контакты</h4>
+                <h4 className="footer_heading">{t("p20")}</h4>
                 <a href="https://www.google.com/maps/place/41°19'55.0%22N+69°14'56.7%22E/@41.331939,69.2468823,17z/data=!3m1!4b1!4m5!3m4!1s0x0:0xce22268ab1beb8ec!8m2!3d41.331939!4d69.249071">
-                  Адрес: г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137{" "}
+                  {t("p30")}
                 </a>
                 <a href="mailto:info@email.com">Эл. почта: info@gazoil.uz </a>
                 <a href="tel:+998 77 777 73 13"> Телефон: +998 77 777 73 13</a>
@@ -149,7 +151,7 @@ function Footer() {
               <div className="socials_media">
                 <div>
                   <h4 className="footer_social_heading">
-                    Мы в социальных сетях
+                    {t("p21")}
                   </h4>
                   <div className="social_icons">
                     <div>
@@ -167,9 +169,9 @@ function Footer() {
               </div>
               <div className="contact_message">
                 <div>
-                  <h4 className="footer_social_heading">Остались вопросы?</h4>
+                  <h4 className="footer_social_heading">{t("p22")}</h4>
                   <button className="message_btn" onClick={handleShowModal}>
-                    Напишите нам
+                    {t("p23")}
                   </button>
                 </div>
               </div>

@@ -14,7 +14,7 @@ function Orders() {
   const [modalData, setModalData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [loading, setLoading] = useState(false);
-  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
@@ -24,7 +24,6 @@ function Orders() {
     setVisible((prev) => !prev);
   };
 
-  console.log(data, 'ordersssssssss');
   const getOrders = async () => {
     setLoading(true);
     try {
@@ -41,7 +40,6 @@ function Orders() {
       const res = await Axios.get(`/adminside/order/${id}`, {
         headers: header,
       });
-      console.log(res);
       setModalData(res.data);
       setReqLoading(false);
       handleShow();
@@ -50,7 +48,7 @@ function Orders() {
       setReqLoading(false);
     }
   };
-
+console.log(modalData, 'modalDat5aaaaaaaaaa');
   const handlePayment = async (id, status) => {
     setLoading(true);
     try {

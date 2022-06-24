@@ -6,6 +6,7 @@ import axios from "axios";
 import { Row, Col, Input, Select, Checkbox, Button } from "antd";
 import { StyledAddProduct } from "./Addproduct.style";
 import Axios from "../../../utils/axios";
+import { t } from "i18next";
 const { TextArea } = Input;
 const { Option } = Select;
 function Addproduct() {
@@ -106,10 +107,10 @@ function Addproduct() {
           <Col sm={{ span: 24 }} lg={{ span: 16 }}>
             <div className="left_side">
               <header>
-                <h2 className="title">Добавить товар</h2>
+                <h2 className="title">{t("Добавить товар")}</h2>
               </header>
               <div className="upload_pictures">
-                <h3>Фотографии</h3>
+                <h3>{t("Фотографии")}</h3>
                 <div className="imgs_block">
                   <div
                     className="img_upload"
@@ -223,7 +224,7 @@ function Addproduct() {
               </div>
               <Row gutter={[20, 20]}>
                 <Col span={16}>
-                  <label htmlFor="productName">Название</label>
+                  <label htmlFor="productName">{t("Название")}</label>
                   <Input
                     required
                     type="text"
@@ -233,7 +234,7 @@ function Addproduct() {
                   />
                 </Col>
                 <Col span={8}>
-                  <label htmlFor="article">Артикул</label>
+                  <label htmlFor="article">{t("Артикул")}</label>
                   <Input
                     required
                     type="text"
@@ -243,7 +244,7 @@ function Addproduct() {
                   />
                 </Col>
                 <Col span={24}>
-                  <label htmlFor="description">Описание</label>
+                  <label htmlFor="description">{t("Описание")}</label>
                   <TextArea
                     rows={8}
                     id="description"
@@ -253,7 +254,7 @@ function Addproduct() {
                 </Col>
                 <Col span={24}>
                   <div className="status_product">
-                    <h2>Категории</h2>
+                    <h2>{t("Категории")}</h2>
                     <select
                       className="select_category"
                       value={category}
@@ -273,7 +274,7 @@ function Addproduct() {
           </Col>
           <Col sm={{ span: 24 }} lg={{ span: 8 }}>
             <div className="right_side">
-              <h2 className="title">Цена</h2>
+              <h2 className="title">{t("Цена")}</h2>
               <Row gutter={[5, 5]}>
                 <Col span={18}>
                   <Input
@@ -287,18 +288,18 @@ function Addproduct() {
                 <Col span={6}>Сум</Col>
               </Row>
               <div className="status_product">
-                <h2>Статус товара</h2>
+                <h2>{t("Статус товара")}</h2>
                 <Checkbox
                   checked={statusProduct}
                   onChange={() => setStatusProduct(!statusProduct)}
                 >
-                  Доступен в каталоге
+                 {t("Доступен в каталоге")}
                 </Checkbox>
               </div>
               <div className="status_product">
-                <h2>Наличие на складе</h2>
+                <h2>{t("Наличие на складе")}</h2>
                 <Row>
-                  <Col>В наличии</Col>
+                  <Col>{t("В наличии")}</Col>
                   <Col>
                     <Input
                       required
@@ -310,7 +311,7 @@ function Addproduct() {
               </div>
               <div className="sbm_btn">
                 <Button type="primary" onClick={handleSubmite} htmlFor="submit">
-                  Разместить
+                  {t("Сохранить")}
                 </Button>
               </div>
             </div>

@@ -12,9 +12,11 @@ import { Col, Row } from "antd";
 import Text from "../../components/Text/Text";
 import { StyledContainer } from "../../styles/Container.style";
 import Service from "../../components/Servise/Service";
+import { useTranslation } from "react-i18next";
 const Purchaser = () => {
   let leftSideText =
-    "GAZOIL.UZ онлайн маркетплейс нефтяных продукций в Узбекистане";
+    "";
+    const {t} = useTranslation()
   let style = {
     display: "flex",
     alignItems: "center",
@@ -23,19 +25,20 @@ const Purchaser = () => {
   return (
     <StyledLanding img={PurchaserImg}>
       <Main
-        leftSideText={leftSideText}
-        buttonText={"Купить товар"}
+        leftSideText={t("p42")}
+        buttonText={t("p34")}
         width={'60%'}
+        url={"/products"}
         flexDirection={"column"}
         isFlexTrue={true}
         textColor={"white"}
       />
       <BodyInfo
         img={PurchaserBodyImg}
-        title="Для покупателей"
-        subtitle="GASOIL это огромный маркетплейс в интернете нефтяных продукций"
-        subtitleSecond="Это уникальная база товаров и услуг от разных компаний, собранных в одном месте. С помощью нас вы сможете найти самый широкий ассортимент товаров и услуг и заказать их непосредственно на нашем сайте или на сайте поставщика."
-        subtitleThird="Теперь Вам необязательно посещать разные сайты по отдельности, так как все товары и услуги доступны в каталоге нашего маркетплейса"
+        title={t("p43")}
+        subtitle={t("p44")}
+        subtitleSecond={t("p45")}
+        subtitleThird={t("p46")}
       />
       <StyledContainer>
         <div className="container">
@@ -54,7 +57,7 @@ const Purchaser = () => {
               >
                 <CardList
                   img={Bar}
-                  text={"Отображение всех товаров  в каталоге"}
+                  text={t("p47")}
                 />
               </Col>
               <Col
@@ -70,7 +73,7 @@ const Purchaser = () => {
               >
                 <CardList
                   img={Purchase}
-                  text={"Удаленный менеджер по обслуживанию"}
+                  text={t("p48")}
                 />
               </Col>
               <Col
@@ -86,7 +89,7 @@ const Purchaser = () => {
               >
                 <CardList
                   img={Download}
-                  text={"Бесплатная  техническая поддержка"}
+                  text={t("p49")}
                 />
               </Col>
             </Row>

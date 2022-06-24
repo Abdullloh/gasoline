@@ -3,6 +3,7 @@ import React from "react";
 import { ProductDetailStyle } from "./ProductDetailStyle";
 import { useDispatch } from "react-redux";
 import { addToCard } from "../../store/actios/publicActions";
+import styled from "styled-components";
 
 export default function ProductDetail(props) {
   console.log(props);
@@ -14,7 +15,7 @@ export default function ProductDetail(props) {
     dispatch(addToCard({ ...props.data }));
   };
   return (
-    <Modal footer={null} visible={isVisible} onCancel={handleCancel} style={{"width": "760px"}}>
+    <Modal footer={null} visible={isVisible} onCancel={handleCancel} width={1000}>
       <ProductDetailStyle>
         <div className="detail-heading">
           <div className="heading-images">
@@ -50,3 +51,6 @@ export default function ProductDetail(props) {
     </Modal>
   );
 }
+
+
+

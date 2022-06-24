@@ -25,9 +25,10 @@ import useFetchHook from "../../customhooks/useFetchHook";
 import axios from "axios";
 import Axios from "../../utils/axios";
 import Basket from "../Basket/Basket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderCarousel from "./HeaderCarousel";
 import { useTranslation } from "react-i18next";
+import { setLanguage } from "../../Redux/language/languageSlice";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -114,7 +115,7 @@ function Navbar(props) {
       ]}
     />
   );
-
+const dispatch = useDispatch()
   useEffect(() => {
     let timer = setTimeout(async () => {
       try {
@@ -129,6 +130,7 @@ function Navbar(props) {
   }, [search]);
   const changeLangugae = (e) =>{
     const langugae = e.target.value
+    dispatch(setLanguage(langugae))
     i18n.changeLanguage(langugae)
   }
   return (
@@ -136,10 +138,7 @@ function Navbar(props) {
       <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
-        <select onChange={changeLangugae}>
-          <option value="ru">Ru</option>
-          <option value="uz">Uz</option>
-        </select>
+       
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -161,7 +160,7 @@ function Navbar(props) {
                     value={search}
                     onChange={handleInput}
                     ref={inputRef}
-                    placeholder="Поиск по товарам"
+                    placeholder={t("p24")}
                   />
                   <SearchOutlined
                     style={{
@@ -192,6 +191,10 @@ function Navbar(props) {
                       </span>
                     </button>
                   </div>
+                  <select onChange={changeLangugae}>
+          <option value="ru">Ru</option>
+          <option value="uz">Uz</option>
+        </select>
                 </div>
               </div>
             </div>

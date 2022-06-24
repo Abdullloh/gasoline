@@ -34,6 +34,12 @@ function NewsDetail() {
                 <p className="date">{data?.date}</p>
                 <h4 className='description'>{data?.short_description}</h4>
                 <img className='main_img' src={data?.cover_image?.image} alt="news" />
+                {data?.components?.map((item, index) => (
+                  <div key={index} className='extra_news'>
+                     <img className='main_img' src={item?.image} alt="news" />
+                   <h4 className='description'>{item?.text}</h4>
+                  </div>
+                ))}
             </div>
         </div>
     </StyledContainer>

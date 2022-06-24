@@ -8,10 +8,12 @@ import { StyledContainer } from "../../styles/Container.style";
 import { useState } from "react";
 import { useEffect } from "react";
 import useFetchHook from "../../customhooks/useFetchHook";
+import { useTranslation } from "react-i18next";
 export default function ProductView() {
   const [productList] = useFetchHook("/products");
   const { results = [] } = productList;
   const [visible, setVisible] = useState(false);
+  const {t} = useTranslation()
   const [width, setWidth] = useState(window.innerWidth);
   console.log(width);
   const { Panel } = Collapse;
@@ -48,10 +50,10 @@ export default function ProductView() {
                   width > 768 ? { display: "inherit" } : { display: "none" }
                 }
               >
-                Фильтр по параметрам
+                {t("p50")}
               </h4>
               <Collapse defaultActiveKey={["0", "1", "2"]} ghost>
-                <Panel header="Цена">
+                <Panel header={t("p51")}>
                   <div>
                     <InputNumber
                       min={1}
@@ -68,7 +70,7 @@ export default function ProductView() {
                     />
                   </div>
                 </Panel>
-                <Panel header="Тип продаж">
+                <Panel header={t("p52")}>
                   <div className="checkbox-container">
                     <Checkbox value={"masla"} onChange={handleChange}>
                       Масла
@@ -79,25 +81,24 @@ export default function ProductView() {
                     <Checkbox onChange={handleChange}>Смазки</Checkbox>
                   </div>
                 </Panel>
-                <Panel header="Метки">
+                <Panel header={t("p53")}>
                   <div className="checkbox-container">
-                    <Checkbox onChange={handleChange}>Без метки</Checkbox>
-                    <Checkbox onChange={handleChange}>Новинка</Checkbox>
-                    <Checkbox onChange={handleChange}>Хит сезона</Checkbox>
-                    <Checkbox onChange={handleChange}>Хит продаж</Checkbox>
-                    <Checkbox onChange={handleChange}>Популярные </Checkbox>
+                    <Checkbox onChange={handleChange}>{t("p54")}</Checkbox>
+                    <Checkbox onChange={handleChange}>{t("p55")}</Checkbox>
+                    <Checkbox onChange={handleChange}>{t("p56")}</Checkbox>
+                    <Checkbox onChange={handleChange}>{t("p57")}</Checkbox>
+                    <Checkbox onChange={handleChange}> {t("p58")}</Checkbox>
                   </div>
                 </Panel>
               </Collapse>
               <div className="button-container">
-                <Button type="primary">Применить фильтры</Button>
-                <Button type="default ">Сбросить фильтры</Button>
+                <Button type="primary">{t("p59")}</Button>
+                <Button type="default ">{t("p60")}</Button>
               </div>
             </div>
             <div className="product-container">
               <Row>
                 {results.map((item, index) => {
-                  const { title, images, price } = item;
                   return (
                     <Col
                       sm={{
@@ -111,11 +112,7 @@ export default function ProductView() {
                       }}
                       key={index}
                     >
-                      <ProductCard
-                        margin="10px"
-                        key={index}
-                        data={item}
-                      />
+                      <ProductCard margin="10px" key={index} data={item} />
                     </Col>
                   );
                 })}

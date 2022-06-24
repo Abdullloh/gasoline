@@ -6,21 +6,30 @@ import { AboutPageStyle } from "../../styles/AboutPageSyle";
 import { StyledContainer } from "../../styles/Container.style";
 import { StyledLanding } from "../../styles/Landing.style";
 import Main from "../../components/Main";
+import { useTranslation } from "react-i18next";
+import { Col, Row } from "antd";
+import { useSelector } from "react-redux";
 
 const AboutCompany = () => {
+  const {t} = useTranslation()
+  let lang = useSelector(state=>state.language.languageData)
+
+
+  console.log(lang);
   return (
     <StyledLanding img={CompanyImg}>
       <Main
-        leftSideText={"Добро пожаловать на GAZOIL "}
-        buttonText={"Купить товар"}
-        aboutPageButtonText={"Разместить товар "}
+        leftSideText={t("p33")}
+        buttonText={t("p34")}
+        aboutPageButtonText={t("p35")}
         flexDirection={"column"}
+        url={"/products"}
         isFlexTrue={true}
       />
       <StyledContainer>
         <div className="container">
           <div style={{ marginTop: "60px" }}>
-            <h2>О компании</h2>
+            <h2>{t("p36")}</h2>
             <p className="text">
               GASOIL - это первый в Узбекистане маркетплейс нефтяных продукций,
               где вы можете легко размещать свои товары и управлять ими. С нами
@@ -62,31 +71,94 @@ const AboutCompany = () => {
             </p>
           </div>
           <AboutPageStyle>
-            <ul>
-              <li>
-                <span>Полное название:</span>
-                <span>PETROL AUTO AND INDRUSTRIAL</span>
-              </li>
-              <li>
-                <span>Юридичческий адрес:</span>{" "}
-                <span>г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137</span>
-              </li>
-              <li>
-                <span>Расчетный счет:</span> <span>20208000100933302001</span>
-              </li>
-              <li>
-                <span>Наименование банка:</span> <span>Капитал Банк</span>
-              </li>
-              <li>
-                <span>МФО:</span> <span>00974</span>
-              </li>
-              <li>
-                <span>ИНН:</span> <span>305 784 896</span>
-              </li>
-              <li>
-                <span>ОКЭД:</span> <span>46710</span>
-              </li>
-            </ul>
+            <Row>
+              <Col  md={{span: 24}} lg={{span: 14}}>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("Юридическое название")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">PETROL AUTO AND INDRUSTRIAL</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("Юридический адрес")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">г. Ташкент, массив Себзор Ц17/18 дом 4, кв.137</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("Расчетный счет")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">20208000100933302001</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("Наименование банка")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">Капитал Банк</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("МФО")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">00974</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">{t("ИНН")}:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">305 784 896</h5>
+                    </Col>
+                  </Row>
+              <Row
+                    className="modal_row"
+                    style={{ margin: "15px 0px" }}
+                    gutter={[24, 0]}
+                  >
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="title">ОКЭД:</h5>
+                    </Col>
+                    <Col xs={{ span: 24 }} md={{ span: 12 }}>
+                      <h5 className="sub_title">46710</h5>
+                    </Col>
+                  </Row>
+              </Col>
+            </Row>
           </AboutPageStyle>
         </div>
       </StyledContainer>

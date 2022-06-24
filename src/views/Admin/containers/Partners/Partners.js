@@ -22,7 +22,7 @@ function Partners() {
   const [loading, setLoading] = useState(false);
   // const [partnerData, setPartnerData] = useState({});
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,

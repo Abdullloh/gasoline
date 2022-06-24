@@ -7,23 +7,25 @@ import ServiceImg2 from "../../assets/img/service-box.svg";
 import ServiceImg3 from "../../assets/img/service-chart.svg";
 import ServiceImg4 from "../../assets/img/service-bag.svg";
 import ServiceCard from "./ServiceCard";
+import { useTranslation } from "react-i18next";
 
 function Service() {
+  const {t} = useTranslation()
   const [data, setData] = useState([
     {
-      title: "Помощь в поиске и подборе автозапчастей",
+      title: t("p15"),
       imgUrl: ServiceImg1,
     },
     {
-      title: "Все самое нужное на одном месте",
+      title: t("p16"),
       imgUrl: ServiceImg2,
     },
     {
-      title: "Реальные и конкурентоспособные цены",
+      title: t("p17"),
       imgUrl: ServiceImg3,
     },
     {
-      title: "Широчайший ассортимент товаров",
+      title: t("p18"),
       imgUrl: ServiceImg4,
     },
   ]);
@@ -31,7 +33,7 @@ function Service() {
     <div>
       <StyledContainer>
         <div className="container">
-          <PageHeader title={"Почему именно мы?"} />
+          <PageHeader title={t("p14")} />
           <Row gutter={[15, 15]} style={{ alignItems: "stretch" }}>
             {data?.map((item, index) => (
               <Col

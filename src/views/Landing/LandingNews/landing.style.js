@@ -76,4 +76,7 @@ export const StyledDetails = styled.div`
       object-fit: cover;
     }
   }
+  .extra_news{
+    margin: 20px 0px;
+  }
 `;
