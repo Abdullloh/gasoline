@@ -25,9 +25,10 @@ import useFetchHook from "../../customhooks/useFetchHook";
 import axios from "axios";
 import Axios from "../../utils/axios";
 import Basket from "../Basket/Basket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderCarousel from "./HeaderCarousel";
 import { useTranslation } from "react-i18next";
+import { setLanguage } from "../../Redux/language/languageSlice";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -114,7 +115,7 @@ function Navbar(props) {
       ]}
     />
   );
-
+const dispatch = useDispatch()
   useEffect(() => {
     let timer = setTimeout(async () => {
       try {
@@ -129,6 +130,7 @@ function Navbar(props) {
   }, [search]);
   const changeLangugae = (e) =>{
     const langugae = e.target.value
+    dispatch(setLanguage(langugae))
     i18n.changeLanguage(langugae)
   }
   return (

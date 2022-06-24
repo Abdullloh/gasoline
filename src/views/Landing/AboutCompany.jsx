@@ -8,9 +8,12 @@ import { StyledLanding } from "../../styles/Landing.style";
 import Main from "../../components/Main";
 import { useTranslation } from "react-i18next";
 import { Col, Row } from "antd";
+import { useSelector } from "react-redux";
 
 const AboutCompany = () => {
   const {t} = useTranslation()
+  let lang = useSelector(state=>state.language.languageData)
+  console.log(lang);
   return (
     <StyledLanding img={CompanyImg}>
       <Main
@@ -18,6 +21,7 @@ const AboutCompany = () => {
         buttonText={t("p34")}
         aboutPageButtonText={t("p35")}
         flexDirection={"column"}
+        url={"/products"}
         isFlexTrue={true}
       />
       <StyledContainer>
