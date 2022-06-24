@@ -28,6 +28,7 @@ const Purchaser = () => {
         leftSideText={t("p42")}
         buttonText={t("p34")}
         width={'60%'}
+        url={"/products"}
         flexDirection={"column"}
         isFlexTrue={true}
         textColor={"white"}

@@ -78,7 +78,7 @@ const Main = (props) => {
                 <Button
                   type="primary"
                   size="large"
-                  onClick={() => navigate("/about")}
+                  onClick={() => navigate(props.url)}
                   className="heading_btn"
                 >
                   {buttonText}
@@ -89,6 +89,7 @@ const Main = (props) => {
                     ghost
                     size="large"
                     className="heading_btn"
+                    onClick={() => navigate(props.url)}
                   >
                     {aboutPageButtonText}
                   </Button>

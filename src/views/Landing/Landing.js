@@ -28,6 +28,7 @@ function Landing() {
         leftSideText={t("p8")}
         leftSidePar={t("p9")}
         flexDirection={"row"}
+        url={"/about"}
       />
       <div className="category-section">
         <StyledContainer>

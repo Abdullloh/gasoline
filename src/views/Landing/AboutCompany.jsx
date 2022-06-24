@@ -20,6 +20,7 @@ const AboutCompany = () => {
         buttonText={t("p34")}
         aboutPageButtonText={t("p35")}
         flexDirection={"column"}
+        url={"/products"}
         isFlexTrue={true}
       />
       <StyledContainer>
