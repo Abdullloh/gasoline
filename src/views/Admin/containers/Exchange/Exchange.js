@@ -55,10 +55,8 @@ function Exchange() {
   const deleteExchange = async (id) => {
     setLoading(true);
     try {
-      let filtereData = data.filter((item) => item.id != id);
       const res = await Axios.delete(`/products/product_prices/${id}`);
-      setData([])
-      setData(filtereData);
+      getPrices();
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -77,6 +75,7 @@ function Exchange() {
         <form onSubmit={handleSubmit}>
           <label htmlFor="product">Название</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             required
             onChange={handleInputChange}
             id="product"
@@ -85,6 +84,7 @@ function Exchange() {
           />
           <label htmlFor="price">Цена</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             required
             onChange={handleInputChange}
             id="price"
@@ -93,6 +93,7 @@ function Exchange() {
           />
           <label htmlFor="percentage">Процент</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             onChange={handleInputChange}
             id="percentage"
             name="percentage"

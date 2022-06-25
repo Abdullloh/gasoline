@@ -168,7 +168,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
         onCancel={handleShow}
         className="modalInfo"
       >
-        <Row>
+        <Row style={{'margin': '10px 0px'}}>
           <Col span={12}>
             <h4>Ф.И.О.</h4>
           </Col>
@@ -176,7 +176,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.customer_name}</h4>
           </Col>
         </Row>
-        <Row>
+        <Row style={{'margin': '10px 0px'}}>
           <Col span={12}>
             <h4>Номер телефона</h4>
           </Col>
@@ -184,7 +184,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.customer_phone}</h4>
           </Col>
         </Row>
-        <Row>
+        <Row style={{'margin': '10px 0px'}}>
           <Col span={12}>
             <h4>ИНН</h4>
           </Col>
@@ -192,7 +192,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
-        <Row>
+        <Row style={{'margin': '10px 0px'}}>
           <Col span={12}>
             <h4>Наименование организации</h4>
           </Col>
@@ -200,12 +200,12 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
-        <Row>
+        <Row style={{'margin': '10px 0px'}}>
           <Col span={12}>
             <h4>Email</h4>
           </Col>
           <Col span={12}>
-            <h4>{modalData?.email}</h4>
+            <h4>{modalData?.customer_email}</h4>
           </Col>
         </Row>
         <Button onClick={handleShow} type="primary">
