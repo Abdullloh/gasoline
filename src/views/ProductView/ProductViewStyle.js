@@ -40,6 +40,13 @@ export const ProductViewStyle = styled.div`
   }
   .product-container {
     width: 80%;
+    .ant-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
     @media only screen and (max-width: 768px) {
       width: 100%;
     }

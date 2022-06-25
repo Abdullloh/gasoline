@@ -3,36 +3,91 @@ import ProductCard from "../../components/NewProducts/ProductCard";
 import Service from "../../components/Servise/Service";
 import { ProductViewStyle } from "./ProductViewStyle";
 import CardImg from "../../assets/img/category-oil.svg";
-import { Button, Checkbox, Col, Collapse, InputNumber, Row } from "antd";
+import { Button, Checkbox, Col, Collapse, InputNumber, Row, Spin } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import { useState } from "react";
 import { useEffect } from "react";
 import useFetchHook from "../../customhooks/useFetchHook";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { SearchContext } from "../Landing/SeacrhContext";
+import Axios from "../../utils/axios";
+import { SelectContext } from "../../components/Navbar/SelectContext";
+
+
 export default function ProductView() {
-  const [productList] = useFetchHook("/products");
+  const [productList,setProductList] = useState([]);
   const { results = [] } = productList;
+  const [minPrice,setMinPrice] = useState('')
+  const [maxPrice,setMaxPrice] = useState("")
+  const [loading,setLoading] = useState(false)
+  const [category,setCategory] = useState([])
+  const {value,setValue} = useContext(SearchContext)
+  const {select,setSelect} = useContext(SelectContext)
+  console.log(select);
   const [visible, setVisible] = useState(false);
   const {t} = useTranslation()
   const [width, setWidth] = useState(window.innerWidth);
-  console.log(width);
   const { Panel } = Collapse;
+
   const handleChange = (e) => {
-    console.log(`checked = ${e.target.value}`);
+    const {value} = e.target
+    let newCategory = [...category]
+    if(!e.target.checked){
+     newCategory = newCategory.filter(item=> item !== value)
+    }else {
+      newCategory.push(value)
+    }
+    setCategory(newCategory)
   };
+
   const onChange = (value) => {
-    console.log("changed", value);
+    console.log("changed",value);
   };
+
   const makeVisible = () => {
     setVisible(!visible);
   };
+
   function handleResize() {
     setWidth(window.innerWidth);
   }
+
+  const getProducts = async()=>{
+    setLoading(true)
+    try {
+      const res = await Axios.get(`/products/?min_price=${minPrice&& minPrice}&max_price=${maxPrice&&maxPrice}&categories__in=${category.map(item=> item)| select}`)
+      setProductList(res?.data)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+  }
+
+  useEffect(()=>{
+    getProducts()
+  },[])
+
+  useEffect(() => {
+    if(value) {
+      let timer = setTimeout(async () => {
+        try {
+          const res = await Axios.get(`/products/?search=${value}`);
+          setProductList(res?.data)
+        } catch (error) {}
+      }, 1000);
+  
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [value]);
+
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [width]);
+
   return (
     <>
       <StyledContainer>
@@ -56,32 +111,34 @@ export default function ProductView() {
                 <Panel header={t("p51")}>
                   <div>
                     <InputNumber
-                      min={1}
-                      max={10}
-                      defaultValue={3}
-                      onChange={onChange}
+                      name="min_price"
+                      defaultValue={0}
+                      value={minPrice}
+                      type="number"
+                      onChange={(value)=> setMinPrice(value)}
                     />
                     <InputNumber
                       style={{ marginLeft: "15px" }}
-                      min={1}
-                      max={10}
-                      defaultValue={3}
-                      onChange={onChange}
+                      name="max_price"
+                      type="number"
+                      value={maxPrice}
+                      defaultValue={0}
+                      onChange={(value)=> setMaxPrice(value)}
                     />
                   </div>
                 </Panel>
                 <Panel header={t("p52")}>
                   <div className="checkbox-container">
-                    <Checkbox value={"masla"} onChange={handleChange}>
+                    <Checkbox value={"1"} onChange={handleChange}>
                       Масла
                     </Checkbox>
-                    <Checkbox value={"toplivo"} onChange={handleChange}>
+                    <Checkbox value={"2"} onChange={handleChange}>
                       Топливо
                     </Checkbox>
-                    <Checkbox onChange={handleChange}>Смазки</Checkbox>
+                    <Checkbox value={"3"} onChange={handleChange}>Смазки</Checkbox>
                   </div>
                 </Panel>
-                <Panel header={t("p53")}>
+                {/* <Panel header={t("p53")}>
                   <div className="checkbox-container">
                     <Checkbox onChange={handleChange}>{t("p54")}</Checkbox>
                     <Checkbox onChange={handleChange}>{t("p55")}</Checkbox>
@@ -89,16 +146,17 @@ export default function ProductView() {
                     <Checkbox onChange={handleChange}>{t("p57")}</Checkbox>
                     <Checkbox onChange={handleChange}> {t("p58")}</Checkbox>
                   </div>
-                </Panel>
+                </Panel> */}
               </Collapse>
               <div className="button-container">
-                <Button type="primary">{t("p59")}</Button>
+                <Button  type="primary" onClick={getProducts}>{t("p59")}</Button>
                 <Button type="default ">{t("p60")}</Button>
               </div>
             </div>
             <div className="product-container">
               <Row>
-                {results.map((item, index) => {
+                { loading ? <Spin/> :
+                results.map((item, index) => {
                   return (
                     <Col
                       sm={{
@@ -115,7 +173,8 @@ export default function ProductView() {
                       <ProductCard margin="10px" key={index} data={item} />
                     </Col>
                   );
-                })}
+                })
+                }
               </Row>
             </div>
           </ProductViewStyle>

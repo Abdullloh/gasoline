@@ -18,7 +18,7 @@ import { StyledContainer } from "../../styles/Container.style";
 import Service from "../../components/Servise/Service";
 import { useTranslation } from "react-i18next";
 const Partner = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   let style = {
     display: "flex",
     alignItems: "center",
@@ -31,6 +31,7 @@ const Partner = () => {
         textColor={"white"}
         leftSideText={t("p37")}
         leftSidePar={t("p38")}
+        url={"/products"}
       />
       <BodyInfo
         img={PartnerBodyImage}
@@ -54,13 +55,7 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Bar1}
-                  heading={t("p41")}
-                  text={
-                    t("p63")
-                  }
-                />
+                <CardList img={Bar1} heading={t("p41")} text={t("p63")} />
               </Col>
               <Col
                 style={style}
@@ -73,11 +68,7 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Purchase1}
-                  heading={t("p64")}
-                  text={t("p65")}
-                />
+                <CardList img={Purchase1} heading={t("p64")} text={t("p65")} />
               </Col>
               <Col
                 style={style}
@@ -90,29 +81,13 @@ const Partner = () => {
                   offset: 0,
                 }}
               >
-                <CardList
-                  img={Download1}
-                  heading={t("p66")}
-                  text={
-                    t("p67")
-                  }
-                />
+                <CardList img={Download1} heading={t("p66")} text={t("p67")} />
               </Col>
             </Row>
           </div>
 
-          <Text
-            heading={t("p68")}
-            text={
-              t("p69")
-            }
-          />
-          <Text
-            heading={t("p70")}
-            text={
-              t("p71")
-            }
-          />
+          <Text heading={t("p68")} text={t("p69")} />
+          <Text heading={t("p70")} text={t("p71")} />
           <div className="conveniences_block">
             <Row>
               <Col

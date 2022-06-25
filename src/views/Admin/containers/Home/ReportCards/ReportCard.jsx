@@ -8,7 +8,7 @@ function ReportCard(props) {
     <StyledReportCard>
       <h5>{props?.title}</h5>
       <h3>{props?.price}</h3>
-      <div className="card_footer">
+      {/* <div className="card_footer">
         {props.hasIncrease ? (
           <img src={IncreaseImg} alt="increase" />
         ) : (
@@ -17,7 +17,7 @@ function ReportCard(props) {
         {
             props.hasIncrease ? <p className="increase_amount">{props.amount} %</p> : <p className="decrease_amount">{props?.amount} %</p>
         }
-      </div>
+      </div> */}
     </StyledReportCard>
   );
 }

@@ -9,11 +9,14 @@ import Axios from "../../utils/axios";
 import Korzinka from "../../assets/img/korzinka.svg";
 import { StyledMainLanding } from "./MainLanding.style";
 import { StyledContainer } from "../../styles/Container.style";
+import { SearchContext } from "./SeacrhContext";
+import { SelectContext } from "../../components/Navbar/SelectContext";
 
 function MainLanding() {
   const [cartList, setCartList] = useState([]);
   const [showModal, setShowModal] = useState(false);
-
+  const [value,setValue] = useState("")
+  const [select,setSelect] = useState("")
   const getCarts = async () => {
     try {
       const res = await Axios.get("/cart");
@@ -42,6 +45,8 @@ function MainLanding() {
 
   return (
     <StyledMainLanding>
+          <SearchContext.Provider value={{value,setValue}} >
+            <SelectContext.Provider value={{select,setSelect}}>
           <Navbar
             isVisible={showModal}
             cartList={cartList}
@@ -55,6 +60,8 @@ function MainLanding() {
             ))}
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          </SelectContext.Provider>
+          </SearchContext.Provider>
           <div className="fixed_korzinka" onClick={openModal}>
             <img src={Korzinka} alt="Korzinka" />
           </div>
