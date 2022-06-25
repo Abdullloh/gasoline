@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Button, Form, Input, Radio, message } from "antd";
 import {useSelector,useDispatch} from "react-redux"
 import Footer from "../../../components/Footer/Footer";
@@ -11,13 +11,19 @@ import { signUpAction } from "../../../store/actios/authAcions";
 import {postUserInfo} from "../../../Redux/login/user"
 import Home from "../containers/Home/Home";
 import {Navigate} from "react-router-dom"
+import { useAlert } from 'react-alert'
 
 function SignIn() {
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
+
+
+  const alert = useAlert()
   const dispatch = useDispatch();
   const [value, setValue] = useState(1);
   const navigate = useNavigate();
+
+
 
   const userData = {
     login: userName,
@@ -57,6 +63,7 @@ function SignIn() {
     {
           role ? <Navigate exact = {true}  to = "/my-account"/> : null
     }
+
 
     <StyledSignIn>
       <StyledContainer>
