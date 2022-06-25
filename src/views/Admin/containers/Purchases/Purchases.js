@@ -7,6 +7,7 @@ import OilImg from "../../../../assets/img/oil-img.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
+import useDebounce from "../../../../customhooks/useDebounce";
 import axios from "axios";
 import EditIcon from "../../../../assets/img/edit-alt.svg";
 
@@ -14,7 +15,7 @@ function Purchases() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredResults, setFilteredResults] = useState([]);
+  const debouncedSearch = useDebounce(searchInput, 500);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,9 +40,33 @@ function Purchases() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    async function getSearch() {
+      setLoading(true);
+      try {
+        const res = await Axios.get(
+          `/adminside/products/?search=${debouncedSearch}`,
+          { headers: header }
+        );
+        setData(res?.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
+    if (debouncedSearch) {
+      getSearch();
+    } else {
+      getProducts();
+    }
+  }, [debouncedSearch]);
+
   const getById = (id) => {
     navigate(`/purchases/${id}`);
   };
+
   const handleProductSale = async (id, status) => {
     setLoading(true);
     try {
@@ -138,21 +163,6 @@ function Purchases() {
     }
   };
 
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      let searchedData = data.filter((item) => {
-        return Object.values(item)
-          .join("")
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
-      });
-      setFilteredResults(searchedData);
-    } else {
-      setFilteredResults(data);
-    }
-  };
-
   return (
     <StyledPurchases>
       <header>
@@ -168,21 +178,13 @@ function Purchases() {
             type="text"
             placeholder="Название товара,артикул,уникальный код"
             value={searchInput}
-            onChange={(e) => searchItems(e.target.value)}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
           <AiOutlineSearch color="#000" size="24" />
         </div>
       </header>
       <div className="wrapper">
-        {searchInput.length > 1 ? (
-          <Table
-            dataSource={filteredResults}
-            columns={columns}
-            loading={loading}
-          />
-        ) : (
-          <Table dataSource={data} columns={columns} loading={loading} />
-        )}
+        <Table dataSource={data} columns={columns} loading={loading} />
       </div>
     </StyledPurchases>
   );

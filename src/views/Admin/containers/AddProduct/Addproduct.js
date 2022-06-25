@@ -16,6 +16,7 @@ function Addproduct() {
   const [price, setPrice] = useState();
   const [statusProduct, setStatusProduct] = useState(true);
   const [quantity, setQuantity] = useState(0);
+  const [litre, setLitre] = useState();
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
@@ -52,7 +53,7 @@ function Addproduct() {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
-      const res = await Axios.post(`/products/upload_image/`, formData);
+      const res = await Axios.post(`/products/upload_image/`, formData,{headers: header});
       console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
@@ -66,7 +67,7 @@ function Addproduct() {
 
   const getCategories = async () => {
     try {
-      const res = await Axios.get("products/categories/");
+      const res = await Axios.get("products/categories/", {headers: header},);
       setProductCategory(res?.data?.results)
     } catch (error) {}
   
@@ -87,6 +88,7 @@ function Addproduct() {
       ],
       price: price,
       in_stock: quantity,
+      litre
     };
 
     console.log(productData);
@@ -247,6 +249,17 @@ function Addproduct() {
                     value={article}
                     onChange={(e) => setArticle(e.target.value)}
                     id="article"
+                  />
+                </Col>
+                <Col span={8}>
+                  <label htmlFor="litr">Объем</label>
+                  <Input
+                    required
+                    type="number"
+                    value={litre}
+                    onChange={(e) => setLitre(e.target.value)}
+                    id="litr"
+                    placeholder="Литр"
                   />
                 </Col>
                 <Col span={24}>

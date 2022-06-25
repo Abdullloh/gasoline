@@ -11,10 +11,14 @@ function Home() {
   const [views, setViews] = useState([]);
   const [users, setUsers] = useState(0);
   const [profit, setProfit] = useState(0);
-
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
   const getUsers = async () => {
     try {
-      const res = await Axios.get("/adminside/customers-count/");
+      const res = await Axios.get("/adminside/customers-count/",{headers:header});
       console.log(res);
       setUsers(res.data.customers);
     } catch (error) {
@@ -23,7 +27,7 @@ function Home() {
   };
   const getViewers = async () => {
     try {
-      const res = await Axios.get("/adminside/product-views/");
+      const res = await Axios.get("/adminside/product-views/",{headers:header});
       console.log(res);
       setViews(res.data.views);
     } catch (error) {
@@ -32,7 +36,7 @@ function Home() {
   };
   const getProfit = async () => {
     try {
-      const res = await Axios.get("/adminside/revenue/");
+      const res = await Axios.get("/adminside/revenue/",{headers:header});
       console.log(res);
       setProfit(res?.data?.revenue?.total_revenue);
     } catch (error) {
@@ -41,7 +45,7 @@ function Home() {
   };
   const getOrders = async () => {
     try {
-      const res = await Axios.get("/adminside/orders/");
+      const res = await Axios.get("/adminside/orders/",{headers:header});
       console.log(res);
       setOrders(res?.data?.count);
     } catch (error) {

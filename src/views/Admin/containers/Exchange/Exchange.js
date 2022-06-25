@@ -16,10 +16,17 @@ function Exchange() {
     percentage: 0,
   });
 
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
+  console.log(adminInfo);
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+
   const getPrices = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/products/product_prices/");
+      const res = await Axios.get("/products/product_prices/", {headers: header});
       setData(res?.data);
       setLoading(false);
     } catch (error) {
@@ -55,7 +62,9 @@ function Exchange() {
   const deleteExchange = async (id) => {
     setLoading(true);
     try {
-      const res = await Axios.delete(`/products/product_prices/${id}`);
+      const res = await Axios.delete(`/products/product_prices/${id}`, {
+        headers: header,
+      });
       getPrices();
       setLoading(false);
     } catch (error) {
@@ -75,7 +84,7 @@ function Exchange() {
         <form onSubmit={handleSubmit}>
           <label htmlFor="product">Название</label>
           <Input
-          style={{'margin-bottom': '15px'}}
+            style={{ "margin-bottom": "15px" }}
             required
             onChange={handleInputChange}
             id="product"
@@ -84,7 +93,7 @@ function Exchange() {
           />
           <label htmlFor="price">Цена</label>
           <Input
-          style={{'margin-bottom': '15px'}}
+            style={{ "margin-bottom": "15px" }}
             required
             onChange={handleInputChange}
             id="price"
@@ -93,7 +102,7 @@ function Exchange() {
           />
           <label htmlFor="percentage">Процент</label>
           <Input
-          style={{'margin-bottom': '15px'}}
+            style={{ "margin-bottom": "15px" }}
             onChange={handleInputChange}
             id="percentage"
             name="percentage"

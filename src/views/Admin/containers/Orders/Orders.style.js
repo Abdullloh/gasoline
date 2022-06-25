@@ -6,8 +6,24 @@ export const StyledOrders = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0px;
-  .wrapper{
+  .wrapper {
     width: 100%;
+    header {
+      background-color: ${COLORS.main};
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      h1 {
+        margin: 0px;
+        font-family: "Gilroy";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 37px;
+        color: ${COLORS.white};
+      }
+    }
   }
   .modalInfo {
     h4 {
@@ -53,9 +69,6 @@ export const StyledOrders = styled.div`
   .table_block {
     margin: 35px 0px;
   }
-  .ant-table-thead {
-    display: none;
-  }
   .ant-table-cell {
     h2 {
       font-style: normal;
@@ -65,10 +78,12 @@ export const StyledOrders = styled.div`
       color: ${COLORS.black};
     }
     h4 {
+      font-family: "Gilroy";
       font-style: normal;
       font-weight: 400;
-      font-size: 20px;
-      line-height: 23px;
+      font-size: 14px;
+      line-height: 16px;
+
       color: ${COLORS.black};
     }
   }
