@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import { Button, Input, Space, Select, Dropdown, Menu, message } from "antd";
 import { SearchOutlined, MenuOutlined } from "@ant-design/icons";
 import { StyledContainer } from "../../styles/Container.style";
@@ -29,6 +29,8 @@ import { useDispatch, useSelector } from "react-redux";
 import HeaderCarousel from "./HeaderCarousel";
 import { useTranslation } from "react-i18next";
 import { setLanguage } from "../../Redux/language/languageSlice";
+import { SearchContext } from "../../views/Landing/SeacrhContext";
+import { SelectContext } from "./SelectContext";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -36,6 +38,8 @@ const { Option } = Select;
 function Navbar(props) {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const {value,setValue} = useContext(SearchContext)
+  const {select,setSelect} = useContext(SelectContext)
   // const selector = useSelector((state) => state);
   // console.log(selector);
   // const { user } = selector.signin;
@@ -65,9 +69,19 @@ function Navbar(props) {
   };
 
   const handleInput = (e) => {
-    setSearch(e.target.value);
+    let location = window.location.pathname
+    setValue(e.target.value)
+    if(location !== '/products'){
+      navigate("/products")
+    }
   };
-
+  const handleSelect = (e) => {
+    let location = window.location.pathname
+    setSelect(e.key)
+    if(location !== '/products'){
+      navigate("/products")
+    }
+  };
   const responSearch = () => {
     setHideMenu(true);
     focusInput();
@@ -97,37 +111,30 @@ function Navbar(props) {
       navigate('/sign-in')
     }
   };
+  const handleClick = ()=>{
+
+  }
   const menu = (
     <Menu
+      onClick={(key)=> handleSelect(key)}
       items={[
         {
           label: <p>Масло </p>,
-          key: "0",
-        },
-        {
-          label: <p> Топливо </p>,
           key: "1",
         },
         {
-          label: <p> Смазки</p>,
+          label: <p> Топливо </p>,
           key: "2",
+        },
+        {
+          label: <p> Смазки</p>,
+          key: "3",
         },
       ]}
     />
   );
 const dispatch = useDispatch()
-  useEffect(() => {
-    let timer = setTimeout(async () => {
-      try {
-        const data = await Axios.get(`/products/?search=${search}`);
-        console.log(data);
-      } catch (error) {}
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [search]);
+ 
   const changeLangugae = (e) =>{
     const langugae = e.target.value
     dispatch(setLanguage(langugae))
@@ -135,7 +142,7 @@ const dispatch = useDispatch()
   }
   return (
     <>
-      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.cartList} handleCancel={props.handleCancel} />
+      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={removeItemFromBasket} handleCancel={props.handleCancel} />
       <StyledNavbar>
         <HeaderCarousel />
        
@@ -157,7 +164,7 @@ const dispatch = useDispatch()
                 <div className="searchBlock" onClick={focusInput}>
                   <input
                     type="text"
-                    value={search}
+                    value={value}
                     onChange={handleInput}
                     ref={inputRef}
                     placeholder={t("p24")}
@@ -209,7 +216,7 @@ const dispatch = useDispatch()
               <div className="searchBlock" onClick={focusInput}>
                 <input
                   type="text"
-                  value={search}
+                  value={value}
                   onChange={handleInput}
                   ref={inputRef}
                   placeholder="Поиск по товарам"
@@ -234,7 +241,7 @@ const dispatch = useDispatch()
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div className="nav_link" to="/">
                     <img src={Neft} />
-                    <Dropdown overlay={menu} placement="bottomLeft">
+                    <Dropdown overlay={menu} on placement="bottomLeft">
                       <Space>{t("p2")}</Space>
                     </Dropdown>
                   </div>

@@ -31,7 +31,7 @@ const Partner = () => {
         textColor={"white"}
         leftSideText={t("p37")}
         leftSidePar={t("p38")}
-        url={"/products"}
+        url={"/my-account"}
       />
       <BodyInfo
         img={PartnerBodyImage}

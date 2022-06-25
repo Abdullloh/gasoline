@@ -205,7 +205,7 @@ console.log(userOrders)
                       <br />
                       {item?.quantity} x {item?.product?.price}
                      <br />
-                     {t("Цена")}:{item?.product?.price} UZS
+                     {t("Цена")}:{item?.price} UZS
                     <br />
                     {t("Количество")}: {item?.quantity}шт
                     </React.Fragment>

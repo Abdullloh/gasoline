@@ -70,7 +70,7 @@ export default function Basket(props) {
         return (
           // <BasketDetail quantity={item?.quantity} images={images} title={title}/>
           
-          <ProductDetailStyle>
+          <ProductDetailStyle color={"#000000"}>
             <div className="detail-heading">
               <div className="heading-images">
                 <Image src={images[0]?.image} />

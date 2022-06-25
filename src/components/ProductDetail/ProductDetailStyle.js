@@ -14,7 +14,7 @@ export const ProductDetailStyle = styled.div`
         height: 100%;
         img {
           width: 100%;
-          height: 100%;
+          height: 80%;
           object-fit: cover;
         }
       }
@@ -31,9 +31,9 @@ export const ProductDetailStyle = styled.div`
     .heading-info {
       width: 50%;
       button {
-        background: #000000;
+        background: ${props=> props.color};
         border: 1px solid #000000;
-border-radius: 8px;
+        border-radius: 8px;
       }
       h3 {
         font-style: normal;
@@ -52,11 +52,24 @@ border-radius: 8px;
         margin-top: 30px;
       }
     }
+    @media only screen and(max-width:768px){
+      flex-direction: column;
+      .heading-images{
+        width: 100%;
+      }
+      .heading-info{
+        width: 100%;
+      }
+    }
   }
   .detail-body {
     p {
       font-size: 15px;
       font-weight: 300;
+    }
+    &:nth-child(2){
+      max-height: 200px;
+      overflow-y: scroll;
     }
   }
 `;

@@ -20,13 +20,25 @@ export const StyledProductCard = styled.div`
     align-items: center;
     justify-content: center;
     padding: 10px;
-    height: 250px;
+    height: 220px;
+    width: 100%;
     img {
       width: 100%;
-      height: 80%;
+      height: 100%;
+      object-fit: contain;
     }
   }
   .card-body {
+    height: 170px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    div{
+      display: flex;
+      font-size: 13px;
+      justify-content: space-between;
+    }
     h3 {
       color: #4f4f4f;
       font-size: 18px;
