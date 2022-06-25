@@ -15,6 +15,7 @@ import homeIcon from "../../assets/img/home-black.svg"
 import chartIcon from "../../assets/img/chart-black.svg"
 import userIcon from "../../assets/img/user-black.svg"
 import orderIcon from "../../assets/img/orders.svg"
+import {Navigate} from "react-router-dom"
 import { useTranslation } from "react-i18next";
 
 
@@ -125,6 +126,8 @@ const handleViewEditProduct = (id)=>{
   mfo:userInfo?.mfo || null,
 }
 
+console.log(userInfo)
+
 const handleSubmit = async (data,{resetForm})=>{
   console.log(data)
   try {
@@ -142,6 +145,11 @@ const handleSubmit = async (data,{resetForm})=>{
 console.log(userOrders)
 
   return <StyledContainer>
+
+   {
+          !role ? <Navigate exact = {true}  to = "/sign-in"/> : null
+    }
+
     <div className="container">
       {
         role === "Customer" ?
@@ -279,7 +287,6 @@ console.log(userOrders)
 
 <Formik
      initialValues = {initialValues}
-     validationSchema = {validationSchema}
      onSubmit = {handleSubmit}
      enableReinitialize
 >
@@ -305,7 +312,7 @@ console.log(userOrders)
 
    <div className = "flex-item">
   <label className = "item" htmlFor = "phone">{t("Номер телефона")}</label> 
-  <Field className = "inputField" type="number"  id = "phone"  name = "phone"/> 
+  <Field className = "inputField" type="string"  id = "phone"  name = "phone"/> 
    </div> 
    
 
@@ -354,15 +361,3 @@ console.log(userOrders)
     </StyledContainer>;
 }
 
-
-let validationSchema = Yup.object({
-  inn:Yup.string().required("*malumot kiriting"),
-  email:Yup.string().required("*malumot kiriting"),
-  name:Yup.string().required("*malumot kiriting"),
-  phone:Yup.number().required("*malumot kiriting"),   
-  bank_account:Yup.string().required("*malumot kiriting"),
-  bank_name:Yup.string().required("*malumot kiriting"),
-  ceos_name:Yup.string().required("*malumot kiriting"),
-  company_address:Yup.string().required("*malumot kiriting"),
-  mfo:Yup.string().required("*malumot kiriting"),
-})
