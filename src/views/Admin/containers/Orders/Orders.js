@@ -13,6 +13,7 @@ function Orders() {
   const [filteredResults, setFilteredResults] = useState([]);
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [visiblePartner, setVisiblePartner] = useState(false);
   const [modalData, setModalData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,28 +26,50 @@ function Orders() {
   const handleShow = () => {
     setVisible((prev) => !prev);
   };
+  const handleShowPartner = () => {
+    setVisiblePartner((prev) => !prev);
+  };
 
-  useEffect(() => {
-    async function getSearch() {
-      setLoading(true);
-      try {
-        const res = await Axios.get(
-          `/adminside/orders/?search=${debouncedSearch}`,
-          { headers: header }
-        );
-        setData(res?.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    }
-    if (debouncedSearch) {
-      getSearch();
-    } else {
+  const setStartDate = async (id) => {
+    try {
+      const res = await Axios.patch(`/adminside/order/${id}`, {id, started_at: new Date()}, {headers: header})
       getOrders();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
     }
-  }, [debouncedSearch]);
+  }
+  const setEndDate = async (id) => {
+    try {
+      const res = await Axios.patch(`/adminside/order/${id}`, {id, ended_at: new Date()}, {headers: header})
+      getOrders();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // useEffect(() => {
+  //   async function getSearch() {
+  //     setLoading(true);
+  //     try {
+  //       const res = await Axios.get(
+  //         `/adminside/orders/?search=${debouncedSearch}`,
+  //         { headers: header }
+  //       );
+  //       setData(res?.data.results);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.log(error);
+  //       setLoading(false);
+  //     }
+  //   }
+  //   if (debouncedSearch) {
+  //     getSearch();
+  //   } else {
+  //     getOrders();
+  //   }
+  // }, [debouncedSearch]);
 
   const getOrders = async () => {
     setLoading(true);
@@ -59,108 +82,134 @@ function Orders() {
     }
   };
   const getById = async (id) => {
-    setReqLoading(true);
+    setLoading(true);
     try {
       const res = await Axios.get(`/adminside/order/${id}`, {
         headers: header,
       });
       setModalData(res.data);
-      setReqLoading(false);
+      setLoading(false);
       handleShow();
     } catch (error) {
       console.log(error);
-      setReqLoading(false);
+      setLoading(false);
     }
   };
-  const handlePayment = async (id, status) => {
+  const getByIdPartner = async (id) => {
     setLoading(true);
     try {
-      const res = await Axios.patch(
-        `/adminside/order/${id}`,
-        { id, paid: status },
-        { headers: header }
-      );
-      if (res?.status == 200) {
-        getOrders();
-      }
+      const res = await Axios.get(`/adminside/order/${id}`, {
+        headers: header,
+      });
+      setModalData(res.data);
       setLoading(false);
+      handleShowPartner();
     } catch (error) {
+      console.log(error);
       setLoading(false);
     }
   };
-  const handleDelivered = async (id, status) => {
-    setLoading(true);
-    try {
-      const res = await Axios.patch(
-        `/adminside/order/${id}`,
-        { id, delivered: status },
-        { headers: header }
-      );
-      if (res?.status == 200) {
-        getOrders();
-      }
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
+  // const handlePayment = async (id, status) => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await Axios.patch(
+  //       `/adminside/order/${id}`,
+  //       { id, paid: status },
+  //       { headers: header }
+  //     );
+  //     if (res?.status == 200) {
+  //       getOrders();
+  //     }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   }
+  // };
+  // const handleDelivered = async (id, status) => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await Axios.patch(
+  //       `/adminside/order/${id}`,
+  //       { id, delivered: status },
+  //       { headers: header }
+  //     );
+  //     if (res?.status == 200) {
+  //       getOrders();
+  //     }
+  //     setLoading(false);
+  //   } catch (error) {
+  //     setLoading(false);
+  //   }
+  // };
   const columns = [
     {
+      title: "№",
       dataIndex: "orderName",
-      render: (text, record) => (
-        <td
-          className="ant-table-cell"
-          onClick={() => getById(record?.id)}
-          style={{ cursor: "pointer" }}
-        >
-          <div
-            style={{
-              display: "flex",
-              "align-items": "center",
-              "justify-content": "space-between",
-            }}
-          >
-            <h2>#{record?.id}</h2>
-            <p>{moment(record?.created_at).format("DD.MM.YYYY")}</p>
-          </div>
-          <h4>{record?.customer_name}</h4>
-          <h4>Телефон: {record?.customer_phone}</h4>
-          <h2>{record?.product?.title}</h2>
-          <p>
-            {record?.quantity}x{record?.product?.price}
-          </p>
-        </td>
-      ),
+      render: (index, record) => (
+        <h4>{record.index}</h4>
+      )
     },
     {
+      title: "Дата начала",
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-          <h4>Организация: "{record?.partner_name}"</h4>
-          <h4>Номер телефона организации: {record?.partner_phone}</h4>
+        {record.started_at ? <h4>{moment(record?.started_at).format("DD.MM.YYYY")}</h4> :  <Button onClick={() => setStartDate(record.id)} type="primary">Start</Button>}
         </>
       ),
     },
     {
+      title: "Срок окончания",
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
-        <div className="order_payment">
-          <h2>{record?.price} UZS</h2>
-          <Checkbox
-            size="large"
-            checked={record?.paid}
-            onClick={() => handlePayment(record.id, !record.paid)}
-          >
-            Оплачено
-          </Checkbox>
-          <Checkbox
-            size="large"
-            checked={record?.delivered}
-            onClick={() => handleDelivered(record.id, !record?.delivered)}
-          >
-            Доставлено
-          </Checkbox>
-        </div>
+        <>
+        {record.ended_at ? <h4>{moment(record?.ended_at).format("DD.MM.YYYY")}</h4> :  <Button onClick={() => setEndDate(record.id)} type="primary">End</Button>}
+        </>
+      ),
+    },
+    {
+      title: "Наименование товара",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name">{record?.product?.title}</h4>
+        </>
+      ),
+    },
+    {
+      title: "Сумма заказа",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name">{record?.price}</h4>
+        </>
+      ),
+    },
+    {
+      title: "Заказчик",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name" onClick={() => getById(record?.id)}>{record?.customer_name}</h4>
+        </>
+      ),
+    },
+    {
+      title: "Поставщик",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name" onClick={() => getByIdPartner(record?.id)}>{record?.partner_name}</h4>
+        </>
+      ),
+    },
+    {
+      title: "Дополнительная информация",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name">{record?.inn}</h4>
+        </>
       ),
     },
   ];
@@ -221,13 +270,39 @@ function Orders() {
           Закрыть
         </Button>
       </Modal>
+      <Modal
+        footer={null}
+        visible={visiblePartner}
+        onCancel={handleShowPartner}
+        className="modalInfo"
+      >
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Ф.И.О.</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{modalData?.partner_name}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Номер телефона</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{modalData?.partner_phone}</h4>
+          </Col>
+        </Row>
+          <Button onClick={handleShowPartner} type="primary">
+          Закрыть
+        </Button>
+      </Modal>
       <div className="wrapper">
         {reqLoading ? (
           <Spin size="large" />
         ) : (
           <div style={{ width: "100%" }}>
             <header>
-              <h4 className="title">Заказы</h4>
+              {/* <h4 className="title">Заказы</h4>
               <div className="search_block">
                 <div>
                   <input
@@ -236,22 +311,15 @@ function Orders() {
                   />
                 </div>
                 <Button type="link">Поиск</Button>
-              </div>
+              </div> */}
+              <h1>Сделки</h1>
             </header>
             <div className="table_block">
-              {searchInput.length > 1 ? (
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  loading={loading}
-                ></Table>
-              ) : (
-                <Table
-                  columns={columns}
-                  dataSource={data}
-                  loading={loading}
-                ></Table>
-              )}
+              <Table
+                columns={columns}
+                dataSource={data}
+                loading={loading}
+              ></Table>
             </div>
           </div>
         )}
