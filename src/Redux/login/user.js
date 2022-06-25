@@ -7,7 +7,7 @@ export const postUserInfo = createAsyncThunk(
     async function (data,{rejectWithValue,dispatch}){
         try {
             console.log(data.userData)
-            let response = await axios.post(`http://137.184.114.36:7774/accounts/${data.url}`,data.userData)
+            let response = await axios.post(`http://137.184.114.36:7774/accounts/login/`,data.userData)
             
             if (response.status === 200 || response.status === 201){
                 localStorage.setItem("user_info", JSON.stringify(response.data));
@@ -18,7 +18,7 @@ export const postUserInfo = createAsyncThunk(
             }
             return 
         } catch (error) {
-            return rejectWithValue(error.message)
+            return rejectWithValue(error?.response?.data?.error)
         }        
     }
 )

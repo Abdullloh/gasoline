@@ -52,6 +52,15 @@ export const ProductDetailStyle = styled.div`
         margin-top: 30px;
       }
     }
+    @media only screen and(max-width:768px){
+      flex-direction: column;
+      .heading-images{
+        width: 100%;
+      }
+      .heading-info{
+        width: 100%;
+      }
+    }
   }
   .detail-body {
     p {

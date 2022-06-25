@@ -12,29 +12,71 @@ function Register() {
   const [phoneNum, setPhoneNum] = useState(null);
   const [email, setEmail] = useState(null);
   const navigate = useNavigate();
-  const [inn,setInn] = useState()
-  const [password,setPassword] = useState()
+  const [inn, setInn] = useState();
+  const [password, setPassword] = useState();
+  const [mfo, setMfo] = useState();
   const [compName, setCompName] = useState(null);
+  const [company_address, setCompany_address] = useState(null);
+  const [ceo_name, setCeo_name] = useState(null);
+  const [bank_account, setBank_account] = useState(null);
+  const [bank_name, setBank_name] = useState(null);
   const userData = {
     name: userName,
     phone: phoneNum,
+    // bank_account: 1423164156,
     email: email,
+    // mfo: 123654,
+    // bank_name: "Kapital",
+    // company_address: "Test",
     inn,
     company_name: compName,
     password,
-    type:userType
+    type: userType,
   };
+  const partnerData = {
+    name: userName,
+    email,
+    ceos_name: ceo_name,
+    bank_name, 
+    company_address,
+    mfo,
+    bank_account,
+    inn,
+    company_name: compName,
+    phone: phoneNum,
+    password,
+    type: userType,
+  }
   const handleSubmite = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await Axios.post("/accounts/register/", { ...userData });
-      console.log(res);
-      const { status } = res;
-      if (status == 201) {
-        navigate("/sign-in");
+    if (userType == null) {
+      message.warning("CHoose your role");
+    } else {
+      e.preventDefault();
+      if (userType == "partner") {
+        try {
+          const res = await Axios.post("/accounts/register/", {
+           ...partnerData
+          });
+          console.log(res);
+          const { status } = res;
+          if (status == 201) {
+            navigate("/sign-in");
+          }
+        } catch (error) {
+          message.warn(error?.response?.data?.message);
+        }
+      } else {
+        try {
+          const res = await Axios.post("/accounts/register/", { ...userData });
+          console.log(res);
+          const { status } = res;
+          if (status == 201) {
+            navigate("/sign-in");
+          }
+        } catch (error) {
+          message.warn(error?.response?.data?.message);
+        }
       }
-    } catch (error) {
-      message.warn(error?.response?.data?.message)
     }
   };
 
@@ -50,14 +92,12 @@ function Register() {
             <h2 className="auth_title">Регистрация</h2>
             <div className="form_block">
               <Form layout="vertical">
-
-              <Form.Item>  
-              <Radio.Group onChange={onChange} value={userType}>
-                <Radio value={"customer"}>Покупатель</Radio>
-                <Radio value={"partner"}>Поставщик</Radio>
-              </Radio.Group>
-              </Form.Item>
-
+                <Form.Item>
+                  <Radio.Group onChange={onChange} value={userType}>
+                    <Radio value={"customer"}>Покупатель</Radio>
+                    <Radio value={"partner"}>Поставщик</Radio>
+                  </Radio.Group>
+                </Form.Item>
 
                 <Form.Item label="Ф.И.О.">
                   <Input
@@ -65,21 +105,49 @@ function Register() {
                     value={userName}
                   />
                 </Form.Item>
-            
-             
 
-                
                 <Form.Item label="Email">
                   <Input
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
                 </Form.Item>
+                {userType == "partner" ? (
+                  <>
+                    <Form.Item label="Ceo Name">
+                      <Input
+                        onChange={(e) => setCeo_name(e.target.value)}
+                        value={ceo_name}
+                      />
+                    </Form.Item>
+                    <Form.Item label="Bank Name">
+                      <Input
+                        onChange={(e) => setBank_name(e.target.value)}
+                        value={bank_name}
+                      />
+                    </Form.Item>
+                    <Form.Item label="Comp address">
+                      <Input
+                        onChange={(e) => setCompany_address(e.target.value)}
+                        value={company_address}
+                      />
+                    </Form.Item>
+                    <Form.Item label="MFO">
+                      <Input
+                        onChange={(e) => setMfo(e.target.value)}
+                        value={mfo}
+                      />
+                    </Form.Item>
+                    <Form.Item label="Bank Account">
+                      <Input
+                        onChange={(e) => setBank_account(e.target.value)}
+                        value={bank_account}
+                      />
+                    </Form.Item>
+                  </>
+                ) : null}
                 <Form.Item label="ИНН">
-                  <Input
-                    onChange={(e) => setInn(e.target.value)}
-                    value={inn}
-                  />
+                  <Input onChange={(e) => setInn(e.target.value)} value={inn} />
                 </Form.Item>
                 <Form.Item label="Наименование организации ">
                   <Input
@@ -104,7 +172,7 @@ function Register() {
                   style={{ "justify-content": "center" }}
                 >
                   <Button type="primary" onClick={handleSubmite}>
-                  Регистрироваться
+                    Регистрироваться
                   </Button>
                 </div>
               </Form>

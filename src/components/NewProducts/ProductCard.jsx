@@ -9,7 +9,7 @@ import Axios from "../../utils/axios";
 import { t } from "i18next";
 
 const ProductCard = ({ data, margin }) => {
-  const { images = [], title = "", price = "" } = data;
+  const { images = [], title = "", price = "" ,litre} = data;
   const navigate = useNavigate();
   const [state, setState] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -70,7 +70,10 @@ const ProductCard = ({ data, margin }) => {
         </div>
         <div className="card-body">
           <h3>{title}</h3>
-          <h2>{price} UZS</h2>
+          <div>
+            <h2>{price} UZS</h2>
+            <h2>Объем: {litre}л</h2>
+          </div>
         </div>
         <div className="card-footer">
           <div>

@@ -30,9 +30,15 @@ export const StyledProductCard = styled.div`
   }
   .card-body {
     height: 170px;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     flex-direction: column;
+    div{
+      display: flex;
+      font-size: 13px;
+      justify-content: space-between;
+    }
     h3 {
       color: #4f4f4f;
       font-size: 18px;

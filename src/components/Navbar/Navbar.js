@@ -71,14 +71,14 @@ function Navbar(props) {
   const handleInput = (e) => {
     let location = window.location.pathname
     setValue(e.target.value)
-    if(location == '/'){
+    if(location !== '/products'){
       navigate("/products")
     }
   };
   const handleSelect = (e) => {
     let location = window.location.pathname
     setSelect(e.key)
-    if(location == '/'){
+    if(location !== '/products'){
       navigate("/products")
     }
   };

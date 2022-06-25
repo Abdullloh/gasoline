@@ -3,7 +3,7 @@ import ProductCard from "../../components/NewProducts/ProductCard";
 import Service from "../../components/Servise/Service";
 import { ProductViewStyle } from "./ProductViewStyle";
 import CardImg from "../../assets/img/category-oil.svg";
-import { Button, Checkbox, Col, Collapse, InputNumber, Row, Spin } from "antd";
+import { Button, Checkbox, Col, Collapse, InputNumber, Pagination, Row, Spin } from "antd";
 import { StyledContainer } from "../../styles/Container.style";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ import { useContext } from "react";
 import { SearchContext } from "../Landing/SeacrhContext";
 import Axios from "../../utils/axios";
 import { SelectContext } from "../../components/Navbar/SelectContext";
-
+import { useRef } from "react";
 
 export default function ProductView() {
   const [productList,setProductList] = useState([]);
@@ -29,7 +29,10 @@ export default function ProductView() {
   const {t} = useTranslation()
   const [width, setWidth] = useState(window.innerWidth);
   const { Panel } = Collapse;
-
+  const check = useRef()
+  const check2 = useRef()
+  const check3 = useRef()
+   console.log(check);
   const handleChange = (e) => {
     const {value} = e.target
     let newCategory = [...category]
@@ -52,18 +55,24 @@ export default function ProductView() {
   function handleResize() {
     setWidth(window.innerWidth);
   }
-
+  const handleReset = ()=>{
+    setMaxPrice(0)
+    setMinPrice(0)
+    check.current.state.checked = false
+    check2.current.state.checked = false
+    check3.current.state.checked = false
+  }
   const getProducts = async()=>{
     setLoading(true)
     try {
-      const res = await Axios.get(`/products/?min_price=${minPrice&& minPrice}&max_price=${maxPrice&&maxPrice}&categories__in=${category.map(item=> item)| select}`)
+      const res = await Axios.get(`/products/?min_price=${minPrice&& minPrice}&max_price=${maxPrice&&maxPrice}&categories__in=${category.length > 0 ? category.map(item=> item) : select}`)
       setProductList(res?.data)
       setLoading(false)
     } catch (error) {
       setLoading(false)
     }
   }
-
+console.log(results);
   useEffect(()=>{
     getProducts()
   },[])
@@ -87,7 +96,6 @@ export default function ProductView() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [width]);
-
   return (
     <>
       <StyledContainer>
@@ -129,13 +137,13 @@ export default function ProductView() {
                 </Panel>
                 <Panel header={t("p52")}>
                   <div className="checkbox-container">
-                    <Checkbox value={"1"} onChange={handleChange}>
+                    <Checkbox value={"1"} ref={check} onChange={handleChange}>
                       Масла
                     </Checkbox>
-                    <Checkbox value={"2"} onChange={handleChange}>
+                    <Checkbox value={"2"} ref={check2} onChange={handleChange}>
                       Топливо
                     </Checkbox>
-                    <Checkbox value={"3"} onChange={handleChange}>Смазки</Checkbox>
+                    <Checkbox value={"3"} ref={check3} onChange={handleChange}>Смазки</Checkbox>
                   </div>
                 </Panel>
                 {/* <Panel header={t("p53")}>
@@ -150,7 +158,7 @@ export default function ProductView() {
               </Collapse>
               <div className="button-container">
                 <Button  type="primary" onClick={getProducts}>{t("p59")}</Button>
-                <Button type="default ">{t("p60")}</Button>
+                <Button type="default " onClick={handleReset}>{t("p60")}</Button>
               </div>
             </div>
             <div className="product-container">
@@ -179,6 +187,7 @@ export default function ProductView() {
             </div>
           </ProductViewStyle>
         </div>
+        {/* <Pagination  onChange={(e)=> console.log(e)} current={1} total={results?.length}/> */}
       </StyledContainer>
       <Service />
     </>

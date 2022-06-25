@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Input, Button } from "antd";
+import { Modal, Input, Button, message, Spin } from "antd";
 import { GoPlus } from "react-icons/go";
 import { StyledExchange } from "./Exchange.style";
 import Axios from "../../../../utils/axios";
@@ -34,6 +34,7 @@ function Exchange() {
   const handleShow = () => {
     setIsVisible((prev) => !prev);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { product, price, percentage } = formValues;
@@ -43,15 +44,24 @@ function Exchange() {
         price,
         percentage,
       });
-      if (res?.status == 200) {
-        getPrices();
-        handleShow();
-      }
+      message.success("Успешно добавлено");
+      getPrices();
+      handleShow();
     } catch (error) {
-      console.log(error);
+      message.error(`${error.message}`);
     }
   };
 
+  const deleteExchange = async (id) => {
+    setLoading(true);
+    try {
+      const res = await Axios.delete(`/products/product_prices/${id}`);
+      getPrices();
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
     getPrices();
   }, [updated]);
@@ -65,6 +75,7 @@ function Exchange() {
         <form onSubmit={handleSubmit}>
           <label htmlFor="product">Название</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             required
             onChange={handleInputChange}
             id="product"
@@ -73,6 +84,7 @@ function Exchange() {
           />
           <label htmlFor="price">Цена</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             required
             onChange={handleInputChange}
             id="price"
@@ -81,6 +93,7 @@ function Exchange() {
           />
           <label htmlFor="percentage">Процент</label>
           <Input
+          style={{'margin-bottom': '15px'}}
             onChange={handleInputChange}
             id="percentage"
             name="percentage"
@@ -95,6 +108,7 @@ function Exchange() {
         <h1>Бегущая дорожка</h1>
       </header>
       <div className="wrapper">
+        {loading ? <Spin size="large" /> : null}
         {data?.map((item, index) => (
           <ExchangeDetail
             submit={updated}
@@ -104,6 +118,7 @@ function Exchange() {
             product={item?.product}
             price={item?.price}
             percentage={item?.percentage}
+            delete={() => deleteExchange(item.id)}
           />
         ))}
         <div className="add_price" onClick={handleShow}>

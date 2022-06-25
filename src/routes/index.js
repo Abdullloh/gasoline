@@ -14,6 +14,11 @@ import NewsDetail from "../views/Landing/LandingNews/NewsDetail";
 
 const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
+
+
+let role = JSON.parse(localStorage.getItem("user_info"))?.data?.user?.role
+
+
 export const ROUTES = [
   {
     path: "/",
@@ -57,7 +62,8 @@ export const ROUTES = [
   },
   {
     path: "/my-account",
-    component: <UserAccount />,
+      // role ? <Navigate exact = {true}  to = "/my-account"/> : null
+      component: <UserAccount />,
   },
   {
     path: "/admin-auth",
