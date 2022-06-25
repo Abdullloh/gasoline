@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Input, Row, Col } from "antd";
+import { Input, Row, Col, Popconfirm } from "antd";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { StyledExchangeDetails } from "./Exchange.style";
 import Axios from "../../../../utils/axios";
 import axios from "axios";
@@ -88,6 +89,15 @@ function ExchangeDetail(props) {
               value={formValues?.percentage}
             />
             <label htmlFor="percentage">%</label>
+
+            <Popconfirm
+              title="Are you sure to delete this exchange?"
+              onConfirm={props.delete}
+              okText="Yes"
+              cancelText="No"
+            >
+              <RiDeleteBinLine color="red" size="24" />
+            </Popconfirm>
           </div>
         </Col>
       </Row>
