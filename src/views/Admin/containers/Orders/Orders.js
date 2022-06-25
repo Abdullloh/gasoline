@@ -5,9 +5,11 @@ import { Button, Checkbox, Modal, Table, Space, Spin, Row, Col } from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
+import useDebounce from "../../../../customhooks/useDebounce";
 
 function Orders() {
   const [searchInput, setSearchInput] = useState("");
+  const debouncedSearch = useDebounce(searchInput, 500);
   const [filteredResults, setFilteredResults] = useState([]);
   const [data, setData] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -23,6 +25,28 @@ function Orders() {
   const handleShow = () => {
     setVisible((prev) => !prev);
   };
+
+  useEffect(() => {
+    async function getSearch() {
+      setLoading(true);
+      try {
+        const res = await Axios.get(
+          `/adminside/orders/?search=${debouncedSearch}`,
+          { headers: header }
+        );
+        setData(res?.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
+    if (debouncedSearch) {
+      getSearch();
+    } else {
+      getOrders();
+    }
+  }, [debouncedSearch]);
 
   const getOrders = async () => {
     setLoading(true);
@@ -48,7 +72,6 @@ function Orders() {
       setReqLoading(false);
     }
   };
-console.log(modalData, 'modalDat5aaaaaaaaaa');
   const handlePayment = async (id, status) => {
     setLoading(true);
     try {
@@ -146,20 +169,6 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
     getOrders();
   }, []);
 
-  const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      let searchedData = data.filter((item) => {
-        return Object.values(item)
-          .join("")
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
-      });
-      setFilteredResults(searchedData);
-    } else {
-      setFilteredResults(data);
-    }
-  };
   return (
     <StyledOrders>
       <Modal
@@ -168,7 +177,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
         onCancel={handleShow}
         className="modalInfo"
       >
-        <Row style={{'margin': '10px 0px'}}>
+        <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
             <h4>Ф.И.О.</h4>
           </Col>
@@ -176,7 +185,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.customer_name}</h4>
           </Col>
         </Row>
-        <Row style={{'margin': '10px 0px'}}>
+        <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
             <h4>Номер телефона</h4>
           </Col>
@@ -184,7 +193,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.customer_phone}</h4>
           </Col>
         </Row>
-        <Row style={{'margin': '10px 0px'}}>
+        <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
             <h4>ИНН</h4>
           </Col>
@@ -192,7 +201,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
-        <Row style={{'margin': '10px 0px'}}>
+        <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
             <h4>Наименование организации</h4>
           </Col>
@@ -200,7 +209,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
             <h4>{modalData?.inn}</h4>
           </Col>
         </Row>
-        <Row style={{'margin': '10px 0px'}}>
+        <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
             <h4>Email</h4>
           </Col>
@@ -223,7 +232,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
                 <div>
                   <input
                     value={searchInput}
-                    onChange={(e) => searchItems(e.target.value)}
+                    onChange={(e) => setSearchInput(e.target.value)}
                   />
                 </div>
                 <Button type="link">Поиск</Button>
@@ -233,7 +242,7 @@ console.log(modalData, 'modalDat5aaaaaaaaaa');
               {searchInput.length > 1 ? (
                 <Table
                   columns={columns}
-                  dataSource={filteredResults}
+                  dataSource={data}
                   loading={loading}
                 ></Table>
               ) : (

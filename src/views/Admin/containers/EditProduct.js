@@ -19,6 +19,7 @@ function EditProduct() {
     price: "",
     in_stock: "",
     description: "",
+    litre: 0,
   });
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
@@ -28,14 +29,19 @@ function EditProduct() {
   const imgRef3 = useRef();
   const imgRef4 = useRef();
 
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
 
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo.token?.access}`,
+  };
   useEffect(() => {
-    const ids = uploadedImgs.map(item => ({id: item.id}))
-    setUplodedImgsId(ids)
-  }, [uploadedImgs.length])
+    const ids = uploadedImgs.map((item) => ({ id: item.id }));
+    setUplodedImgsId(ids);
+  }, [uploadedImgs.length]);
 
-  console.log(uplodedImgsId, 'idssss');
-  console.log(uploadedImgs, 'images');
+  console.log(uplodedImgsId, "idssss");
+  console.log(uploadedImgs, "images");
 
   useEffect(() => {
     getProduct();
@@ -46,35 +52,40 @@ function EditProduct() {
       price: data?.price,
       in_stock: data?.in_stock,
       description: data?.description,
+      litre: data?.litre
     });
   }, []);
 
   const handleSubmite = async (e) => {
     e.preventDefault();
     try {
-      const res = await Axios.patch(`/adminside/product/${data.id}`, {
-        images: uplodedImgsId,
-        categories: [{id: category}],
-        ...formValues,
-      });
+      const res = await Axios.patch(
+        `/adminside/product/${data.id}`,
+        {
+          images: uplodedImgsId,
+          categories: [{ id: category }],
+          ...formValues,
+        },
+        { headers: header }
+      );
       console.log(res);
       if (res?.status == 200) {
         navigate("/purchases");
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const deleteImg = (id) => {
     let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
     setUploadedImgs(filteredImgs);
   };
 
-
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
-      const res = await Axios.post(`/products/upload_image/`, formData);
+      const res = await Axios.post(`/products/upload_image/`, formData, {
+        headers: header,
+      });
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
     } catch (error) {}
@@ -84,10 +95,9 @@ function EditProduct() {
     inp.current.click();
   };
 
-
   const getProduct = async () => {
     try {
-      const res = await Axios.get(`/products/product/${productId}`);
+      const res = await Axios.get(`/products/product/${productId}`, {headers: header});
       setData(res?.data);
       setFormValues({
         title: res?.data?.title,
@@ -95,28 +105,23 @@ function EditProduct() {
         price: res?.data?.price,
         in_stock: res?.data?.in_stock,
         description: res?.data?.description,
+        litre: res?.data?.litre
       });
       setUploadedImgs(res?.data?.images);
     } catch (error) {}
   };
   const getCategories = async () => {
     try {
-      const res = await Axios.get("products/categories/");
-      setProductCategory(res?.data?.results)
+      const res = await Axios.get("products/categories/", {headers: header});
+      setProductCategory(res?.data?.results);
     } catch (error) {}
-  
   };
-
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
 
-
-
-
-  
   return (
     <EditProStyle>
       <form>
@@ -141,7 +146,11 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[0]?.id)}
-                        src={uploadedImgs[0]?.image.startsWith('ht') ? uploadedImgs[0]?.image : `${baseUrl}${uploadedImgs[0]?.image}` }
+                        src={
+                          uploadedImgs[0]?.image.startsWith("ht")
+                            ? uploadedImgs[0]?.image
+                            : `${baseUrl}${uploadedImgs[0]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -169,7 +178,11 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[1]?.id)}
-                        src={uploadedImgs[1]?.image.startsWith('ht') ? uploadedImgs[1]?.image : `${baseUrl}${uploadedImgs[1]?.image}` }
+                        src={
+                          uploadedImgs[1]?.image.startsWith("ht")
+                            ? uploadedImgs[1]?.image
+                            : `${baseUrl}${uploadedImgs[1]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -197,7 +210,11 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[2]?.id)}
-                        src={uploadedImgs[2]?.image.startsWith('ht') ? uploadedImgs[2]?.image : `${baseUrl}${uploadedImgs[2]?.image}` }
+                        src={
+                          uploadedImgs[2]?.image.startsWith("ht")
+                            ? uploadedImgs[2]?.image
+                            : `${baseUrl}${uploadedImgs[2]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -225,7 +242,11 @@ function EditProduct() {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[3]?.id)}
-                        src={uploadedImgs[3]?.image.startsWith('ht') ? uploadedImgs[3]?.image : `${baseUrl}${uploadedImgs[3]?.image}` }
+                        src={
+                          uploadedImgs[3]?.image.startsWith("ht")
+                            ? uploadedImgs[3]?.image
+                            : `${baseUrl}${uploadedImgs[3]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -264,6 +285,18 @@ function EditProduct() {
                     onChange={handleInputChange}
                     id="article"
                     name="vendor_code"
+                  />
+                </Col>
+                <Col span={8}>
+                  <label htmlFor="litr">Объем</label>
+                  <Input
+                    required
+                    type="number"
+                    value={formValues.litre}
+                    onChange={handleInputChange}
+                    id="litr"
+                    name="litre"
+                    placeholder="Литр"
                   />
                 </Col>
                 <Col span={24}>
