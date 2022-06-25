@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, notification } from "antd";
 import Footer from "../../../components/Footer/Footer";
 import Navbar from "../../../components/Navbar/Navbar";
 import { StyledContainer } from "../../../styles/Container.style";
@@ -36,7 +36,13 @@ function AdminSignIn() {
         console.log(data);
         window.location.reload()
       }
-    } catch (error) {}
+    } catch (error) {
+      notification["error"]({
+        message: 'Something went wrong',
+        description:
+          `${error.message} Email or  password is not valid`,
+      });
+    }
   };
   const onChange = (e) => {
     console.log("radio checked", e.target.value);

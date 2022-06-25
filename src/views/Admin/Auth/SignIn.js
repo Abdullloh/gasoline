@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import {useSelector,useDispatch} from "react-redux"
 import Footer from "../../../components/Footer/Footer";
 import Navbar from "../../../components/Navbar/Navbar";
@@ -37,16 +37,17 @@ function SignIn() {
       : "";
 
   const handleSubmit = async (e) => {
+    if (urlLink == "") {
+      message.warning("choose your role")
+    }
     e.preventDefault();
     let data = {userData,url:urlLink}
     try {
       const originalPromiseResult = await dispatch(postUserInfo(data)).unwrap()
-      // handle result here
+      message.success("Successfully completed")
       navigate('/my-account')
-    } catch (rejectedValueOrSerializedError) {
-      // handle error here
-      alert.error(rejectedValueOrSerializedError)
-      
+    } catch (error) {
+      message.error(error)
     }
   }
 
