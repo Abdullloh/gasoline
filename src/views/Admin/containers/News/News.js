@@ -10,9 +10,16 @@ import Axios from "../../../../utils/axios";
 function News() {
   const [news, setNews] = useState([]);
 
+
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo?.token?.access}`,
+  };
+
   const getNews = async () => {
     try {
-      const res = await Axios.get("/blog/");
+      const res = await Axios.get("/blog/?limit=1000", {headers: header});
       console.log(res);
       if (res.status == 200) {
         setNews(res?.data?.results);
@@ -25,7 +32,7 @@ function News() {
   const deleteNew = async (id) => {
     let filtereData = news.filter((item) => item.id !== id);
     try {
-      const res = await Axios.delete(`/blog/${id}`);
+      const res = await Axios.delete(`/blog/${id}`, {headers: header});
       setNews(filtereData);
     } catch (error) {}
   };

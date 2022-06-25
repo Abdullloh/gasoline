@@ -32,7 +32,7 @@ function Purchases() {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/products/", { headers: header });
+      const res = await Axios.get("/adminside/products/?limit=1000", { headers: header });
       setData(res.data.results);
       setLoading(false);
     } catch (error) {
@@ -73,7 +73,7 @@ function Purchases() {
       const res = await Axios.patch(`/adminside/product/${id}`, {
         id,
         available: status,
-      });
+      }, {headers: header});
       if (res?.status == 200) {
         getProducts();
       }
@@ -152,7 +152,7 @@ function Purchases() {
   ];
   const handleDelete = async (id) => {
     try {
-      const res = await Axios.delete(`/adminside/product/${id}`);
+      const res = await Axios.delete(`/adminside/product/${id}`, {headers: header});
       console.log(res);
       if (res.status == 204) {
         let filterData = data.filter((item) => item.id !== id);

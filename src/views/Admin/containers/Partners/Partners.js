@@ -31,7 +31,7 @@ function Partners() {
   const getPartners = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/partners/", { headers: header });
+      const res = await Axios.get("/adminside/partners/?limit=1000", { headers: header });
       setData(res.data.results);
       setLoading(false);
     } catch (error) {
