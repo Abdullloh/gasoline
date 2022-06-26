@@ -21,7 +21,7 @@ export const StyledNavUl = styled.nav`
     cursor: pointer;
     font-weight: 400;
     height: 100%;
-    font-size: 23px;
+    font-size: 22px;
     padding: 4px 12px;
     display: flex;
     align-items: center;

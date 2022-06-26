@@ -26,7 +26,7 @@ function Exchange() {
   const getPrices = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/products/product_prices/", {headers: header});
+      const res = await Axios.get("/products/product_prices/?limit=1000", {headers: header});
       setData(res?.data);
       setLoading(false);
     } catch (error) {

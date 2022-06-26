@@ -23,7 +23,7 @@ function Application() {
   const getQuestions = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/requests/", { headers: header });
+      const res = await Axios.get("/adminside/requests/?limit=1000", { headers: header });
       if (res.status === 200) {
         setData(res?.data?.results);
       }

@@ -65,7 +65,7 @@ export default function ProductView() {
   const getProducts = async()=>{
     setLoading(true)
     try {
-      const res = await Axios.get(`/products/?min_price=${minPrice&& minPrice}&max_price=${maxPrice&&maxPrice}&categories__in=${category.length > 0 ? category.map(item=> item) : select}`)
+      const res = await Axios.get(`/products/?limit=1000&min_price=${minPrice&& minPrice}&max_price=${maxPrice&&maxPrice}&categories__in=${category.length > 0 ? category.map(item=> item) : select}`)
       setProductList(res?.data)
       setLoading(false)
     } catch (error) {

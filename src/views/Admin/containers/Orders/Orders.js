@@ -74,7 +74,7 @@ function Orders() {
   const getOrders = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/orders/", { headers: header });
+      const res = await Axios.get("/adminside/orders/?limit=1000", { headers: header });
       setData(res?.data?.results);
       setLoading(false);
     } catch (error) {
@@ -146,7 +146,7 @@ function Orders() {
       title: "№",
       dataIndex: "orderName",
       render: (index, record) => (
-        <h4>{record.index}</h4>
+        <h4>#{record?.id}</h4>
       )
     },
     {
@@ -173,6 +173,15 @@ function Orders() {
       render: (text, record) => (
         <>
        <h4 className="product_name">{record?.product?.title}</h4>
+        </>
+      ),
+    },
+    {
+      title: "Штук",
+      dataIndex: "orderPhoneNum",
+      render: (text, record) => (
+        <>
+       <h4 className="product_name">{record?.quantity}</h4>
         </>
       ),
     },

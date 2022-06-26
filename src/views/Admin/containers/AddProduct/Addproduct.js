@@ -17,6 +17,7 @@ function Addproduct() {
   const [statusProduct, setStatusProduct] = useState(true);
   const [quantity, setQuantity] = useState(0);
   const [litre, setLitre] = useState();
+  const [delivered, setDelivered] = useState(false);
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
@@ -88,7 +89,8 @@ function Addproduct() {
       ],
       price: price,
       in_stock: quantity,
-      litre
+      litre,
+      // hasDalivered: delivered
     };
 
     console.log(productData);
