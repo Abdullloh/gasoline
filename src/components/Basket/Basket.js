@@ -108,7 +108,7 @@ export default function Basket(props) {
                   >
                     Удалить
                   </Button>
-                  <Radio.Group onChange={(e)=>onChange(e,cartId)}>
+                  <Radio.Group style={{marginTop:'8px'}} onChange={(e)=>onChange(e,cartId)}>
                     {
                     delivery ? 
                     <Radio value="True">Доставка</Radio>
