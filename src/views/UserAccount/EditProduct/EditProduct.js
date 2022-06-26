@@ -30,34 +30,19 @@ function EditProduct({ productId }) {
   const imgRef3 = useRef();
   const imgRef4 = useRef();
 
-<<<<<<< HEAD
-  let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
-
-  let header = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${adminInfo.token?.access}`,
-  };
-=======
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
->>>>>>> 1d58d3185f0fa350041b4f731d759781faca0144
 
   useEffect(() => {
     const ids = uploadedImgs.map((item) => ({ id: item.id }));
     setUplodedImgsId(ids);
   }, [uploadedImgs.length]);
 
-<<<<<<< HEAD
-  console.log(uplodedImgsId, "idssss");
-  console.log(uploadedImgs, "images");
-
-=======
   console.log(uplodedImgsId, 'idssss');
   console.log(uploadedImgs, 'images');
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo.token?.access}`,
   };
->>>>>>> 1d58d3185f0fa350041b4f731d759781faca0144
   useEffect(() => {
     getProduct();
     getCategories();
