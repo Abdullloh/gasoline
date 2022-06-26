@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.e4a1850a.css",
-    "main.js": "/static/js/main.d52bd472.js",
+    "main.js": "/static/js/main.6d3b6937.js",
     "static/js/787.ec728d71.chunk.js": "/static/js/787.ec728d71.chunk.js",
     "static/media/PartnerBodyImage.svg": "/static/media/PartnerBodyImage.eb461af03231f2121818a243a561263a.svg",
     "static/media/category-oil.svg": "/static/media/category-oil.88239b2f95b28853940ede4fe1a3475c.svg",
@@ -54,8 +54,8 @@
     "static/media/user-black.svg": "/static/media/user-black.37e25dbb675c219d2c88f66f31f17754.svg",
     "static/media/shopBag.svg": "/static/media/shopBag.c313853e897cc633bb22d13e6da311b4.svg",
     "static/media/edit-alt.svg": "/static/media/edit-alt.9204f1a61d32d0ee7ac085346c6f8216.svg",
-    "static/media/user.svg": "/static/media/user.de45754254c6622996a9ad4b458f4126.svg",
     "index.html": "/index.html",
+    "static/media/user.svg": "/static/media/user.de45754254c6622996a9ad4b458f4126.svg",
     "static/media/search.svg": "/static/media/search.36a8153f085d3cfbf165348c09aa58f2.svg",
     "static/media/service-chart.svg": "/static/media/service-chart.823d3217dced26379757a51df19ca20e.svg",
     "static/media/getFetch.cjs": "/static/media/getFetch.c780682470504fffbd04.cjs",
@@ -65,11 +65,11 @@
     "static/media/Arrow-down.svg": "/static/media/Arrow-down.3721076f65f6812c2398e44211d1c6b2.svg",
     "static/media/Arrow-up.svg": "/static/media/Arrow-up.b6eb2b69e6517335969b0c0f3e9fb245.svg",
     "main.e4a1850a.css.map": "/static/css/main.e4a1850a.css.map",
-    "main.d52bd472.js.map": "/static/js/main.d52bd472.js.map",
+    "main.6d3b6937.js.map": "/static/js/main.6d3b6937.js.map",
     "787.ec728d71.chunk.js.map": "/static/js/787.ec728d71.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e4a1850a.css",
-    "static/js/main.d52bd472.js"
+    "static/js/main.6d3b6937.js"
   ]
 }

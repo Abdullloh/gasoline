@@ -30,6 +30,7 @@ function EditProduct({productId}) {
   const imgRef3 = useRef();
   const imgRef4 = useRef();
 
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
 
   useEffect(() => {
     const ids = uploadedImgs.map(item => ({id: item.id}))
@@ -38,7 +39,10 @@ function EditProduct({productId}) {
 
   console.log(uplodedImgsId, 'idssss');
   console.log(uploadedImgs, 'images');
-
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo.token?.access}`,
+  };
   useEffect(() => {
     getProduct();
     getCategories();
