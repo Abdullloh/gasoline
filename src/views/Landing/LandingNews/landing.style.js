@@ -50,7 +50,7 @@ export const StyledDetails = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: start;
+    text-align: center;
   }
   .main {
     margin: 30px 0px;
@@ -59,7 +59,7 @@ export const StyledDetails = styled.div`
     font-style: normal;
     .title {
       font-weight: 600;
-      font-size: 60px;
+      font-size: 45px;
       line-height: 103.5%;
       color: ${COLORS.darkGrey};
     }
@@ -81,6 +81,15 @@ export const StyledDetails = styled.div`
       width: 100%;
       height: 100%;
       object-fit: cover;
+      margin: 40px 0px;
+    }
+    .secondary_img {
+      max-width: 480px;
+      max-height: 280px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 40px 0px;
     }
   }
   .extra_news {
