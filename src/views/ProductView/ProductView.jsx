@@ -186,8 +186,8 @@ console.log(results);
               </Row>
             </div>
           </ProductViewStyle>
+        <Pagination  onChange={(e)=> console.log(e)} current={1} total={results?.length}/>
         </div>
-        {/* <Pagination  onChange={(e)=> console.log(e)} current={1} total={results?.length}/> */}
       </StyledContainer>
       <Service />
     </>

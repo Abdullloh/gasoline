@@ -42,7 +42,7 @@ const ProductCard = ({ data, margin }) => {
         message.warning("add count");
       }
     } else {
-      navigate("/sign-up");
+      navigate("/sign-in");
     }
   };
 

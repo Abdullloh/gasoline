@@ -62,7 +62,7 @@ export default function Basket(props) {
     getCarts()
     },[props?.dependency])
   return (
-    <Modal style={{width:'720px'}} footer={null} visible={isVisible} onCancel={handleCancel}>
+    <Modal width={1000} footer={null} visible={isVisible} onCancel={handleCancel}>
       <div style={{overflowY:'scroll',margin:'22px 0',maxHeight:'475px'}}>
       {cartList?.map((item) => {
         let cartId = item.id
