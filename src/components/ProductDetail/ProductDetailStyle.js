@@ -32,6 +32,7 @@ export const ProductDetailStyle = styled.div`
       width: 50%;
       display: flex;
     flex-direction: column;
+    padding: 25px 0;
     justify-content: space-between;
       button {
         background: ${props=> props.color};
@@ -42,7 +43,7 @@ export const ProductDetailStyle = styled.div`
         font-style: normal;
         font-weight: 400;
         font-size: 28px;
-        line-height: 26px;
+        line-height: 1.4;
       }
       h4 {
         font-style: normal;
@@ -52,7 +53,7 @@ export const ProductDetailStyle = styled.div`
       }
       button {
         width: 50%;
-        margin-top: 30px;
+        margin-top: 15px;
       }
     }
     @media only screen and(max-width:768px){

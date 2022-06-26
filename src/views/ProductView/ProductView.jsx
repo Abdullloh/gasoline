@@ -75,7 +75,7 @@ export default function ProductView() {
 console.log(results);
   useEffect(()=>{
     getProducts()
-  },[])
+  },[select])
 
   useEffect(() => {
     if(value) {
@@ -186,7 +186,7 @@ console.log(results);
               </Row>
             </div>
           </ProductViewStyle>
-        <Pagination  onChange={(e)=> console.log(e)} current={1} total={results?.length}/>
+        {/* <Pagination  onChange={(e)=> console.log(e)} current={1} total={results?.length}/> */}
         </div>
       </StyledContainer>
       <Service />
