@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Col, Row } from "antd";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import EditIcon from "../../../../assets/img/edit-alt.svg";
@@ -66,7 +67,7 @@ function News() {
                 <p className="description">{item.short_description}</p>
               </div>
               <div className="news_handle">
-                <p className="news_date">23.06.22</p>
+                <p className="news_date">{moment(item?.published_at).format("DD.MM.YYYY")}</p>
                 {/* <FiEdit color="#364a7e" size="20" /> */}
                 <AiOutlineDelete
                 style={{'cursor':'pointer'}}

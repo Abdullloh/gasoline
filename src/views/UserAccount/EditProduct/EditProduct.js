@@ -102,10 +102,12 @@ function EditProduct({productId}) {
     } catch (error) {}
   };
 
-  const getCategories = () => {
-    Axios.get("/products/categories/").then((response) =>
-      setProductCategory(response?.data?.results)
-    );
+  
+  const getCategories = async () => {
+    try {
+      const res = await Axios.get("products/categories/", { headers: header });
+      setProductCategory(res?.data?.results);
+    } catch (error) {}
   };
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;

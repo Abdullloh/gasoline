@@ -32,22 +32,30 @@ function Orders() {
 
   const setStartDate = async (id) => {
     try {
-      const res = await Axios.patch(`/adminside/order/${id}`, {id, started_at: new Date()}, {headers: header})
+      const res = await Axios.patch(
+        `/adminside/order/${id}`,
+        { id, started_at: new Date() },
+        { headers: header }
+      );
       getOrders();
       console.log(res);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const setEndDate = async (id) => {
     try {
-      const res = await Axios.patch(`/adminside/order/${id}`, {id, ended_at: new Date()}, {headers: header})
+      const res = await Axios.patch(
+        `/adminside/order/${id}`,
+        { id, ended_at: new Date() },
+        { headers: header }
+      );
       getOrders();
       console.log(res);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   // useEffect(() => {
   //   async function getSearch() {
@@ -74,7 +82,9 @@ function Orders() {
   const getOrders = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/orders/?limit=1000", { headers: header });
+      const res = await Axios.get("/adminside/orders/?limit=1000", {
+        headers: header,
+      });
       setData(res?.data?.results);
       setLoading(false);
     } catch (error) {
@@ -145,16 +155,20 @@ function Orders() {
     {
       title: "№",
       dataIndex: "orderName",
-      render: (index, record) => (
-        <h4>#{record?.id}</h4>
-      )
+      render: (index, record) => <h4>#{record?.id}</h4>,
     },
     {
       title: "Дата начала",
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-        {record.started_at ? <h4>{moment(record?.started_at).format("DD.MM.YYYY")}</h4> :  <Button onClick={() => setStartDate(record.id)} type="primary">Start</Button>}
+          {record.started_at ? (
+            <h4>{moment(record?.started_at).format("DD.MM.YYYY")}</h4>
+          ) : (
+            <Button onClick={() => setStartDate(record.id)} type="primary">
+              Start
+            </Button>
+          )}
         </>
       ),
     },
@@ -163,7 +177,13 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-        {record.ended_at ? <h4>{moment(record?.ended_at).format("DD.MM.YYYY")}</h4> :  <Button onClick={() => setEndDate(record.id)} type="primary">End</Button>}
+          {record.ended_at ? (
+            <h4>{moment(record?.ended_at).format("DD.MM.YYYY")}</h4>
+          ) : (
+            <Button onClick={() => setEndDate(record.id)} type="primary">
+              End
+            </Button>
+          )}
         </>
       ),
     },
@@ -172,7 +192,7 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name">{record?.product?.title}</h4>
+          <h4 className="product_name">{record?.product?.title}</h4>
         </>
       ),
     },
@@ -181,7 +201,7 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name">{record?.quantity}</h4>
+          <h4 className="product_name">{record?.quantity}</h4>
         </>
       ),
     },
@@ -190,7 +210,7 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name">{record?.price}</h4>
+          <h4 className="product_name">{record?.price}</h4>
         </>
       ),
     },
@@ -199,7 +219,9 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name" onClick={() => getById(record?.id)}>{record?.customer_name}</h4>
+          <h4 className="product_name" onClick={() => getById(record?.id)}>
+            {record?.customer_name}
+          </h4>
         </>
       ),
     },
@@ -208,7 +230,12 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name" onClick={() => getByIdPartner(record?.id)}>{record?.partner_name}</h4>
+          <h4
+            className="product_name"
+            onClick={() => getByIdPartner(record?.id)}
+          >
+            {record?.partner_name}
+          </h4>
         </>
       ),
     },
@@ -217,7 +244,9 @@ function Orders() {
       dataIndex: "orderPhoneNum",
       render: (text, record) => (
         <>
-       <h4 className="product_name">{record?.inn}</h4>
+          <h4 className="product_name">
+            {record?.delivery ? "Доставка" : "Самовывоз"}
+          </h4>
         </>
       ),
     },
@@ -301,7 +330,7 @@ function Orders() {
             <h4>{modalData?.partner_phone}</h4>
           </Col>
         </Row>
-          <Button onClick={handleShowPartner} type="primary">
+        <Button onClick={handleShowPartner} type="primary">
           Закрыть
         </Button>
       </Modal>

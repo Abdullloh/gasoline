@@ -26,8 +26,7 @@ function Addproduct() {
   const imgRef2 = useRef();
   const imgRef3 = useRef();
   const imgRef4 = useRef();
-  let adminInfo =  JSON.parse(localStorage.getItem("user_info"));
-  
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
 
   let header = {
     "Content-Type": "application/json",
@@ -54,7 +53,9 @@ function Addproduct() {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
-      const res = await Axios.post(`/products/upload_image/`, formData,{headers: header});
+      const res = await Axios.post(`/products/upload_image/`, formData, {
+        headers: header,
+      });
       console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
@@ -66,12 +67,15 @@ function Addproduct() {
     inp.current.click();
   };
 
+  const handleDelivered = () => {
+    setDelivered((prev) => !prev)
+  }
+
   const getCategories = async () => {
     try {
-      const res = await Axios.get("products/categories/", {headers: header},);
-      setProductCategory(res?.data?.results)
+      const res = await Axios.get("products/categories/", { headers: header });
+      setProductCategory(res?.data?.results);
     } catch (error) {}
-  
   };
   console.log(productCategory);
 
@@ -90,7 +94,7 @@ function Addproduct() {
       price: price,
       in_stock: quantity,
       litre,
-      // hasDalivered: delivered
+      delivery: delivered
     };
 
     console.log(productData);
@@ -122,7 +126,6 @@ function Addproduct() {
                 <h3>Фотографии</h3>
                 <div className="imgs_block">
                   <div
-                   
                     className="img_upload"
                     onClick={() => handleFocus(imgRef1)}
                   >
@@ -330,9 +333,18 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
+              <div className="status_product">
+                <Checkbox
+                  checked={delivered}
+                  onChange={handleDelivered}
+                  name='delivered'
+                >
+                  Доставка
+                </Checkbox>
+              </div>
               <div className="sbm_btn">
                 <Button type="primary" onClick={handleSubmite} htmlFor="submit">
-                  Разместить
+                Сохранить
                 </Button>
               </div>
             </div>

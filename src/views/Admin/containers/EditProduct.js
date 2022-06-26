@@ -13,6 +13,7 @@ function EditProduct() {
   const { productId } = useParams();
   const [category, setCategory] = useState("");
   const [statusProduct, setStatusProduct] = useState(true);
+  const [delivered, setDelivered] = useState(false);
   const [formValues, setFormValues] = useState({
     title: "",
     vendor_code: "",
@@ -52,10 +53,14 @@ function EditProduct() {
       price: data?.price,
       in_stock: data?.in_stock,
       description: data?.description,
-      litre: data?.litre
+      litre: data?.litre,
+      delivered: data?.delivery
     });
   }, []);
 
+  const handleDelivered = () => {
+    setDelivered((prev) => !prev)
+  }
   const handleSubmite = async (e) => {
     e.preventDefault();
     try {
@@ -65,6 +70,7 @@ function EditProduct() {
           images: uplodedImgsId,
           categories: [{ id: category }],
           ...formValues,
+          delivery: delivered
         },
         { headers: header }
       );
@@ -95,6 +101,7 @@ function EditProduct() {
     inp.current.click();
   };
 
+  
   const getProduct = async () => {
     try {
       const res = await Axios.get(`/products/product/${productId}`, {headers: header});
@@ -107,6 +114,7 @@ function EditProduct() {
         description: res?.data?.description,
         litre: res?.data?.litre
       });
+      setDelivered(res?.data?.delivery)
       setUploadedImgs(res?.data?.images);
     } catch (error) {}
   };
@@ -365,6 +373,15 @@ function EditProduct() {
                     />
                   </Col>
                 </Row>
+              </div>
+              <div className="status_product">
+                <Checkbox
+                  checked={delivered}
+                  onChange={handleDelivered}
+                  name='delivered'
+                >
+                  Доставка
+                </Checkbox>
               </div>
               <div className="sbm_btn">
                 <Button
