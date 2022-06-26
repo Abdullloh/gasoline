@@ -21,6 +21,7 @@ export const StyledNewsCard = styled.div`
     font-size: 16px;
     line-height: 24px;
     color: #4f4f4f;
+    margin: 12px 0px 0px 0px;
   }
   .news_title {
     font-weight: 700;
@@ -39,9 +40,10 @@ export const StyledNewsCard = styled.div`
 export const StyledNewsPage = styled.div`
   .news_wrapper {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     gap: 15px;
+    margin-top: 40px;
   }
 `;
 
