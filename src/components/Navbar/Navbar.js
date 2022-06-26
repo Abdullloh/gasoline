@@ -8,7 +8,7 @@ import { Col, Row } from "antd";
 import Logo from "../../assets/img/logo2.svg";
 import Birja from "../../assets/img/Birja.svg";
 import Neft from "../../assets/img/neft-logo.svg";
-import i18n from '../../i18n'
+import i18n from "../../i18n";
 import HomeIcon from "../../assets/img/home-icon.svg";
 import CompanyIcon from "../../assets/img/company-icon.svg";
 import PartnerIcon from "../../assets/img/partner-icon.svg";
@@ -38,27 +38,25 @@ const { Option } = Select;
 function Navbar(props) {
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const {value,setValue} = useContext(SearchContext)
-  const {select,setSelect} = useContext(SelectContext)
+  const { value, setValue } = useContext(SearchContext);
+  const { select, setSelect } = useContext(SelectContext);
   // const selector = useSelector((state) => state);
   // console.log(selector);
   // const { user } = selector.signin;
-  const [cartList,setCartList] = useState()
+  const [cartList, setCartList] = useState();
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();
   const inputRef = useRef();
-  const {t,i18n}  = useTranslation()
-  const getCarts  = async() => {
+  const { t, i18n } = useTranslation();
+  const getCarts = async () => {
     try {
-      const res = await Axios.get('/cart')
-      setCartList(res?.data?.results)
-    } catch (error) {
-      
-    }
-  }
-  const openModal = async() => {
-    getCarts()
-      setShowModal(true);
+      const res = await Axios.get("/cart");
+      setCartList(res?.data?.results);
+    } catch (error) {}
+  };
+  const openModal = async () => {
+    getCarts();
+    setShowModal(true);
   };
   const handleCancel = () => {
     setShowModal(!showModal);
@@ -69,17 +67,17 @@ function Navbar(props) {
   };
 
   const handleInput = (e) => {
-    let location = window.location.pathname
-    setValue(e.target.value)
-    if(location !== '/products'){
-      navigate("/products")
+    let location = window.location.pathname;
+    setValue(e.target.value);
+    if (location !== "/products") {
+      navigate("/products");
     }
   };
   const handleSelect = (e) => {
-    let location = window.location.pathname
-    setSelect(e.key)
-    if(location !== '/products'){
-      navigate("/products")
+    let location = window.location.pathname;
+    setSelect(e.key);
+    if (location !== "/products") {
+      navigate("/products");
     }
   };
   const responSearch = () => {
@@ -90,62 +88,63 @@ function Navbar(props) {
   const focusInput = () => {
     inputRef.current.focus();
   };
-  const removeItemFromBasket = async(id) => {
+  const removeItemFromBasket = async (id) => {
     try {
-      const res = await Axios.delete(`/cart/cartitem/${id}`)
+      const res = await Axios.delete(`/cart/cartitem/${id}`);
       console.log(res);
-      if(res.status === 200){
-        getCarts() 
+      if (res.status === 200) {
+        getCarts();
       }
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
   const loginToAccount = () => {
-    let user = JSON.parse(localStorage.getItem('user'))
-    if(user?.token){
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (user?.token) {
       if (user.admin.role == "Customer") {
         navigate("/my-account");
       }
-    }else {
-      navigate('/sign-in')
+    } else {
+      navigate("/sign-in");
     }
   };
-  const handleClick = ()=>{
-
-  }
+  const handleClick = () => {};
   const menu = (
     <Menu
-      onClick={(key)=> handleSelect(key)}
+      onClick={(key) => handleSelect(key)}
       items={[
         {
-          label: <p>Масло </p>,
-          key: "1",
-        },
-        {
-          label: <p> Топливо </p>,
+          label: <p>{t("p86")} </p>,
           key: "2",
         },
         {
-          label: <p> Смазки</p>,
+          label: <p> {t("p87")} </p>,
+          key: "1",
+        },
+        {
+          label: <p> {t("p88")}</p>,
           key: "3",
         },
       ]}
     />
   );
-const dispatch = useDispatch()
- 
-  const changeLangugae = (e) =>{
-    const langugae = e.target.value
-    dispatch(setLanguage(langugae))
-    i18n.changeLanguage(langugae)
-  }
+  const dispatch = useDispatch();
+
+  const changeLangugae = (e) => {
+    const langugae = e.target.value;
+    dispatch(setLanguage(langugae));
+    i18n.changeLanguage(langugae);
+  };
   return (
     <>
-      <Basket isVisible={props.isVisible} cartList={props.cartList} removeItemFromBasket={props.removeItemFromBasket} handleCancel={props.handleCancel} />
+      <Basket
+        isVisible={props.isVisible}
+        cartList={props.cartList}
+        removeItemFromBasket={props.removeItemFromBasket}
+        handleCancel={props.handleCancel}
+      />
       <StyledNavbar>
         <HeaderCarousel />
-       
+
         <StyledContainer>
           <div className="container">
             <div className="wrapper">
@@ -185,23 +184,19 @@ const dispatch = useDispatch()
                   <div className="user-account">
                     <button onClick={loginToAccount}>
                       <UserIcon />
-                      <span>
-                        {t("p0")}
-                      </span>
+                      <span>{t("p0")}</span>
                     </button>
                   </div>
                   <div className="user-shopCart">
                     <button onClick={props.openModal}>
                       <ShopCartIcon />
-                      <span>
-                        {t("p1")}
-                      </span>
+                      <span>{t("p1")}</span>
                     </button>
                   </div>
                   <select onChange={changeLangugae}>
-          <option value="ru">Ru</option>
-          <option value="uz">Uz</option>
-        </select>
+                    <option value="ru">Ru</option>
+                    <option value="uz">Uz</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -237,7 +232,7 @@ const dispatch = useDispatch()
         <StyledContainer>
           <div className="container">
             <div className="navigation">
-              <nav style={{"background-color": "#364A7E"}}>
+              <nav style={{ "background-color": "#364A7E" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div className="nav_link" to="/">
                     <img src={Neft} />
@@ -254,7 +249,8 @@ const dispatch = useDispatch()
                 </div>
                 <div>
                   <NavLink className="nav_link" to="/about">
-                    <img src={CompanyIcon} />{t("p4")}
+                    <img src={CompanyIcon} />
+                    {t("p4")}
                   </NavLink>
                 </div>
                 <div>

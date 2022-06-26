@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 function News() {
   const [news, setNews] = useState([]);
   const { t } = useTranslation();
+  console.log(news);
   const getNews = async () => {
     try {
       const res = await Axios.get("/blog/");
@@ -36,7 +37,7 @@ function News() {
                       <div className="img_card">
                         <img src={item.cover_image.image} alt="news" />
                       </div>
-                      <p className="date">17 июня. 2022</p>
+                      <p className="date">{item.published_date}</p>
                       <h3 className="title">{item.title}</h3>
                       <h5 className="sub_title">{item.short_description}</h5>
                     </Link>
@@ -48,15 +49,15 @@ function News() {
               {news.slice(0, 4).map((item, index) => (
                 <Row gutter={[20, 20]} key={index}>
                   <Link to={`/news/${item.id}`}>
-                    <Col lg={{ span: 10 }} sm={{ span: 24 }}>
+                    <Col lg={{ span: 24 }} sm={{ span: 24 }}>
                       <div className="img_card_small">
                         <img src={item?.cover_image?.image} alt="news" />
                       </div>
                     </Col>
-                    <Col sm={{ span: 24 }} lg={{ span: 14 }}>
+                    <Col sm={{ span: 24 }} lg={{ span: 24 }}>
                       <div className="other_news">
                         <h4>{item.title}</h4>
-                        <p className="date">17 июня. 2022</p>
+                        <p className="date">{item.published_date}</p>
                       </div>
                     </Col>
                   </Link>

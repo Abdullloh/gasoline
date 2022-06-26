@@ -88,6 +88,7 @@ function AddNews() {
   };
 
   const handleSubmit = async () => {
+    addItem()
     try {
       const res = await Axios.post("/blog/", {
         components: [...componentId],
