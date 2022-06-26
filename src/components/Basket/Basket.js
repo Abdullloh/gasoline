@@ -71,7 +71,7 @@ export default function Basket(props) {
         {cartList?.map((item) => {
           let cartId = item.id;
           console.log(item);
-          const { images, price, title, id, count ,delivery} = item.product;
+          const { images, price, title, id, count ,delivery,litre} = item.product;
           return (
             // <BasketDetail quantity={item?.quantity} images={images} title={title}/>
 
@@ -87,7 +87,11 @@ export default function Basket(props) {
                 </div>
                 <div className="heading-info">
                   <h3>{title}</h3>
+                  <div>
+                  <h2>Цена: {price} UZS</h2>
                   <h4>Количество: {item?.quantity}</h4>
+                  <h2>Объем: {litre}л</h2>
+                  </div>
                   {/* <div>
                   <span onClick={() => decrement(id)} className="counter">
                     -
@@ -104,13 +108,13 @@ export default function Basket(props) {
                   >
                     Удалить
                   </Button>
-                  <Radio.Group onChange={(e)=>onChange(e,cartId)}>
+                  <Radio.Group style={{marginTop:'8px'}} onChange={(e)=>onChange(e,cartId)}>
                     {
                     delivery ? 
-                    <Radio value="true">Доставка</Radio>
+                    <Radio value="True">Доставка</Radio>
                     :""
                   }
-                    <Radio value="false">Самовывоз</Radio>
+                    <Radio value="False">Самовывоз</Radio>
                   </Radio.Group>
                 </div>
               </div>

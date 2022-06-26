@@ -29,7 +29,7 @@ function MainLanding() {
     try {
       const res = await Axios.delete(`/cart/cartitem/${id}`);
       console.log(res);
-      if (res.status === 200) {
+      if (res.status == 200) {
         getCarts();
       }
     } catch (error) {}
