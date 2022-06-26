@@ -30,6 +30,9 @@ export const ProductDetailStyle = styled.div`
     }
     .heading-info {
       width: 50%;
+      display: flex;
+    flex-direction: column;
+    justify-content: space-between;
       button {
         background: ${props=> props.color};
         border: 1px solid #000000;

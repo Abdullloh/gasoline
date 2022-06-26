@@ -15,7 +15,6 @@ const ProductCard = ({ data, margin }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const dispatch = useDispatch();
   let userInfo = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access;
-  console.log(userInfo)
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -23,7 +22,6 @@ const ProductCard = ({ data, margin }) => {
   const handleCancel = () => {
     setIsModalVisible(!isModalVisible);
   };
-  console.log(userInfo);
   const addCard = async (e) => {
     e.stopPropagation();
     if (userInfo) {
@@ -42,7 +40,7 @@ const ProductCard = ({ data, margin }) => {
         message.warning("add count");
       }
     } else {
-      navigate("/sign-up");
+      navigate("/sign-in");
     }
   };
 
