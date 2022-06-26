@@ -17,6 +17,7 @@ function Addproduct() {
   const [price, setPrice] = useState();
   const [statusProduct, setStatusProduct] = useState(true);
   const [quantity, setQuantity] = useState(0);
+  const [delivered, setDelivered] = useState(false);
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
@@ -47,6 +48,12 @@ function Addproduct() {
       message.error({ content: "Error", key, duration: 2 });
     }, 1000);
   };
+ 
+  // const handleDelivered = () => {
+  //   setDelivered((prev) => !prev)
+  // }
+  
+
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
@@ -61,10 +68,11 @@ function Addproduct() {
   const handleFocus = (inp) => {
     inp.current.click();
   };
-  const getCategories = () => {
-    axios
-      .get("http://137.184.114.36:7774/products/categories/")
-      .then((response) => setProductCategory(response?.data?.results));
+  const getCategories = async () => {
+    try {
+      const res = await Axios.get("products/categories/", { headers: header });
+      setProductCategory(res?.data?.results);
+    } catch (error) {}
   };
   console.log(productCategory);
 
@@ -82,6 +90,7 @@ function Addproduct() {
       ],
       price: price,
       in_stock: quantity,
+      // delivery: delivered
     };
 
     console.log(productData);
@@ -309,6 +318,15 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
+              {/* <div className="status_product">
+                <Checkbox
+                  checked={delivered}
+                  onChange={handleDelivered}
+                  name='delivered'
+                >
+                  Доставка
+                </Checkbox>
+              </div> */}
               <div className="sbm_btn">
                 <Button type="primary" onClick={handleSubmite} htmlFor="submit">
                   {t("Сохранить")}

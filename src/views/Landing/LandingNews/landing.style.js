@@ -46,6 +46,12 @@ export const StyledNewsPage = styled.div`
 `;
 
 export const StyledDetails = styled.div`
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: start;
+  }
   .main {
     margin: 30px 0px;
     text-align: start;
@@ -70,13 +76,14 @@ export const StyledDetails = styled.div`
       color: ${COLORS.darkGrey};
     }
     .main_img {
-      /* max-width: 1000px;
-      height: auto;
-      width: 100%; */
+      max-width: 1000px;
+      max-height: 420px;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
-  .extra_news{
+  .extra_news {
     margin: 20px 0px;
   }
 `;

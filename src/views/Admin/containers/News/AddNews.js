@@ -20,6 +20,13 @@ function AddNews() {
     title: "",
     short_description: "",
   }); 
+
+  let adminInfo = JSON.parse(localStorage.getItem("user_info"));
+
+  let header = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${adminInfo.token?.access}`,
+  };
   const img = useRef()
   console.log(componentId);
   const addItem = async() => {
@@ -29,7 +36,7 @@ function AddNews() {
     formData.append("image",img.current.files[0])
     formData.append('text',description)
     try {
-      const res = await Axios.post('/blog/component/',formData)
+      const res = await Axios.post('/blog/component/',formData, {headers: header})
       console.log(res);
       const {status,data} = res
       if(status == 201){
@@ -74,7 +81,7 @@ function AddNews() {
     const formData = new FormData();
     formData.append("image", inpFile.current.files[0]);
     try {
-      const res = await Axios.post(`/blog/cover/`, formData);
+      const res = await Axios.post(`/blog/cover/`, formData, {headers: header});
       setUploadedImgs(res?.data.id);
       console.log(uploadedImgs);
     } catch (error) {}
@@ -89,7 +96,7 @@ function AddNews() {
         },
         ...formValues,
         published_date:date
-      });
+      }, {headers: header});
       console.log(res);
     } catch (error) {
       console.log(error);

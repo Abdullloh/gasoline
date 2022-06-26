@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "antd";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import Carousel from "react-elastic-carousel";
 import { StyledLanding } from "../../styles/Landing.style";
 import { StyledContainer } from "../../styles/Container.style";
@@ -20,7 +20,7 @@ import News from "../../components/News/News";
 import { useTranslation } from "react-i18next";
 
 function Landing() {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <StyledLanding img={OilImg}>
       <Main
@@ -35,9 +35,11 @@ function Landing() {
           <div className="container">
             <News />
             <div className="news_link">
-            <Link to="/news">
-              <Button type="primary" size="large">{t("p31")}</Button>
-            </Link>
+              <Link to="/news">
+                <Button type="primary" size="large">
+                  {t("p31")}
+                </Button>
+              </Link>
             </div>
           </div>
         </StyledContainer>
