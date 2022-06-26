@@ -28,7 +28,8 @@ function HeaderCarousel() {
             {data.map((item) => (
               <div className="card">
                 <div className="text_block">
-                  <h4>{item?.product}</h4>
+                
+                  {item?.product.length > 15 ?<div className="text">{item?.product}</div> :   <div className="text_2">{item?.product}</div>}
                 </div>
                 <div className="price_block">
                   <div>
