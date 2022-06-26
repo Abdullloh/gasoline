@@ -15,6 +15,7 @@ function Addproduct() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState();
+  const [litre, setLitre] = useState(0);
   const [statusProduct, setStatusProduct] = useState(true);
   const [quantity, setQuantity] = useState(0);
   const [delivered, setDelivered] = useState(false);
@@ -49,9 +50,9 @@ function Addproduct() {
     }, 1000);
   };
  
-  // const handleDelivered = () => {
-  //   setDelivered((prev) => !prev)
-  // }
+  const handleDelivered = () => {
+    setDelivered((prev) => !prev)
+  }
   
 
   const uploadImg = async (inpFile) => {
@@ -90,7 +91,8 @@ function Addproduct() {
       ],
       price: price,
       in_stock: quantity,
-      // delivery: delivered
+      litre,
+      delivery: delivered
     };
 
     console.log(productData);
@@ -252,6 +254,17 @@ function Addproduct() {
                     id="article"
                   />
                 </Col>
+                <Col span={8}>
+                  <label htmlFor="litr">{t("Объем")}</label>
+                  <Input
+                    required
+                    type="number"
+                    value={litre}
+                    onChange={(e) => setLitre(e.target.value)}
+                    id="litr"
+                    placeholder="Литр"
+                  />
+                </Col>
                 <Col span={24}>
                   <label htmlFor="description">{t("Описание")}</label>
                   <TextArea
@@ -318,15 +331,15 @@ function Addproduct() {
                   </Col>
                 </Row>
               </div>
-              {/* <div className="status_product">
+              <div className="status_product">
                 <Checkbox
                   checked={delivered}
                   onChange={handleDelivered}
                   name='delivered'
                 >
-                  Доставка
+                  {t("Доставка")}
                 </Checkbox>
-              </div> */}
+              </div>
               <div className="sbm_btn">
                 <Button type="primary" onClick={handleSubmite} htmlFor="submit">
                   {t("Сохранить")}
