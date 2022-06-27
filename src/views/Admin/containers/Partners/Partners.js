@@ -9,6 +9,7 @@ import {
   Form,
   Input,
   message,
+  Pagination
 } from "antd";
 import { StyledPartners } from "./Partners.style";
 import Axios from "../../../../utils/axios";
@@ -16,10 +17,13 @@ import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Partners() {
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [editComp, setEditComp] = useState(false);
   const [modalData, setModalData] = useState({});
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
   // const [partnerData, setPartnerData] = useState({});
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
@@ -28,11 +32,30 @@ function Partners() {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
+  useEffect(() => {
+    getPartners();
+  }, [offset, limit]);
+  const onShowSizeChange = (current, pageSize) => {
+    setLimit(pageSize);
+  };
   const getPartners = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/partners/?limit=1000", { headers: header });
+      const res = await Axios.get(
+        `/adminside/partners/?limit=${limit}&offset=${offset}`,
+        { headers: header }
+      );
       setData(res.data.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const getPartnersCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(`/adminside/partners/`, { headers: header });
+      setDataCount(res?.data?.count);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -155,6 +178,7 @@ function Partners() {
 
   useEffect(() => {
     getPartners();
+    getPartnersCount();
   }, []);
   return (
     <StyledPartners>
@@ -167,7 +191,18 @@ function Partners() {
           columns={columns}
           dataSource={data}
           loading={loading}
+          pagination={false}
         />
+          <div className="pagination_block">
+       <Pagination
+          showSizeChanger
+          onShowSizeChange={onShowSizeChange}
+          defaultCurrent={1}
+          defaultPageSize={10} //default size of page
+          onChange={(value) => setOffset((value - 1) * 4)}
+          total={dataCount} //total number of card data available
+        />
+       </div>
         <Modal visible={isVisible} footer={null} onCancel={closeModal}>
           <div className="modal_body">
             <Form layout="vertical">

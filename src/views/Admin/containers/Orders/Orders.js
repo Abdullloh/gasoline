@@ -1,7 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Button, Checkbox, Modal, Table, Space, Spin, Row, Col } from "antd";
+import {
+  Button,
+  Checkbox,
+  Modal,
+  Table,
+  Space,
+  Spin,
+  Row,
+  Col,
+  Pagination,
+} from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
@@ -12,17 +22,24 @@ function Orders() {
   const debouncedSearch = useDebounce(searchInput, 500);
   const [filteredResults, setFilteredResults] = useState([]);
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [visible, setVisible] = useState(false);
   const [visiblePartner, setVisiblePartner] = useState(false);
   const [modalData, setModalData] = useState({});
   const [partnerData, setPartnerData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
+
+  useEffect(() => {
+    getOrders();
+  }, [offset, limit]);
 
   const handleShow = () => {
     setVisible((prev) => !prev);
@@ -58,6 +75,10 @@ function Orders() {
     }
   };
 
+  const onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    setLimit(pageSize);
+  };
   useEffect(() => {
     async function getSearch() {
       setLoading(true);
@@ -83,10 +104,25 @@ function Orders() {
   const getOrders = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/orders/?limit=1000", {
+      const res = await Axios.get(
+        `/adminside/orders/?limit=${limit}&offset=${offset}`,
+        {
+          headers: header,
+        }
+      );
+      setData(res?.data?.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const getOrdersCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(`/adminside/orders/`, {
         headers: header,
       });
-      setData(res?.data?.results);
+      setDataCount(res?.data?.count);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -100,6 +136,7 @@ function Orders() {
       });
       setModalData(res.data);
       setLoading(false);
+      setDataCount(res?.data?.count);
       handleShow();
     } catch (error) {
       console.log(error);
@@ -257,6 +294,7 @@ function Orders() {
 
   useEffect(() => {
     getOrders();
+    getOrdersCount();
   }, []);
 
   return (
@@ -370,7 +408,11 @@ function Orders() {
             <h4>Номер телефона</h4>
           </Col>
           <Col span={12}>
-            <h4>{partnerData?.user.phone ? `+${partnerData?.user?.phone}` : "Нет номера"}</h4>
+            <h4>
+              {partnerData?.user?.phone
+                ? `+${partnerData?.user?.phone}`
+                : "Нет номера"}
+            </h4>
           </Col>
         </Row>
         <Row style={{ margin: "10px 0px" }}>
@@ -408,7 +450,18 @@ function Orders() {
                 columns={columns}
                 dataSource={data}
                 loading={loading}
+                pagination={false}
               ></Table>
+              <div className="pagination_block">
+                <Pagination
+                  showSizeChanger
+                  onShowSizeChange={onShowSizeChange}
+                  defaultCurrent={1}
+                  defaultPageSize={10} //default size of page
+                  onChange={(value) => setOffset((value - 1) * 4)}
+                  total={dataCount} //total number of card data available
+                />
+              </div>
             </div>
           </div>
         )}

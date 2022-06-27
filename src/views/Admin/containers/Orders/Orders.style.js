@@ -93,4 +93,7 @@ export const StyledOrders = styled.div`
     align-items: center;
     flex-direction: column;
   }
+  .pagination_block{
+    margin-top: 15px;
+  }
 `;

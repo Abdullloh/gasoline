@@ -36,4 +36,7 @@ export const StyledApplication = styled.div`
   .ant-table-thead {
     display: none;
   }
+  .pagination_block{
+    margin-top: 15px;
+  }
 `;

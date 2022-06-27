@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Row } from "antd";
+import { Button, Col, Row, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
@@ -10,7 +10,9 @@ import Axios from "../../../../utils/axios";
 
 function News() {
   const [news, setNews] = useState([]);
-
+  const [dataCount, setDataCount] = useState(0);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
@@ -18,13 +20,29 @@ function News() {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
+  useEffect(() => {
+    getNews();
+  }, [offset, limit]);
+
+  const onShowSizeChange = (current, pageSize) => {
+    setLimit(pageSize);
+  };
   const getNews = async () => {
     try {
-      const res = await Axios.get("/blog/?limit=1000", {headers: header});
+      const res = await Axios.get(`/blog/?limit=${limit}&offset=${offset}`, {
+        headers: header,
+      });
       console.log(res);
-      if (res.status == 200) {
-        setNews(res?.data?.results);
-      }
+      setNews(res?.data?.results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getNewsCount = async () => {
+    try {
+      const res = await Axios.get(`/blog/`, { headers: header });
+      console.log(res);
+      setDataCount(res?.data?.count);
     } catch (error) {
       console.log(error);
     }
@@ -33,12 +51,13 @@ function News() {
   const deleteNew = async (id) => {
     let filtereData = news.filter((item) => item.id !== id);
     try {
-      const res = await Axios.delete(`/blog/${id}`, {headers: header});
+      const res = await Axios.delete(`/blog/${id}`, { headers: header });
       setNews(filtereData);
     } catch (error) {}
   };
   useEffect(() => {
     getNews();
+    getNewsCount();
   }, []);
   return (
     <StyledNews>
@@ -67,10 +86,12 @@ function News() {
                 <p className="description">{item.short_description}</p>
               </div>
               <div className="news_handle">
-                <p className="news_date">{moment(item?.published_date).format("DD.MM.YYYY")}</p>
+                <p className="news_date">
+                  {moment(item?.published_date).format("DD.MM.YYYY")}
+                </p>
                 {/* <FiEdit color="#364a7e" size="20" /> */}
                 <AiOutlineDelete
-                style={{'cursor':'pointer'}}
+                  style={{ cursor: "pointer" }}
                   color="red"
                   size="20"
                   onClick={() => deleteNew(item.id)}
@@ -83,6 +104,16 @@ function News() {
             <h2>No data</h2>
           </div>
         )}
+        <div className="pagination_block">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={1}
+            defaultPageSize={10} //default size of page
+            onChange={(value) => setOffset((value - 1) * 4)}
+            total={dataCount} //total number of card data available
+          />
+        </div>
       </div>
     </StyledNews>
   );

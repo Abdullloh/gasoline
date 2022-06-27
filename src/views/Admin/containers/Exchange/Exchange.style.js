@@ -21,6 +21,9 @@ export const StyledExchange = styled.div`
     margin: 15px 0px;
     cursor: pointer;
   }
+  .pagination_block{
+    margin-top: 15px;
+  }
 `;
 
 export const StyledExchangeDetails = styled.div`

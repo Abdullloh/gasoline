@@ -138,8 +138,8 @@ const handleSubmit = async (data,{resetForm})=>{
   } catch (rejectedValueOrSerializedError) {
     console.log("error occured")
   }
-  // dispatch() 
-  // resetForm({})
+  dispatch() 
+  resetForm({})
 }
 
 console.log(userOrders)

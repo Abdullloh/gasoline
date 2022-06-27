@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Popconfirm, Table } from "antd";
+import { Button, Checkbox, Popconfirm, Table, Pagination } from "antd";
 import { FiPlus } from "react-icons/fi";
 import { AiOutlineSearch, AiOutlineDelete } from "react-icons/ai";
 import { StyledPurchases } from "./Purchases.style";
@@ -13,14 +13,24 @@ import EditIcon from "../../../../assets/img/edit-alt.svg";
 
 function Purchases() {
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0)
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebounce(searchInput, 500);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
   const navigate = useNavigate();
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [offset, limit]);
+
+  useEffect(() => {
+    getProductsCount()
+  }, [])
+  const onShowSizeChange = (current, pageSize) => {
+    setLimit(pageSize)
+  };
 
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   console.log(adminInfo);
@@ -32,8 +42,26 @@ function Purchases() {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/products/?limit=1000", { headers: header });
+      const res = await Axios.get(
+        `/adminside/products/?limit=${limit}&offset=${offset}`,
+        { headers: header }
+      );
       setData(res.data.results);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  const getProductsCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(
+        `/adminside/products/`,
+        { headers: header }
+      );
+      console.log(res);
+      setDataCount(res?.data?.count)
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -70,10 +98,14 @@ function Purchases() {
   const handleProductSale = async (id, status) => {
     setLoading(true);
     try {
-      const res = await Axios.patch(`/adminside/product/${id}`, {
-        id,
-        available: status,
-      }, {headers: header});
+      const res = await Axios.patch(
+        `/adminside/product/${id}`,
+        {
+          id,
+          available: status,
+        },
+        { headers: header }
+      );
       if (res?.status == 200) {
         getProducts();
       }
@@ -152,7 +184,9 @@ function Purchases() {
   ];
   const handleDelete = async (id) => {
     try {
-      const res = await Axios.delete(`/adminside/product/${id}`, {headers: header});
+      const res = await Axios.delete(`/adminside/product/${id}`, {
+        headers: header,
+      });
       console.log(res);
       if (res.status == 204) {
         let filterData = data.filter((item) => item.id !== id);
@@ -184,7 +218,22 @@ function Purchases() {
         </div>
       </header>
       <div className="wrapper">
-        <Table dataSource={data} columns={columns} loading={loading} />
+        <Table
+          dataSource={data}
+          columns={columns}
+          loading={loading}
+          pagination={false}
+        />
+       <div className="pagination_block">
+       <Pagination
+          showSizeChanger
+          onShowSizeChange={onShowSizeChange}
+          defaultCurrent={1}
+          defaultPageSize={10} //default size of page
+          onChange={(value) => setOffset((value - 1) * 4)}
+          total={dataCount} //total number of card data available
+        />
+       </div>
       </div>
     </StyledPurchases>
   );
