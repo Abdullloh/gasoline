@@ -26,7 +26,7 @@ export const StyledNews = styled.div`
   .title {
     font-style: normal;
     font-weight: 600;
-    font-size: 48px;
+    font-size: 44px;
     line-height: 103.5%;
     color: #333333;
   }
@@ -51,7 +51,7 @@ export const StyledNews = styled.div`
     h4 {
       font-style: normal;
       font-weight: 700;
-      font-size: 24px;
+      font-size: 22px;
       line-height: 32px;
       color: #333333;
     }

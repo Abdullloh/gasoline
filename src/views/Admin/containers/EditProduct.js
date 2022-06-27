@@ -116,6 +116,7 @@ function EditProduct() {
       });
       setDelivered(res?.data?.delivery)
       setUploadedImgs(res?.data?.images);
+      setCategory(res?.data?.categories?.map(item => item.id))
     } catch (error) {}
   };
   const getCategories = async () => {

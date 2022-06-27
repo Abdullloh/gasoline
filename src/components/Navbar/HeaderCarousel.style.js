@@ -41,16 +41,26 @@ export const StyledHeaderCarousel = styled.div`
     background-color: ${COLORS.main};
     padding: 7px;
     .text_block {
-      width: 145px;
-      white-space: nowrap;
+      width: 405px;
       overflow: hidden;
-      text-overflow: ellipsis;
-      h4 {
+      /* background-color: blue; */
+      white-space: nowrap;
+      .text {
         font-style: normal;
         font-weight: 500;
         font-size: 18px;
         line-height: 22px;
         color: ${COLORS.white};
+        display: inline-block;
+        animation: slide 20s linear infinite;
+      }
+      .text_2 {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+        color: ${COLORS.white};
+        display: inline-block;
       }
     }
     .price {
@@ -83,6 +93,20 @@ export const StyledHeaderCarousel = styled.div`
       left: -100%;
     }
   }
+
+  @keyframes slide {
+    0% {
+        transform: translateX(-400px);
+    }
+
+    50% {
+        transform: translateX(400px);
+    }
+    
+    100% {
+        transform: translateX(-400px);
+    }
+}
 
   @media only screen and (max-width: 992px) {
     display: none;

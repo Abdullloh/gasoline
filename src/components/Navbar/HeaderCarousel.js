@@ -18,104 +18,6 @@ function HeaderCarousel() {
   };
 
   useEffect(() => {
-    // setData([
-    //   {
-    //     title: "Моторное маcло",
-    //     price: 4520,
-    //     hasincrease: true,
-    //     amount: "50",
-    //   },
-    //   {
-    //     title: "Трансмиссион-ные масла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "70",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "40",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "70",
-    //   },
-    //   {
-    //     title: "Моторное маcло",
-    //     price: 4520,
-    //     hasincrease: true,
-    //     amount: "50",
-    //   },
-    //   {
-    //     title: "Трансмиссион-ные масла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "70",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: true,
-    //     amount: "20",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "40",
-    //   },
-    //   {
-    //     title: "Компрессорные маcла",
-    //     price: 6230.98,
-    //     hasincrease: false,
-    //     amount: "70",
-    //   },
-    // ]);
     getPrices();
   }, []);
   return (
@@ -126,7 +28,8 @@ function HeaderCarousel() {
             {data.map((item) => (
               <div className="card">
                 <div className="text_block">
-                  <h4>{item?.product}</h4>
+                
+                  {item?.product.length > 15 ?<div className="text">{item?.product}</div> :   <div className="text_2">{item?.product}</div>}
                 </div>
                 <div className="price_block">
                   <div>

@@ -15,9 +15,9 @@ function Addproduct() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState();
+  const [litre, setLitre] = useState(0);
   const [statusProduct, setStatusProduct] = useState(true);
   const [quantity, setQuantity] = useState(0);
-  const [litre, setLitre] = useState();
   const [delivered, setDelivered] = useState(false);
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
@@ -93,7 +93,8 @@ function Addproduct() {
       delivery:delivered,
       price: price,
       in_stock: quantity,
-      // delivery: delivered
+      litre,
+      delivery: delivered
     };
 
     console.log(productData);
@@ -256,7 +257,7 @@ function Addproduct() {
                   />
                 </Col>
                 <Col span={8}>
-                  <label htmlFor="litr">Объем</label>
+                  <label htmlFor="litr">{t("Объем")}</label>
                   <Input
                     required
                     type="number"
@@ -338,7 +339,7 @@ function Addproduct() {
                   onChange={handleDelivered}
                   name='delivered'
                 >
-                  Доставка
+                  {t("Доставка")}
                 </Checkbox>
               </div>
               <div className="sbm_btn">

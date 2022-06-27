@@ -14,6 +14,7 @@ function EditProduct({ productId }) {
   const [data, setData] = useState({});
   // const { productId } = useParams();
   const [category, setCategory] = useState("");
+  const [delivered, setDelivered] = useState(false);
   const [statusProduct, setStatusProduct] = useState(true);
   const [formValues, setFormValues] = useState({
     title: "",
@@ -21,6 +22,7 @@ function EditProduct({ productId }) {
     price: "",
     in_stock: "",
     description: "",
+    litre: 0,
   });
   const [productCategory, setProductCategory] = useState([]);
   const [uploadedImgs, setUploadedImgs] = useState([]);
@@ -52,6 +54,8 @@ function EditProduct({ productId }) {
       price: data?.price,
       in_stock: data?.in_stock,
       description: data?.description,
+      litre: data?.litre,
+      delivered: data?.delivery
     });
   }, []);
 
@@ -62,6 +66,7 @@ function EditProduct({ productId }) {
         images: uplodedImgsId,
         categories: [{ id: category }],
         ...formValues,
+        delivery: delivered
       });
       console.log(res);
       if (res?.status == 200) {
@@ -73,6 +78,10 @@ function EditProduct({ productId }) {
     let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
     setUploadedImgs(filteredImgs);
   };
+
+  const handleDelivered = () => {
+    setDelivered((prev) => !prev)
+  }
 
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
@@ -98,8 +107,11 @@ function EditProduct({ productId }) {
         price: res?.data?.price,
         in_stock: res?.data?.in_stock,
         description: res?.data?.description,
+        litre: res?.data?.litre,
       });
+      setDelivered(res?.data?.delivery)
       setUploadedImgs(res?.data?.images);
+      setCategory(res?.data?.categories?.map(item => item.id))
     } catch (error) {}
   };
 
@@ -279,6 +291,18 @@ function EditProduct({ productId }) {
                     name="vendor_code"
                   />
                 </Col>
+                <Col span={8}>
+                  <label htmlFor="litr">{t("Объем")}</label>
+                  <Input
+                    required
+                    type="number"
+                    value={formValues.litre}
+                    onChange={handleInputChange}
+                    id="litr"
+                    name="litre"
+                    placeholder="Литр"
+                  />
+                </Col>
                 <Col span={24}>
                   <label htmlFor="description">{t("Описание")}</label>
                   <TextArea
@@ -345,6 +369,15 @@ function EditProduct({ productId }) {
                     />
                   </Col>
                 </Row>
+              </div>
+              <div className="status_product">
+                <Checkbox
+                  checked={delivered}
+                  onChange={handleDelivered}
+                  name='delivered'
+                >
+                  {t("Доставка")}
+                </Checkbox>
               </div>
               <div className="sbm_btn">
                 <Button

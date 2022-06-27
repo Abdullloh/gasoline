@@ -4,8 +4,10 @@ import { StyledContainer } from "../../../styles/Container.style";
 import { StyledSignIn } from "./Auth.style";
 import Axios from "../../../utils/axios";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Register() {
+  const {t} = useTranslation()
   const [userName, setUserName] = useState(null);
   const [userType, setUserType] = useState(null);
 
@@ -36,8 +38,8 @@ function Register() {
   const partnerData = {
     name: userName,
     email,
-    ceos_name: ceo_name,
-    bank_name, 
+    // ceos_name: ceo_name,
+    bank_name,
     company_address,
     mfo,
     bank_account,
@@ -46,7 +48,7 @@ function Register() {
     phone: phoneNum,
     password,
     type: userType,
-  }
+  };
   const handleSubmite = async (e) => {
     if (userType == null) {
       message.warning("CHoose your role");
@@ -55,7 +57,7 @@ function Register() {
       if (userType == "partner") {
         try {
           const res = await Axios.post("/accounts/register/", {
-           ...partnerData
+            ...partnerData,
           });
           console.log(res);
           const { status } = res;
@@ -89,17 +91,56 @@ function Register() {
       <StyledContainer>
         <div className="container">
           <div className="wrapper">
-            <h2 className="auth_title">Регистрация</h2>
+            <h2 className="auth_title">{t("Регистрация")}</h2>
             <div className="form_block">
               <Form layout="vertical">
                 <Form.Item>
                   <Radio.Group onChange={onChange} value={userType}>
-                    <Radio value={"customer"}>Покупатель</Radio>
-                    <Radio value={"partner"}>Поставщик</Radio>
+                    <Radio value={"customer"}>{t("Покупатель")}</Radio>
+                    <Radio value={"partner"}>{t("Поставщик")}</Radio>
                   </Radio.Group>
                 </Form.Item>
-
-                <Form.Item label="Ф.И.О.">
+                {userType == "partner" ? (
+                  <>
+                    <Form.Item label={t("Наименование организации")}>
+                      <Input
+                        onChange={(e) => setCompName(e.target.value)}
+                        value={compName}
+                      />
+                    </Form.Item>
+                    {/* <Form.Item label="Ceo Name">
+                      <Input
+                        onChange={(e) => setCeo_name(e.target.value)}
+                        value={ceo_name}
+                      />
+                    </Form.Item> */}
+                    <Form.Item label={t("Наименование банка")}>
+                      <Input
+                        onChange={(e) => setBank_name(e.target.value)}
+                        value={bank_name}
+                      />
+                    </Form.Item>
+                    <Form.Item label={t("Адрес компании")}>
+                      <Input
+                        onChange={(e) => setCompany_address(e.target.value)}
+                        value={company_address}
+                      />
+                    </Form.Item>
+                    <Form.Item label={t("МФО")}>
+                      <Input
+                        onChange={(e) => setMfo(e.target.value)}
+                        value={mfo}
+                      />
+                    </Form.Item>
+                    <Form.Item label={t("Расчетный счет")}>
+                      <Input
+                        onChange={(e) => setBank_account(e.target.value)}
+                        value={bank_account}
+                      />
+                    </Form.Item>
+                  </>
+                ) : null}
+                <Form.Item label={t("Ф.И.О")}>
                   <Input
                     onChange={(e) => setUserName(e.target.value)}
                     value={userName}
@@ -112,56 +153,16 @@ function Register() {
                     value={email}
                   />
                 </Form.Item>
-                {userType == "partner" ? (
-                  <>
-                    <Form.Item label="Ceo Name">
-                      <Input
-                        onChange={(e) => setCeo_name(e.target.value)}
-                        value={ceo_name}
-                      />
-                    </Form.Item>
-                    <Form.Item label="Bank Name">
-                      <Input
-                        onChange={(e) => setBank_name(e.target.value)}
-                        value={bank_name}
-                      />
-                    </Form.Item>
-                    <Form.Item label="Comp address">
-                      <Input
-                        onChange={(e) => setCompany_address(e.target.value)}
-                        value={company_address}
-                      />
-                    </Form.Item>
-                    <Form.Item label="MFO">
-                      <Input
-                        onChange={(e) => setMfo(e.target.value)}
-                        value={mfo}
-                      />
-                    </Form.Item>
-                    <Form.Item label="Bank Account">
-                      <Input
-                        onChange={(e) => setBank_account(e.target.value)}
-                        value={bank_account}
-                      />
-                    </Form.Item>
-                  </>
-                ) : null}
-                <Form.Item label="ИНН">
+                <Form.Item label={t("ИНН")}>
                   <Input onChange={(e) => setInn(e.target.value)} value={inn} />
                 </Form.Item>
-                <Form.Item label="Наименование организации ">
-                  <Input
-                    onChange={(e) => setCompName(e.target.value)}
-                    value={compName}
-                  />
-                </Form.Item>
-                <Form.Item label="Номер телефона">
+                <Form.Item label={t("Номер телефона")}>
                   <Input
                     onChange={(e) => setPhoneNum(e.target.value)}
                     value={phoneNum}
                   />
                 </Form.Item>
-                <Form.Item label="Пароль">
+                <Form.Item label={t("Пароль")}>
                   <Input
                     onChange={(e) => setPassword(e.target.value)}
                     value={password}
@@ -172,7 +173,7 @@ function Register() {
                   style={{ "justify-content": "center" }}
                 >
                   <Button type="primary" onClick={handleSubmite}>
-                    Регистрироваться
+                    {t("Регистрироваться")}
                   </Button>
                 </div>
               </Form>

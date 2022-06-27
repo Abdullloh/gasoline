@@ -7,11 +7,12 @@ import OilImg from "../../../assets/img/oil-img.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../utils/axios";
 import EditIcon from "../../../assets/img/edit-alt.svg";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
-function Purchases({handleViewAddProduct,handleViewEditProduct}) {
+function Purchases({ handleViewAddProduct, handleViewEditProduct }) {
   const [data, setData] = useState([]);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
@@ -19,6 +20,7 @@ function Purchases({handleViewAddProduct,handleViewEditProduct}) {
 
   useEffect(() => {
     getProducts();
+    getUserInfo();
   }, []);
 
   let adminInfo = JSON.parse(localStorage.getItem("user_info"))?.data;
@@ -27,10 +29,22 @@ function Purchases({handleViewAddProduct,handleViewEditProduct}) {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
+  const getUserInfo = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get("/accounts/myaccount/", { headers: header });
+      setUserInfo(res?.data?.details);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
   const getProducts = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/products/", { headers: header });
+      const res = await Axios.get("/adminside/products/?limit=1000", {
+        headers: header,
+      });
       setData(res.data.results);
       setLoading(false);
     } catch (error) {
@@ -39,7 +53,7 @@ function Purchases({handleViewAddProduct,handleViewEditProduct}) {
     }
   };
   const getById = (id) => {
-    handleViewEditProduct(id)
+    handleViewEditProduct(id);
     // navigate(`/purchases/${id}`);
   };
   const handleProductSale = async (id, status) => {
@@ -157,10 +171,22 @@ function Purchases({handleViewAddProduct,handleViewEditProduct}) {
     <StyledPurchases>
       <header>
         <h2 className="title">{t("Товары")}</h2>
+        {userInfo?.active ? (
           <Button type="primary" size="large" onClick={handleViewAddProduct}>
             <FiPlus color="#fff" size="16" />
             {t("Добавить товар")}
           </Button>
+        ) : (
+          <Button
+            disabled
+            type="primary"
+            size="large"
+            onClick={handleViewAddProduct}
+          >
+            <FiPlus color="#fff" size="16" />
+            {t("Добавить товар")}
+          </Button>
+        )}
         <div className="search_block">
           <input
             type="text"
