@@ -39,7 +39,7 @@ function News() {
                         <img src={item?.cover_image?.image} alt="news" />
                       </div>
                       <p className="date">
-                        {moment(item?.published_at).format("DD.MM.YYYY")}
+                        {moment(item?.published_date).format("DD.MM.YYYY")}
                       </p>
                       <h3 className="title">
                         {item?.title.length > 70
@@ -76,7 +76,7 @@ function News() {
                             : item.title}
                         </h4>
                         <p className="date">
-                          {moment(item?.published_at).format("DD.MM.YYYY")}
+                          {moment(item?.published_date).format("DD.MM.YYYY")}
                         </p>
                       </div>
                     </Link>

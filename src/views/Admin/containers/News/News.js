@@ -67,7 +67,7 @@ function News() {
                 <p className="description">{item.short_description}</p>
               </div>
               <div className="news_handle">
-                <p className="news_date">{moment(item?.published_at).format("DD.MM.YYYY")}</p>
+                <p className="news_date">{moment(item?.published_date).format("DD.MM.YYYY")}</p>
                 {/* <FiEdit color="#364a7e" size="20" /> */}
                 <AiOutlineDelete
                 style={{'cursor':'pointer'}}

@@ -34,7 +34,7 @@ function NewsDetail() {
                <h1 className="title">
                     {data?.title}
                 </h1>
-                <p className="date">{moment(data?.published_at).format("DD.MM.YYYY")}</p>
+                <p className="date">{moment(data?.published_date).format("DD.MM.YYYY")}</p>
                 <h4 className='description'>{data?.short_description}</h4>
                 <img className='main_img' src={data?.cover_image?.image} alt="news" />
                 {data?.components?.map((item, index) => (
