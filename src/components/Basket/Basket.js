@@ -49,6 +49,7 @@ export default function Basket(props) {
         });
         if (res?.data?.message === "Item ordered") {
           message.success("Успешно заказанные продукты");
+          handleCancel()
         }
         console.log(res);
       } catch (error) {}

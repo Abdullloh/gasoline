@@ -33,6 +33,7 @@ export default function ProductView() {
   const check2 = useRef()
   const check3 = useRef()
    console.log(check);
+
   const handleChange = (e) => {
     const {value} = e.target
     let newCategory = [...category]
@@ -137,13 +138,13 @@ console.log(results);
                 </Panel>
                 <Panel header={t("p52")}>
                   <div className="checkbox-container">
-                    <Checkbox value={"1"} ref={check} onChange={handleChange}>
-                      Масла
+                    <Checkbox value={"2"} ref={check} onChange={handleChange}>
+                     {t("p86")}
                     </Checkbox>
-                    <Checkbox value={"2"} ref={check2} onChange={handleChange}>
-                      Топливо
+                    <Checkbox value={"1"} ref={check2} onChange={handleChange}>
+                     {t("p87")}
                     </Checkbox>
-                    <Checkbox value={"3"} ref={check3} onChange={handleChange}>Смазки</Checkbox>
+                    <Checkbox value={"3"} ref={check3} onChange={handleChange}>{t("p88")}</Checkbox>
                   </div>
                 </Panel>
                 {/* <Panel header={t("p53")}>

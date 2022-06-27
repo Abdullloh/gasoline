@@ -47,6 +47,7 @@ export const StyledNews = styled.div`
     }
   }
   .other_news {
+    width: 80%;
     h4 {
       font-style: normal;
       font-weight: 700;

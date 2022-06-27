@@ -89,6 +89,8 @@ function Addproduct() {
           id: category,
         },
       ],
+      litre,
+      delivery:delivered,
       price: price,
       in_stock: quantity,
       litre,

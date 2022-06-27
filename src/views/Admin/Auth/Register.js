@@ -10,14 +10,14 @@ function Register() {
   const {t} = useTranslation()
   const [userName, setUserName] = useState(null);
   const [userType, setUserType] = useState(null);
-
+  const [compName1,setCompName1] = useState("")
   const [phoneNum, setPhoneNum] = useState(null);
   const [email, setEmail] = useState(null);
   const navigate = useNavigate();
   const [inn, setInn] = useState();
   const [password, setPassword] = useState();
   const [mfo, setMfo] = useState();
-  const [compName, setCompName] = useState(null);
+  const [compName,setCompName] = useState(null);
   const [company_address, setCompany_address] = useState(null);
   const [ceo_name, setCeo_name] = useState(null);
   const [bank_account, setBank_account] = useState(null);
@@ -102,12 +102,7 @@ function Register() {
                 </Form.Item>
                 {userType == "partner" ? (
                   <>
-                    <Form.Item label={t("Наименование организации")}>
-                      <Input
-                        onChange={(e) => setCompName(e.target.value)}
-                        value={compName}
-                      />
-                    </Form.Item>
+                 
                     {/* <Form.Item label="Ceo Name">
                       <Input
                         onChange={(e) => setCeo_name(e.target.value)}
@@ -153,6 +148,12 @@ function Register() {
                     value={email}
                   />
                 </Form.Item>
+                <Form.Item label={t("Наименование организации")}>
+                      <Input
+                        onChange={(e) => setCompName(e.target.value)}
+                        value={compName}
+                      />
+                    </Form.Item>
                 <Form.Item label={t("ИНН")}>
                   <Input onChange={(e) => setInn(e.target.value)} value={inn} />
                 </Form.Item>

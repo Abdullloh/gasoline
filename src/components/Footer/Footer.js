@@ -65,7 +65,7 @@ function Footer() {
             footer={null}
           >
             <Form layout="vertical" onSubmit={handleSubmit}>
-              <label htmlFor="fullName">Ф.И.О.</label>
+              <label htmlFor="fullName">{t("p90")}</label>
               <Input
                 required
                 onChange={handleInputChange}
@@ -73,7 +73,7 @@ function Footer() {
                 id="fullName"
                 value={formValue.fullName}
               />
-              <label htmlFor="phoneNumber">Номер телефона</label>
+              <label htmlFor="phoneNumber">{t("p91")}</label>
               <Input
                 required
                 onChange={handleInputChange}
@@ -82,7 +82,7 @@ function Footer() {
                 minLength={7}
                 value={formValue.phoneNumber}
               />
-              <label htmlFor="description">Опишите проблему или вопрос</label>
+              <label htmlFor="description">{t("p92")}</label>
               <TextArea
                 required
                 onChange={handleInputChange}
@@ -99,8 +99,9 @@ function Footer() {
                   justifyContent: "center",
                 }}
               >
-                <Button type="primary" htmlType="submite" onClick={handleSubmit}>
-                  Отправить
+
+                <Button style={{marginTop:"10px"}} type="primary" htmlType="submite" onClick={handleSubmit}>
+                  {t("p93")}
                 </Button>
               </div>
             </Form>

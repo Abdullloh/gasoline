@@ -40,7 +40,7 @@ function NewsDetail() {
                 {data?.components?.map((item, index) => (
                   <div key={index} className='extra_news'>
                    <h4 className='description'>{item?.text}</h4>
-                     <img className='secondary_img' src={item?.image} alt="news" />
+                     <img className='main_img' src={item?.image} alt="news" />
                   </div>
                 ))}
                </div>

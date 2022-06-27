@@ -29,9 +29,18 @@ function AddNews() {
   };
   const img = useRef()
   console.log(componentId);
-  const addItem = async() => {
-    console.log("added");
-    console.log(img.current.files[0]);
+  const addItem = () => {
+    setItems([
+      ...items,
+      {
+        id: counts,
+        description: '',
+        image:''
+      },
+    ]);
+  };
+
+  const submitComponent = async()=>{
     const formData = new FormData()
     formData.append("image",img.current.files[0])
     formData.append('text',description)
@@ -45,15 +54,7 @@ function AddNews() {
     } catch (error) {
       
     }
-    setItems([
-      ...items,
-      {
-        id: counts,
-        description: '',
-        image:''
-      },
-    ]);
-  };
+  }
   console.log(img);
 
   const handleInputChange = useCallback((e) => {
@@ -166,7 +167,7 @@ function AddNews() {
                   />
                 </div>
                 <div className="input_block">
-                  <input  type="file" ref={img} />
+                  <input onChange={submitComponent}  type="file" ref={img} />
                 </div>
               </div>
           {items.map((item) => {
@@ -183,7 +184,7 @@ function AddNews() {
                   />
                 </div>
                 <div className="input_block">
-                  <input  type="file" ref={img} />
+                  <input onChange={submitComponent} type="file" ref={img} />
                 </div>
               </div>
              );

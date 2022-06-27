@@ -234,7 +234,7 @@ console.log(userOrders)
        <h2>{t("Личные данные о кампании")}</h2>
 
        <div className = "flex-item">
-        <p className = "item">{t("Полное наименование")}</p>  <p className = "item">{userInfo?.ceos_name}</p>
+        <p className = "item">{t("Полное наименование")}</p>  <p className = "item">{userInfo?.company_name}</p>
          </div> 
 
          <div className = "flex-item">
