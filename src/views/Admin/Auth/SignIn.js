@@ -12,8 +12,10 @@ import {postUserInfo} from "../../../Redux/login/user"
 import Home from "../containers/Home/Home";
 import {Navigate} from "react-router-dom"
 import { useAlert } from 'react-alert'
+import {useTranslation} from 'react-i18next'
 
 function SignIn() {
+  const {t} = useTranslation()
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
 
@@ -69,15 +71,15 @@ function SignIn() {
       <StyledContainer>
         <div className="container">
           <div className="wrapper">
-            <h2 className="auth_title">Вход</h2>
+            <h2 className="auth_title">{t("Вход")}</h2>
             <div className="form_block">
               <Radio.Group onChange={onChange} value={value}>
                 {/* <Radio value={"admin"}>Администратор</Radio> */}
-                <Radio value={"customer"}>Покупатель</Radio>
-                <Radio value={"partner"}>Поставщик</Radio>
+                <Radio value={"customer"}>{t("Покупатель")}</Radio>
+                <Radio value={"partner"}>{t("Поставщик")}</Radio>
               </Radio.Group>
               <Form layout="vertical">
-                <Form.Item label="E-mail"  name="email"
+                <Form.Item label="Email"  name="email"
                 rules={[
                  {
                   type: 'email',
@@ -93,7 +95,7 @@ function SignIn() {
                     value={userName}
                   />
                 </Form.Item>
-                <Form.Item label="Пароль" name="password"
+                <Form.Item label={t("Пароль")} name="password"
                  rules={[
                 {
                   required: true,
@@ -107,10 +109,10 @@ function SignIn() {
                 </Form.Item>
                 <div className="sbt_block">
                   <Button type="primary" onClick={handleSubmit}>
-                    Войти
+                    {t("Войти")}
                   </Button>
                   <Link to="/sign-up">
-                    <Button type="link">Зарегистрироваться</Button>
+                    <Button type="link">{t("Зарегистрироваться")}</Button>
                   </Link>
                 </div>
               </Form>
