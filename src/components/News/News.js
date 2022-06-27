@@ -46,7 +46,7 @@ function News() {
               </Carousel>
             </Col>
             <Col sm={{ span: 24 }} lg={{ span: 10 }}>
-              {news.slice(0, 4).map((item, index) => (
+              {news.slice(0, 3).map((item, index) => (
                 <Row gutter={[20, 20]} key={index}>
                   <Link to={`/news/${item.id}`}>
                     <Col lg={{ span: 24 }} sm={{ span: 24 }}>

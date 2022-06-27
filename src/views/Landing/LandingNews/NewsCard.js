@@ -10,7 +10,7 @@ function NewsCard(props) {
       </div>
       <p className="news_date">{item?.date}</p>
       <h3 className="news_title">{item?.title}</h3>
-      <p className="news_subtitle">{item?.short_description}</p>
+      {/* <p className="news_subtitle">{item?.short_description}</p> */}
     </StyledNewsCard>
   );
 }

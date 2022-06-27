@@ -7,8 +7,8 @@ import { BsPlusLg } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 const { TextArea } = Input;
 
-function EditProduct({productId}) {
-  const {t} = useTranslation()
+function EditProduct({ productId }) {
+  const { t } = useTranslation();
   const baseUrl = "http://137.184.114.36:7774";
   const navigate = useNavigate();
   const [data, setData] = useState({});
@@ -33,9 +33,9 @@ function EditProduct({productId}) {
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
 
   useEffect(() => {
-    const ids = uploadedImgs.map(item => ({id: item.id}))
-    setUplodedImgsId(ids)
-  }, [uploadedImgs.length])
+    const ids = uploadedImgs.map((item) => ({ id: item.id }));
+    setUplodedImgsId(ids);
+  }, [uploadedImgs.length]);
 
   console.log(uplodedImgsId, 'idssss');
   console.log(uploadedImgs, 'images');
@@ -60,21 +60,19 @@ function EditProduct({productId}) {
     try {
       const res = await Axios.patch(`/adminside/product/${data.id}`, {
         images: uplodedImgsId,
-        categories: [{id: category}],
+        categories: [{ id: category }],
         ...formValues,
       });
       console.log(res);
       if (res?.status == 200) {
         navigate("/my-account");
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
   const deleteImg = (id) => {
     let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
     setUploadedImgs(filteredImgs);
   };
-
 
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
@@ -89,7 +87,6 @@ function EditProduct({productId}) {
   const handleFocus = (inp) => {
     inp.current.click();
   };
-
 
   const getProduct = async () => {
     try {
@@ -106,7 +103,6 @@ function EditProduct({productId}) {
     } catch (error) {}
   };
 
-  
   const getCategories = async () => {
     try {
       const res = await Axios.get("products/categories/", { headers: header });
@@ -118,10 +114,6 @@ function EditProduct({productId}) {
     setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
 
-
-
-
-  
   return (
     <EditProStyle>
       <form>
@@ -146,7 +138,11 @@ function EditProduct({productId}) {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[0]?.id)}
-                        src={uploadedImgs[0]?.image.startsWith('ht') ? uploadedImgs[0]?.image : `${baseUrl}${uploadedImgs[0]?.image}` }
+                        src={
+                          uploadedImgs[0]?.image.startsWith("ht")
+                            ? uploadedImgs[0]?.image
+                            : `${baseUrl}${uploadedImgs[0]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -174,7 +170,11 @@ function EditProduct({productId}) {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[1]?.id)}
-                        src={uploadedImgs[1]?.image.startsWith('ht') ? uploadedImgs[1]?.image : `${baseUrl}${uploadedImgs[1]?.image}` }
+                        src={
+                          uploadedImgs[1]?.image.startsWith("ht")
+                            ? uploadedImgs[1]?.image
+                            : `${baseUrl}${uploadedImgs[1]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -202,7 +202,11 @@ function EditProduct({productId}) {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[2]?.id)}
-                        src={uploadedImgs[2]?.image.startsWith('ht') ? uploadedImgs[2]?.image : `${baseUrl}${uploadedImgs[2]?.image}` }
+                        src={
+                          uploadedImgs[2]?.image.startsWith("ht")
+                            ? uploadedImgs[2]?.image
+                            : `${baseUrl}${uploadedImgs[2]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -230,7 +234,11 @@ function EditProduct({productId}) {
                           "object-fit": "cover",
                         }}
                         onClick={() => deleteImg(uploadedImgs[3]?.id)}
-                        src={uploadedImgs[3]?.image.startsWith('ht') ? uploadedImgs[3]?.image : `${baseUrl}${uploadedImgs[3]?.image}` }
+                        src={
+                          uploadedImgs[3]?.image.startsWith("ht")
+                            ? uploadedImgs[3]?.image
+                            : `${baseUrl}${uploadedImgs[3]?.image}`
+                        }
                         alt="productImg"
                       />
                     ) : (
@@ -321,7 +329,7 @@ function EditProduct({productId}) {
               <div className="status_product">
                 <h2>{t("Статус товара")}</h2>
                 <Checkbox checked={statusProduct} onChange={handleInputChange}>
-                {t("Доступен в каталоге")}
+                  {t("Доступен в каталоге")}
                 </Checkbox>
               </div>
               <div className="status_product">
@@ -344,7 +352,7 @@ function EditProduct({productId}) {
                   htmlType="submit"
                   onClick={handleSubmite}
                 >
-              {t("Сохранить")}
+                  {t("Сохранить")}
                 </Button>
               </div>
             </div>
