@@ -38,6 +38,7 @@ export const StyledOrders = styled.div`
     display: flex;
     align-items: center;
     justify-content: start;
+    margin-top: 20px;
     div {
       position: relative;
       background: #ffffff;

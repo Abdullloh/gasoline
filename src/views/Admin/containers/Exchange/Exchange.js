@@ -26,7 +26,9 @@ function Exchange() {
   const getPrices = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/products/product_prices/?limit=1000", {headers: header});
+      const res = await Axios.get("/products/product_prices/?limit=1000", {
+        headers: header,
+      });
       setData(res?.data);
       setLoading(false);
     } catch (error) {
@@ -65,6 +67,7 @@ function Exchange() {
       const res = await Axios.delete(`/products/product_prices/${id}`, {
         headers: header,
       });
+      setData([]);
       getPrices();
       setLoading(false);
     } catch (error) {
