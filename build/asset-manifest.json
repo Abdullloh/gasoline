@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.e4a1850a.css",
-    "main.js": "/static/js/main.8f5ee6c1.js",
+    "main.css": "/static/css/main.1cfdb870.css",
+    "main.js": "/static/js/main.dadd748c.js",
     "static/js/787.ec728d71.chunk.js": "/static/js/787.ec728d71.chunk.js",
     "static/media/PartnerBodyImage.svg": "/static/media/PartnerBodyImage.eb461af03231f2121818a243a561263a.svg",
+    "static/media/gazoil.mp4": "/static/media/gazoil.0669f9860b6dbfa00fb9.mp4",
     "static/media/category-oil.svg": "/static/media/category-oil.88239b2f95b28853940ede4fe1a3475c.svg",
     "static/media/discount-img3.svg": "/static/media/discount-img3.ea364b52a67a95e1ce99e9af8bb97ff0.svg",
     "static/media/purchaser-bg.png": "/static/media/purchaser-bg.ce01f4c3b16f92e91cfc.png",
@@ -64,12 +65,12 @@
     "static/media/decrease.svg": "/static/media/decrease.074f35f48401841892e5374609cef834.svg",
     "static/media/Arrow-down.svg": "/static/media/Arrow-down.3721076f65f6812c2398e44211d1c6b2.svg",
     "static/media/Arrow-up.svg": "/static/media/Arrow-up.b6eb2b69e6517335969b0c0f3e9fb245.svg",
-    "main.e4a1850a.css.map": "/static/css/main.e4a1850a.css.map",
-    "main.8f5ee6c1.js.map": "/static/js/main.8f5ee6c1.js.map",
+    "main.1cfdb870.css.map": "/static/css/main.1cfdb870.css.map",
+    "main.dadd748c.js.map": "/static/js/main.dadd748c.js.map",
     "787.ec728d71.chunk.js.map": "/static/js/787.ec728d71.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4a1850a.css",
-    "static/js/main.8f5ee6c1.js"
+    "static/css/main.1cfdb870.css",
+    "static/js/main.dadd748c.js"
   ]
 }

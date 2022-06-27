@@ -36,7 +36,7 @@ function News() {
                   <>
                     <Link to={`/news/${item.id}`}>
                       <div className="img_card">
-                        <img src={item.cover_image.image} alt="news" />
+                        <img src={item?.cover_image?.image} alt="news" />
                       </div>
                       <p className="date">
                         {moment(item?.published_at).format("DD.MM.YYYY")}
