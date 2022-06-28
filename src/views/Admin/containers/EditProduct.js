@@ -41,8 +41,6 @@ function EditProduct() {
     setUplodedImgsId(ids);
   }, [uploadedImgs.length]);
 
-  console.log(uplodedImgsId, "idssss");
-  console.log(uploadedImgs, "images");
 
   useEffect(() => {
     getProduct();
@@ -74,7 +72,6 @@ function EditProduct() {
         },
         { headers: header }
       );
-      console.log(res);
       if (res?.status == 200) {
         navigate("/purchases");
       }

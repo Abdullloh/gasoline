@@ -21,12 +21,10 @@ function News() {
   const getNews = async () => {
     try {
       const res = await Axios.get("/blog/?limit=1000", {headers: header});
-      console.log(res);
       if (res.status == 200) {
         setNews(res?.data?.results);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

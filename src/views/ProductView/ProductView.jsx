@@ -24,7 +24,6 @@ export default function ProductView() {
   const [category,setCategory] = useState([])
   const {value,setValue} = useContext(SearchContext)
   const {select,setSelect} = useContext(SelectContext)
-  console.log(select);
   const [visible, setVisible] = useState(false);
   const {t} = useTranslation()
   const [width, setWidth] = useState(window.innerWidth);
@@ -32,7 +31,6 @@ export default function ProductView() {
   const check = useRef()
   const check2 = useRef()
   const check3 = useRef()
-   console.log(check);
 
   const handleChange = (e) => {
     const {value} = e.target
@@ -46,7 +44,6 @@ export default function ProductView() {
   };
 
   const onChange = (value) => {
-    console.log("changed",value);
   };
 
   const makeVisible = () => {
@@ -73,7 +70,6 @@ export default function ProductView() {
       setLoading(false)
     }
   }
-console.log(results);
   useEffect(()=>{
     getProducts()
   },[select])

@@ -38,9 +38,7 @@ function Orders() {
         { headers: header }
       );
       getOrders();
-      console.log(res);
     } catch (error) {
-      console.log(error);
     }
   };
   const setEndDate = async (id) => {
@@ -51,9 +49,7 @@ function Orders() {
         { headers: header }
       );
       getOrders();
-      console.log(res);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -101,7 +97,6 @@ function Orders() {
       setLoading(false);
       handleShow();
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -115,7 +110,6 @@ function Orders() {
       setLoading(false);
       handleShowPartner();
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

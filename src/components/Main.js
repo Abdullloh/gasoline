@@ -19,7 +19,6 @@ const Main = (props) => {
   
   const loginToAccount = () => {
     let user = JSON.parse(localStorage.getItem('user_info'))
-    console.log(user);
     if(user?.token){
       if (user.admin.role == "Customer") {
         navigate("/my-account");

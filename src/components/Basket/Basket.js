@@ -14,7 +14,6 @@ export default function Basket(props) {
   const { isVisible, handleCancel, removeItemFromBasket } = props;
   let { cartList } = props;
 
-  console.log(state, "state");
   const [value, setValue] = useState("");
 
   
@@ -24,14 +23,9 @@ export default function Basket(props) {
     };
   });
   const onChange = (e,id) => {
-    console.log(cartIds);
-    console.log(id);
     let data = cartIds.filter(item=> item.id == id);
-    console.log(data);
     data[0].delivery = e.target.value;
   };
-  console.log(cartIds);
-  console.log(state);
 
   const getCarts = async () => {
     try {
@@ -51,7 +45,6 @@ export default function Basket(props) {
           message.success("Успешно заказанные продукты");
           handleCancel()
         }
-        console.log(res);
       } catch (error) {}
     }
   };
@@ -69,14 +62,13 @@ export default function Basket(props) {
       <div
         style={{ overflowY: "scroll", margin: "22px 0", maxHeight: "475px" }}
       >
-        {cartList?.map((item) => {
+        {cartList?.map((item,index) => {
           let cartId = item.id;
-          console.log(item);
           const { images, price, title, id, count ,delivery,litre} = item.product;
           return (
             // <BasketDetail quantity={item?.quantity} images={images} title={title}/>
 
-            <ProductDetailStyle color={"#000000"}>
+            <ProductDetailStyle key={index} color={"#000000"}>
               <div className="detail-heading">
                 <div className="heading-images">
                   <Image src={images[0]?.image} />

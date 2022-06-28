@@ -20,7 +20,6 @@ function MainLanding() {
   const getCarts = async () => {
     try {
       const res = await Axios.get("/cart");
-      console.log(res);
       setCartList(res?.data?.results);
     } catch (error) {}
   };
@@ -28,7 +27,6 @@ function MainLanding() {
   const removeItemFromBasket = async (id) => {
     try {
       const res = await Axios.delete(`/cart/cartitem/${id}`);
-      console.log(res);
       if (res.status == 200) {
         getCarts();
       }

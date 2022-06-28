@@ -39,8 +39,6 @@ function EditProduct({ productId }) {
     setUplodedImgsId(ids);
   }, [uploadedImgs.length]);
 
-  console.log(uplodedImgsId, 'idssss');
-  console.log(uploadedImgs, 'images');
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo.token?.access}`,
@@ -68,7 +66,6 @@ function EditProduct({ productId }) {
         ...formValues,
         delivery: delivered
       });
-      console.log(res);
       if (res?.status == 200) {
         navigate("/my-account");
       }

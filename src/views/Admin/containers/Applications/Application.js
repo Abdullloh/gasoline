@@ -72,20 +72,16 @@ function Application() {
       const res = await Axios.get(`/adminside/request/${id}`, {
         headers: header,
       });
-      console.log(res);
       if (res?.data?.type == "question") {
         setQuestionData(res?.data);
         handleQuestionModal();
         handleReviewd(id);
-        console.log(questionData);
       } else {
         setApplicationData(res?.data);
         handleApplicationModal();
         handleReviewd(id);
-        console.log(applicationData);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

@@ -39,7 +39,6 @@ function Footer() {
     };
     try {
       const res = await Axios.post("/adminside/request_create/", formData);
-      console.log(res);
       setFormValue(initialState)
       if (res.status == 201) {
         message.success("Отправлено");

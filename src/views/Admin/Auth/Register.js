@@ -59,7 +59,6 @@ function Register() {
           const res = await Axios.post("/accounts/register/", {
             ...partnerData,
           });
-          console.log(res);
           const { status } = res;
           if (status == 201) {
             navigate("/sign-in");
@@ -70,7 +69,6 @@ function Register() {
       } else {
         try {
           const res = await Axios.post("/accounts/register/", { ...userData });
-          console.log(res);
           const { status } = res;
           if (status == 201) {
             navigate("/sign-in");

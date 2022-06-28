@@ -126,23 +126,19 @@ const handleViewEditProduct = (id)=>{
   mfo:userInfo?.mfo || null,
 }
 
-console.log(userInfo)
 
 const handleSubmit = async (data,{resetForm})=>{
-  console.log(data)
   try {
     const originalPromiseResult = await dispatch(editPartnerInfo({content:data,id:userInfo?.id})).unwrap()
     dispatch(getUserInfo())
     set_edit_partnerInfo(false)
     resetForm({})
   } catch (rejectedValueOrSerializedError) {
-    console.log("error occured")
   }
   // dispatch() 
   // resetForm({})
 }
 
-console.log(userOrders)
 
   return <StyledContainer>
 

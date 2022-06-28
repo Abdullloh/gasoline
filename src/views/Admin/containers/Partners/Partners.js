@@ -122,7 +122,6 @@ function Partners() {
       const res = await Axios.get(`adminside/partner/${id}`, {
         headers: header,
       });
-      console.log(res);
       setModalData(res?.data);
       setFormValues({
         compName: res?.data?.user?.name,
@@ -150,7 +149,6 @@ function Partners() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
   };
 
   useEffect(() => {

@@ -2,7 +2,6 @@ import axios from "axios";
 
  const API_URL = "http://137.184.114.36:7774/";
  const token  = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access
-//  console.log(token);
  const api = axios.create({
   baseURL: API_URL,
 });

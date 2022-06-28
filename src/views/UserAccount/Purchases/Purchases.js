@@ -48,7 +48,6 @@ function Purchases({ handleViewAddProduct, handleViewEditProduct }) {
       setData(res.data.results);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };
@@ -66,7 +65,6 @@ function Purchases({ handleViewAddProduct, handleViewEditProduct }) {
       if (res?.status == 200) {
         getProducts();
       }
-      console.log(res);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -142,13 +140,11 @@ function Purchases({ handleViewAddProduct, handleViewEditProduct }) {
   const handleDelete = async (id) => {
     try {
       const res = await Axios.delete(`/adminside/product/${id}`);
-      console.log(res);
       if (res.status == 204) {
         let filterData = data.filter((item) => item.id !== id);
         setData(filterData);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

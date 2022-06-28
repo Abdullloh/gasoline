@@ -31,7 +31,6 @@ const ProductCard = ({ data, margin }) => {
             product: data.id,
             quantity: state,
           });
-          console.log(res);
         } catch (error) {}
         dispatch(addToCard({ ...data, count: state }));
         message.success("Добавлено в корзину", 1);

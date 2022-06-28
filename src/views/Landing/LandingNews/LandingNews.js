@@ -17,10 +17,8 @@ function LandingNews() {
   const getNews = async () => {
     try {
       const res = await Axios.get("/blog/");
-      console.log(res);
       setNews(res?.data?.results);
     } catch (error) {
-      console.log(error);
     }
   };
   useEffect(() => {
@@ -34,7 +32,7 @@ function LandingNews() {
           <News />
           <div className="news_wrapper">
             {news.map((item, index) => (
-              <Link to={`/news/${item.id}`}>
+              <Link key={index} to={`/news/${item.id}`}>
                 <NewsCard item={item} />
               </Link>
             ))}

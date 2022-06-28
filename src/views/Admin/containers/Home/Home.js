@@ -22,37 +22,29 @@ function Home() {
   const getUsers = async () => {
     try {
       const res = await Axios.get("/adminside/customers-count/", {headers:header});
-      console.log(res);
       setUsers(res.data.customers);
     } catch (error) {
-      console.log(error);
     }
   };
   const getViewers = async () => {
     try {
       const res = await Axios.get("/adminside/product-views/", {headers:header});
-      console.log(res);
       setViews(res.data.views);
     } catch (error) {
-      console.log(error);
     }
   };
   const getProfit = async () => {
     try {
       const res = await Axios.get("/adminside/revenue/", {headers:header});
-      console.log(res);
       setProfit(res?.data?.revenue?.total_revenue);
     } catch (error) {
-      console.log(error);
     }
   };
   const getOrders = async () => {
     try {
       const res = await Axios.get("/adminside/orders/", {headers:header});
-      console.log(res);
       setOrders(res?.data?.count);
     } catch (error) {
-      console.log(error);
     }
   };
 
