@@ -27,6 +27,7 @@ function Purchases() {
 
   useEffect(() => {
     getProducts()
+    getProductsCount();
   }, [])
   const onShowSizeChange = (current, pageSize) => {
     setLimit(pageSize)
