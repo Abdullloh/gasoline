@@ -26,7 +26,7 @@ function Purchases() {
   }, [offset, limit]);
 
   useEffect(() => {
-    getProductsCount()
+    getProducts()
   }, [])
   const onShowSizeChange = (current, pageSize) => {
     setLimit(pageSize)
@@ -47,20 +47,6 @@ function Purchases() {
         { headers: header }
       );
       setData(res.data.results);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
-  const getProductsCount = async () => {
-    setLoading(true);
-    try {
-      const res = await Axios.get(
-        `/adminside/products/`,
-        { headers: header }
-      );
-      console.log(res);
       setDataCount(res?.data?.count)
       setLoading(false);
     } catch (error) {
@@ -68,6 +54,7 @@ function Purchases() {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     async function getSearch() {

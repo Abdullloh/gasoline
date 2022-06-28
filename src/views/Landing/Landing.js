@@ -31,18 +31,22 @@ function Landing() {
         url={"/about"}
       />
       <div className="category-section">
-        <StyledContainer>
-          <div className="container">
-            <News />
-            <div className="news_link">
-              <Link to="/news">
-                <Button type="primary" size="large">
-                  {t("p31")}
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </StyledContainer>
+        <Row>
+          <Col xs={{span: 0}} lg={{ span: 24 }}>
+            <StyledContainer>
+              <div className="container">
+                <News />
+                <div className="news_link">
+                  <Link to="/news">
+                    <Button type="primary" size="large">
+                      {t("p31")}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </StyledContainer>
+          </Col>
+        </Row>
       </div>
       <Products headTitle={t("p12")} />
       <Discount />
