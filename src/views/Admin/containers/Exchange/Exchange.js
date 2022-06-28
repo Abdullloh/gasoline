@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Modal, Input, Button, message, Spin } from "antd";
+import { Modal, Input, Button, message, Spin, Pagination } from "antd";
 import { GoPlus } from "react-icons/go";
 import { StyledExchange } from "./Exchange.style";
 import Axios from "../../../../utils/axios";
@@ -7,31 +7,59 @@ import ExchangeDetail from "./ExchangeDetail";
 
 function Exchange() {
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [updated, setUpdated] = useState(false);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
   const [formValues, setFormValues] = useState({
     product: "",
     price: "",
     percentage: 0,
   });
 
+  useEffect(() => {
+    getPrices();
+  }, [offset, limit]);
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
+  const onShowSizeChange = (current, pageSize) => {
+    setLimit(pageSize);
+  };
   const getPrices = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/products/product_prices/?limit=1000", {headers: header});
+      const res = await Axios.get(
+        `/products/product_prices/?limit=${limit}&offset=${offset}`,
+        {
+          headers: header,
+        }
+      );
       setData(res?.data);
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
+  const getPricesCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(`/products/product_prices/`, {
+        headers: header,
+      });
+      setDataCount(res?.data?.count);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
@@ -63,6 +91,7 @@ function Exchange() {
       const res = await Axios.delete(`/products/product_prices/${id}`, {
         headers: header,
       });
+      setData([]);
       getPrices();
       setLoading(false);
     } catch (error) {
@@ -74,6 +103,7 @@ function Exchange() {
   }, [updated]);
   useEffect(() => {
     getPrices();
+    getPricesCount();
   }, []);
 
   return (
@@ -128,6 +158,16 @@ function Exchange() {
             delete={() => deleteExchange(item.id)}
           />
         ))}
+        <div className="pagination_block">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={1}
+            defaultPageSize={10} //default size of page
+            onChange={(value) => setOffset((value - 1) * 4)}
+            total={dataCount} //total number of card data available
+          />
+        </div>
         <div className="add_price" onClick={handleShow}>
           <GoPlus color="black" size={36} />
         </div>

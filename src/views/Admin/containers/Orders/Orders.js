@@ -1,7 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Button, Checkbox, Modal, Table, Space, Spin, Row, Col } from "antd";
+import {
+  Button,
+  Checkbox,
+  Modal,
+  Table,
+  Space,
+  Spin,
+  Row,
+  Col,
+  Pagination,
+} from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
 import useFetchHook from "../../../../customhooks/useFetchHook";
@@ -12,16 +22,24 @@ function Orders() {
   const debouncedSearch = useDebounce(searchInput, 500);
   const [filteredResults, setFilteredResults] = useState([]);
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [visible, setVisible] = useState(false);
   const [visiblePartner, setVisiblePartner] = useState(false);
   const [modalData, setModalData] = useState({});
+  const [partnerData, setPartnerData] = useState({});
   const [reqLoading, setReqLoading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
+
+  useEffect(() => {
+    getOrders();
+  }, [offset, limit]);
 
   const handleShow = () => {
     setVisible((prev) => !prev);
@@ -53,35 +71,54 @@ function Orders() {
     }
   };
 
-  // useEffect(() => {
-  //   async function getSearch() {
-  //     setLoading(true);
-  //     try {
-  //       const res = await Axios.get(
-  //         `/adminside/orders/?search=${debouncedSearch}`,
-  //         { headers: header }
-  //       );
-  //       setData(res?.data.results);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setLoading(false);
-  //     }
-  //   }
-  //   if (debouncedSearch) {
-  //     getSearch();
-  //   } else {
-  //     getOrders();
-  //   }
-  // }, [debouncedSearch]);
+  const onShowSizeChange = (current, pageSize) => {
+    // console.log(current, pageSize);
+    setLimit(pageSize);
+  };
+  useEffect(() => {
+    async function getSearch() {
+      setLoading(true);
+      try {
+        const res = await Axios.get(
+          `/adminside/orders/?search=${debouncedSearch}`,
+          { headers: header }
+        );
+        setData(res?.data.results);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    }
+    if (debouncedSearch) {
+      getSearch();
+    } else {
+      getOrders();
+    }
+  }, [debouncedSearch]);
 
   const getOrders = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/orders/?limit=1000", {
+      const res = await Axios.get(
+        `/adminside/orders/?limit=${limit}&offset=${offset}`,
+        {
+          headers: header,
+        }
+      );
+      setData(res?.data?.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const getOrdersCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(`/adminside/orders/`, {
         headers: header,
       });
-      setData(res?.data?.results);
+      setDataCount(res?.data?.count);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -95,6 +132,7 @@ function Orders() {
       });
       setModalData(res.data);
       setLoading(false);
+      setDataCount(res?.data?.count);
       handleShow();
     } catch (error) {
       setLoading(false);
@@ -103,10 +141,10 @@ function Orders() {
   const getByIdPartner = async (id) => {
     setLoading(true);
     try {
-      const res = await Axios.get(`/adminside/order/${id}`, {
+      const res = await Axios.get(`/adminside/partner/${id}`, {
         headers: header,
       });
-      setModalData(res.data);
+      setPartnerData(res.data);
       setLoading(false);
       handleShowPartner();
     } catch (error) {
@@ -226,7 +264,7 @@ function Orders() {
         <>
           <h4
             className="product_name"
-            onClick={() => getByIdPartner(record?.id)}
+            onClick={() => getByIdPartner(record?.partner_id)}
           >
             {record?.partner_name}
           </h4>
@@ -245,9 +283,12 @@ function Orders() {
       ),
     },
   ];
+  console.log(modalData);
+  console.log(partnerData);
 
   useEffect(() => {
     getOrders();
+    getOrdersCount();
   }, []);
 
   return (
@@ -287,7 +328,7 @@ function Orders() {
             <h4>Наименование организации</h4>
           </Col>
           <Col span={12}>
-            <h4>{modalData?.inn}</h4>
+            <h4>{modalData?.partner_name}</h4>
           </Col>
         </Row>
         <Row style={{ margin: "10px 0px" }}>
@@ -310,10 +351,50 @@ function Orders() {
       >
         <Row style={{ margin: "10px 0px" }}>
           <Col span={12}>
-            <h4>Ф.И.О.</h4>
+            <h4>Полное наименование</h4>
           </Col>
           <Col span={12}>
-            <h4>{modalData?.partner_name}</h4>
+            <h4>{partnerData?.company_name}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Генеральный директор</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.user?.name}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Наименование банка</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.bank_name}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>ИНН</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.inn}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>МФО</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.mfo}</h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Адрес компании</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.company_address}</h4>
           </Col>
         </Row>
         <Row style={{ margin: "10px 0px" }}>
@@ -321,7 +402,19 @@ function Orders() {
             <h4>Номер телефона</h4>
           </Col>
           <Col span={12}>
-            <h4>{modalData?.partner_phone}</h4>
+            <h4>
+              {partnerData?.user?.phone
+                ? `+${partnerData?.user?.phone}`
+                : "Нет номера"}
+            </h4>
+          </Col>
+        </Row>
+        <Row style={{ margin: "10px 0px" }}>
+          <Col span={12}>
+            <h4>Расчетный счет</h4>
+          </Col>
+          <Col span={12}>
+            <h4>{partnerData?.bank_account}</h4>
           </Col>
         </Row>
         <Button onClick={handleShowPartner} type="primary">
@@ -334,24 +427,35 @@ function Orders() {
         ) : (
           <div style={{ width: "100%" }}>
             <header>
-              {/* <h4 className="title">Заказы</h4>
-              <div className="search_block">
-                <div>
-                  <input
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                  />
-                </div>
-                <Button type="link">Поиск</Button>
-              </div> */}
+              {/* <h4 className="title">Заказы</h4> */}
               <h1>Сделки</h1>
             </header>
+            <div className="search_block">
+              <div>
+                <input
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                />
+              </div>
+              <Button type="link">Поиск</Button>
+            </div>
             <div className="table_block">
               <Table
                 columns={columns}
                 dataSource={data}
                 loading={loading}
+                pagination={false}
               ></Table>
+              <div className="pagination_block">
+                <Pagination
+                  showSizeChanger
+                  onShowSizeChange={onShowSizeChange}
+                  defaultCurrent={1}
+                  defaultPageSize={10} //default size of page
+                  onChange={(value) => setOffset((value - 1) * 4)}
+                  total={dataCount} //total number of card data available
+                />
+              </div>
             </div>
           </div>
         )}

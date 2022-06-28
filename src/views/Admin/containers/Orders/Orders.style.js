@@ -38,6 +38,7 @@ export const StyledOrders = styled.div`
     display: flex;
     align-items: center;
     justify-content: start;
+    margin-top: 20px;
     div {
       position: relative;
       background: #ffffff;
@@ -91,5 +92,8 @@ export const StyledOrders = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+  .pagination_block{
+    margin-top: 15px;
   }
 `;

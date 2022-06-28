@@ -71,4 +71,7 @@ export const StyledPurchases = styled.div`
     line-height: 21px;
     color: ${COLORS.black};
   }
+  .pagination_block{
+    margin: 15px 0px;
+  }
 `;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Table, Row, Col } from "antd";
+import { Button, Modal, Table, Row, Col, Pagination} from "antd";
 import moment from "moment";
 import { StyledApplication } from "./Application.style";
 import Axios from "../../../../utils/axios";
@@ -8,11 +8,14 @@ import axios from "axios";
 
 function Application() {
   const [data, setData] = useState([]);
+  const [dataCount, setDataCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [questionModal, setQuestionModal] = useState(false);
   const [applicationModal, setApplicationModal] = useState(false);
   const [questionData, setQuestionData] = useState({});
   const [applicationData, setApplicationData] = useState({});
+  const [offset, setOffset] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
   let header = {
@@ -20,18 +23,40 @@ function Application() {
     Authorization: `Bearer ${adminInfo?.token?.access}`,
   };
 
+
+  
+  useEffect(() => {
+    getQuestions();
+  }, [offset, limit]);
   const getQuestions = async () => {
     setLoading(true);
     try {
-      const res = await Axios.get("/adminside/requests/?limit=1000", { headers: header });
-      if (res.status === 200) {
+      const res = await Axios.get(`/adminside/requests/?limit=${limit}&offset=${offset}`, {
+        headers: header,
+      });
         setData(res?.data?.results);
-      }
       setLoading(false);
     } catch (error) {
       setLoading(false);
     }
   };
+
+  const getQuestionsCount =  async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(`/adminside/requests/`, {
+        headers: header,
+      });
+     setDataCount(res?.data?.count)
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
+  const onShowSizeChange = (current, pageSize) => {
+    setLimit(pageSize)
+  };
+
   const columns = [
     {
       render: (record) => (
@@ -52,7 +77,13 @@ function Application() {
     },
     {
       render: (record) => (
-        <>{record?.reviewed ? <h5 >Просмотрено</h5> : <h5 style={{'color': 'green'}}>Не рассматривается</h5>}</>
+        <>
+          {record?.reviewed ? (
+            <h5>Просмотрено</h5>
+          ) : (
+            <h5 style={{ color: "green" }}>Не рассматривается</h5>
+          )}
+        </>
       ),
     },
   ];
@@ -95,6 +126,7 @@ function Application() {
   // getQuestions();
   useEffect(() => {
     getQuestions();
+    getQuestionsCount();
   }, []);
 
   return (
@@ -108,7 +140,18 @@ function Application() {
           columns={columns}
           dataSource={data}
           loading={loading}
+          pagination={false}
         />
+        <div className="pagination_block">
+          <Pagination
+            showSizeChanger
+            onShowSizeChange={onShowSizeChange}
+            defaultCurrent={1}
+            defaultPageSize={10} //default size of page
+            onChange={(value) => setOffset((value - 1) * 4)}
+            total={dataCount} //total number of card data available
+          />
+        </div>
       </div>
       <Modal
         visible={questionModal}

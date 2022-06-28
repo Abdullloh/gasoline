@@ -135,8 +135,8 @@ const handleSubmit = async (data,{resetForm})=>{
     resetForm({})
   } catch (rejectedValueOrSerializedError) {
   }
-  // dispatch() 
-  // resetForm({})
+  dispatch() 
+  resetForm({})
 }
 
 

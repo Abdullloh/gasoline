@@ -38,4 +38,7 @@ export const StyledPartners = styled.div`
       color: ${COLORS.black};
     }
   }
+  .pagination_block{
+    margin-top:15px;
+  }
 `;
