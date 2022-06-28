@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 export default function ProductDetail(props) {
   const dispatch = useDispatch();
   const { isVisible, handleCancel } = props;
-  console.log(props);
   const { title, images, price ,description,litre,id} = props.data;
   let userInfo = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access;
   const navigate = useNavigate()
@@ -22,7 +21,6 @@ export default function ProductDetail(props) {
             product: id,
             // quantity: state,
           });
-          console.log(res);
         } catch (error) {}
         message.success("Добавлено в корзину", 1);
     } else {
@@ -36,8 +34,8 @@ export default function ProductDetail(props) {
           <div className="heading-images">
             <Image src={images[0]?.image} />
             <div className="imgs_block">
-              {images?.map((item) => {
-                return <img src={item?.image} alt="product" />;
+              {images?.map((item,index) => {
+                return <img key={index} src={item?.image} alt="product" />;
               })}
             </div>
           </div>

@@ -60,10 +60,8 @@ function Addproduct() {
     formData.append("image", inpFile.current.files[0]);
     try {
       const res = await Axios.post(`/products/upload_image/`, formData);
-      console.log(res);
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
-      console.log(uploadedImgs);
     } catch (error) {}
   };
   const handleFocus = (inp) => {
@@ -75,7 +73,6 @@ function Addproduct() {
       setProductCategory(res?.data?.results);
     } catch (error) {}
   };
-  console.log(productCategory);
 
   const handleSubmite = async (e) => {
     e.preventDefault();
@@ -97,7 +94,6 @@ function Addproduct() {
       delivery: delivered
     };
 
-    console.log(productData);
     try {
       const resProduct = await Axios.post(
         `/products/`,

@@ -10,10 +10,8 @@ function HeaderCarousel() {
   const getPrices = async () => {
     try {
       const res = await Axios.get("/products/product_prices/");
-      console.log(res.data);
       setData(res?.data);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -25,8 +23,8 @@ function HeaderCarousel() {
       <div className="carousel_outer">
         <div className="carousel_inner">
           <span>
-            {data.map((item) => (
-              <div className="card">
+            {data.map((item,index) => (
+              <div className="card" key={index}>
                 <div className="text_block">
                 
                   {item?.product.length > 15 ?<div className="text">{item?.product}</div> :   <div className="text_2">{item?.product}</div>}

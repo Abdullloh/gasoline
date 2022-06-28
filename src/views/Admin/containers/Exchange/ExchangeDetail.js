@@ -35,7 +35,6 @@ function ExchangeDetail(props) {
         { headers: header }
       );
     } catch (error) {
-      console.log(error);
     }
   };
 

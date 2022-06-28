@@ -12,7 +12,6 @@ function App() {
   const [state,setState] = useState(false)
   let user_info = JSON.parse(localStorage.getItem('user_info'))
   const ref = useRef()
-  console.log(ref);
 setTimeout(()=>{
   ref.current.style = "display:none"
   setState(true)

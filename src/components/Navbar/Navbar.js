@@ -40,9 +40,6 @@ function Navbar(props) {
   const [showModal, setShowModal] = useState(false);
   const { value, setValue } = useContext(SearchContext);
   const { select, setSelect } = useContext(SelectContext);
-  // const selector = useSelector((state) => state);
-  // console.log(selector);
-  // const { user } = selector.signin;
   const [cartList, setCartList] = useState();
   const [hideMenu, setHideMenu] = useState(false);
   const navigate = useNavigate();
@@ -91,7 +88,6 @@ function Navbar(props) {
   const removeItemFromBasket = async (id) => {
     try {
       const res = await Axios.delete(`/cart/cartitem/${id}`);
-      console.log(res);
       if (res.status === 200) {
         getCarts();
       }

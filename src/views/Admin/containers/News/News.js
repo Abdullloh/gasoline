@@ -44,7 +44,6 @@ function News() {
       console.log(res);
       setDataCount(res?.data?.count);
     } catch (error) {
-      console.log(error);
     }
   };
 

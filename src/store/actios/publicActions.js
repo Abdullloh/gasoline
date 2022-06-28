@@ -1,7 +1,6 @@
 import { ADD_TO_CARD, DELETE_ITEM } from "../actionTypes";
 
 export const addToCard = (payload) => {
-  console.log(payload);
   return {
     payload,
     type: ADD_TO_CARD,

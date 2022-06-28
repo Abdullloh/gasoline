@@ -23,7 +23,6 @@ function Exchange() {
     getPrices();
   }, [offset, limit]);
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
-  console.log(adminInfo);
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
@@ -44,7 +43,6 @@ function Exchange() {
       setData(res?.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

@@ -13,12 +13,10 @@ function NewsDetail() {
   const getNew = async () => {
     try {
       const res = await Axios.get(`/blog/${newsId}`);
-      console.log(res.data);
       setData(res?.data)
     } catch (error) {}
   };
 
-  console.log(data, 'detail dataaaaa');
   useEffect(() => {
     getNew();
   }, []);

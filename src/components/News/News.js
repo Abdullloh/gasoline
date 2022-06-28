@@ -13,11 +13,9 @@ import { useTranslation } from "react-i18next";
 function News() {
   const [news, setNews] = useState([]);
   const { t } = useTranslation();
-  console.log(news);
   const getNews = async () => {
     try {
       const res = await Axios.get("/blog/");
-      console.log(res);
       setNews(res?.data?.results);
     } catch (error) {}
   };
@@ -34,7 +32,7 @@ function News() {
               <Carousel autoplay>
                 {news.map((item, index) => (
                   <>
-                    <Link to={`/news/${item.id}`}>
+                    <Link key={index} to={`/news/${item.id}`}>
                       <div className="img_card">
                         <img src={item?.cover_image?.image} alt="news" />
                       </div>

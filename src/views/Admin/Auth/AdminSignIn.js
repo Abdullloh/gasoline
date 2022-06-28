@@ -26,14 +26,11 @@ function AdminSignIn() {
       const res = await Axios.post(`/accounts/login/`, {
         ...userData,
       });
-      console.log(res);
       const { data } = res;
       const { success } = data;
-      console.log(data);
       if (success == true) {
         dispatch(signUpAction(data.data));
         localStorage.setItem("user_info", JSON.stringify(data.data));
-        console.log(data);
         window.location.reload();
       }
     } catch (error) {
@@ -44,7 +41,6 @@ function AdminSignIn() {
     }
   };
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   return (

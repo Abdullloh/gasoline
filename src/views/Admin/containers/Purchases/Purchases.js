@@ -33,7 +33,6 @@ function Purchases() {
   };
 
   let adminInfo = JSON.parse(localStorage.getItem("user_info"));
-  console.log(adminInfo);
   let header = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${adminInfo?.token?.access}`,
@@ -47,6 +46,19 @@ function Purchases() {
         { headers: header }
       );
       setData(res.data.results);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  };
+  const getProductsCount = async () => {
+    setLoading(true);
+    try {
+      const res = await Axios.get(
+        `/adminside/products/`,
+        { headers: header }
+      );
+      console.log(res);
       setDataCount(res?.data?.count)
       setLoading(false);
     } catch (error) {
@@ -67,7 +79,6 @@ function Purchases() {
         setData(res?.data.results);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
       }
     }
@@ -96,7 +107,6 @@ function Purchases() {
       if (res?.status == 200) {
         getProducts();
       }
-      console.log(res);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -180,7 +190,6 @@ function Purchases() {
         setData(filterData);
       }
     } catch (error) {
-      console.log(error);
     }
   };
 

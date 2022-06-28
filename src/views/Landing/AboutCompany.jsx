@@ -15,7 +15,6 @@ const AboutCompany = () => {
   let lang = useSelector(state=>state.language.languageData)
 
 
-  console.log(lang);
   return (
     <StyledLanding img={CompanyImg}>
       <Main
