@@ -16,7 +16,7 @@ function LandingNews() {
 
   const getNews = async () => {
     try {
-      const res = await Axios.get("/blog/");
+      const res = await Axios.get("/blog/?limit=10000");
       setNews(res?.data?.results);
     } catch (error) {
     }
