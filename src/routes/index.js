@@ -11,6 +11,8 @@ import UserAccount from "../views/UserAccount/UserAccount";
 import EditProduct from "../views/Admin/containers/EditProduct";
 import LandingNews from "../views/Landing/LandingNews/LandingNews";
 import NewsDetail from "../views/Landing/LandingNews/NewsDetail";
+import ResetPassword from "../views/Admin/Auth/RestPassword";
+import SetPassword from "../views/Admin/Auth/SetPassword";
 
 const LandingMain = lazy(() => import("../views/Landing/Landing"));
 
@@ -55,6 +57,14 @@ export const ROUTES = [
   {
     path: "/sign-up",
     component: <Register />,
+  },
+  {
+    path: "/rest-password",
+    component: <ResetPassword/>,
+  },
+  {
+    path: "/set-password",
+    component: <SetPassword/>,
   },
   {
     path: "/products",

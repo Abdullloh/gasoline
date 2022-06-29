@@ -452,7 +452,7 @@ function Orders() {
                   onShowSizeChange={onShowSizeChange}
                   defaultCurrent={1}
                   defaultPageSize={10} //default size of page
-                  onChange={(value) => setOffset((value - 1) * 4)}
+                  onChange={(value) => setOffset((value - 1) * 10)}
                   total={dataCount} //total number of card data available
                 />
               </div>

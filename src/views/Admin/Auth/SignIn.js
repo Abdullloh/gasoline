@@ -114,6 +114,7 @@ function SignIn() {
                     <Button type="link">{t("Зарегистрироваться")}</Button>
                   </Link>
                 </div>
+               <Link to="/rest-password"><Button type="link" danger>Забыли пароль?</Button></Link>
               </Form>
             </div>
           </div>
