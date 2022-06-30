@@ -31,11 +31,11 @@ export const ProductDetailStyle = styled.div`
     .heading-info {
       width: 50%;
       display: flex;
-    flex-direction: column;
-    padding: 25px 0;
-    justify-content: space-between;
+      flex-direction: column;
+      padding: 25px 0;
+      justify-content: space-between;
       button {
-        background: ${props=> props.color};
+        background: ${(props) => props.color};
         border: 1px solid #000000;
         border-radius: 8px;
       }
@@ -56,12 +56,12 @@ export const ProductDetailStyle = styled.div`
         margin-top: 15px;
       }
     }
-    @media only screen and(max-width:768px){
+    @media only screen and (max-width:768px) {
       flex-direction: column;
-      .heading-images{
+      .heading-images {
         width: 100%;
       }
-      .heading-info{
+      .heading-info {
         width: 100%;
       }
     }
@@ -71,7 +71,7 @@ export const ProductDetailStyle = styled.div`
       font-size: 15px;
       font-weight: 300;
     }
-    &:nth-child(2){
+    &:nth-child(2) {
       max-height: 200px;
       overflow-y: scroll;
     }

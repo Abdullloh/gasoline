@@ -35,27 +35,49 @@ function AddNews() {
       ...items,
       {
         id: counts,
-        description: "",
+        text: "",
         image: "",
       },
     ]);
   };
-  console.log(items);
   const submitComponent = async () => {
-    const formData = new FormData();
-    formData.append("image", img.current.files[0]);
-    formData.append("text", description);
-    try {
-      const res = await Axios.post("/blog/component/", formData, {
-        headers: header,
-      });
-      const { status, data } = res;
-      if (status == 201) {
-        setComponentId([...componentId, { id: data.id }]);
+    const result = [];
+    let newArr = [...items,{text:description,image:img.current.files[0] ? img.current.files[0]:""}]
+    let arr = newArr.map(item=> {
+      return {
+        text:item.text,
+        image:item.image
       }
-    } catch (error) {}
+    })
+    console.log(arr);
+    let formDatas = [];
+    for(const element of arr){
+      const formData = new FormData()
+        for( const property in element){
+          formData.append(property,element[property])
+        }
+        formDatas.push(formData)
+    }
+   
+    for(let i = 0;i< formDatas.length;i++){
+      try {
+        const res = await Axios.post("/blog/component/",formDatas[i],{
+          headers:header
+        })
+        const { status, data } = res;
+        console.log(data);
+        if (status == 201) {
+          result.push({id: data.id})
+              setComponentId([...componentId, { id: data.id }]);
+               console.log(componentId);
+            }
+      } catch (error) {
+        
+      }
+    }
+    return result;
   };
-
+  
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
@@ -64,16 +86,19 @@ function AddNews() {
   const handleFocus = (inp) => {
     inp.current.click();
   };
-  // const inputHandler = (e,id) =>{
-  //   let filteredItems = items.find(item=> item.id == id)
-  //   console.log(filteredItems);
-  //   if(e[0]){
-  //     console.log(e[0]);
-  //     filteredItems.image = e[0]
-  //   }else {
-  //     filteredItems.description = e
-  //   }
-  // }
+
+  const textHandler = (e,id) =>{
+    console.log(items);
+    let filteredItem = items.filter(item=> item.id == id)
+    console.log(filteredItem);
+    filteredItem[0].text = e;
+  }
+  const imgHandler = (e,id) =>{
+    console.log(items);
+    let filteredItem = items.filter(item=> item.id == id)
+    console.log(filteredItem);
+    filteredItem[0].image = e.target.files[0];
+  }
 
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
@@ -87,12 +112,13 @@ function AddNews() {
   };
 
   const handleSubmit = async (callback) => {
-    callback();
+   const result = await callback();
+   console.log(componentId);
     try {
       const res = await Axios.post(
         "/blog/",
         {
-          components: [...componentId],
+          components: result,
           cover_image: {
             id: uploadedImgs,
           },
@@ -197,13 +223,13 @@ function AddNews() {
                   <label name="extra_description">Описание</label>
                   <TextArea
                     rows={4}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e) => textHandler(e.target.value,id)}
                     name="short_description"
                     id="short_description"
                   />
                 </div>
                 <div className="input_block">
-                  <input onChange={submitComponent} type="file" ref={img} />
+                  <input onChange={(e)=> imgHandler(e,id)} type="file" ref={img} />
                 </div>
               </div>
             );

@@ -73,7 +73,7 @@ const Main = (props) => {
                 style={{
                   color: props.textColor,
                   width: props.width,
-                  lineHeight: "72px",
+                  lineHeight: "1.4p",
                 }}
                 className="heading-title"
               >

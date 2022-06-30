@@ -8,9 +8,14 @@ export const StyledNavbar = styled.div`
   padding-top: 10px;
   padding-bottom: 25px;
   box-shadow: 0px 7px 65px rgba(0, 0, 0, 0.06);
+.logoImgHref{
+@media only screen and (max-width: 992px) {
+  display: none;
+}
+}
   .user-account {
     button {
-      width: 196px;
+      max-width: 196px;
     }
   }
   select {
@@ -100,6 +105,7 @@ export const StyledNavbar = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-left: -24px;
   }
   .menuIcon {
     width: 95px;

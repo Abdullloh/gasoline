@@ -148,7 +148,7 @@ function Navbar(props) {
                 <div onClick={showMenu}>
                   <img className="menuIcon" src={Menuicon} alt="icon" />
                 </div>
-                <a href="#">
+                <a href="#" className="logoImgHref">
                   <img className="logoImg" src={Logo} alt="Logo" />
                 </a>
                 <div className="birja_block">
@@ -220,7 +220,7 @@ function Navbar(props) {
                 />
               </div>
             </div>
-            <Navigation />
+            <Navigation showMenu={showMenu} />
           </div>
         </StyledContainer>
       </StyledNavbar>
