@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { BsPlusLg } from "react-icons/bs";
+import { Editor } from "@tinymce/tinymce-react";
 import { StyledAddNews } from "./News.style";
 import Axios from "../../../../utils/axios";
 import { Button, Input } from "antd";
@@ -8,6 +9,7 @@ const { TextArea } = Input;
 
 function AddNews() {
   const imgRef1 = useRef();
+  const editorRef = useRef(null);
   const [uploadedImgs, setUploadedImgs] = useState();
   const [items, setItems] = useState([]);
   const [uplodedImgsId, setUplodedImgsId] = useState([]);
@@ -155,11 +157,32 @@ function AddNews() {
           <div className="extra_news">
             <div className="input_block">
               <label name="extra_description">Описание</label>
-              <TextArea
+              {/* <TextArea
                 rows={4}
                 onChange={(e) => setDescription(e.target.value)}
                 name="short_description"
                 id="short_description"
+              /> */}
+              <Editor
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                value={description}
+                onChange={() => setDescription(editorRef.current.getContent())}
+                init={{
+                  height: 500,
+                  menubar: false,
+                  plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table paste code help wordcount",
+                  ],
+                  toolbar:
+                    "undo redo | formatselect | " +
+                    "bold italic backcolor | alignleft aligncenter " +
+                    "alignright alignjustify | bullist numlist outdent indent | " +
+                    "removeformat | help",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
               />
             </div>
             <div className="input_block">
