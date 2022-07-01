@@ -62,8 +62,8 @@ function Partners() {
     }
   };
   const [formValues, setFormValues] = useState({
-    compName: modalData?.user?.name,
-    ceo: modalData?.ceos_name,
+    compName: modalData?.company_name,
+    ceo: modalData?.user?.name,
     nameBank: modalData?.bank_name,
     inn: modalData?.inn,
     mfo: modalData?.mfo,
@@ -147,8 +147,8 @@ function Partners() {
       });
       setModalData(res?.data);
       setFormValues({
-        compName: res?.data?.user?.name,
-        ceo: res?.data?.ceos_name,
+        compName: res?.data?.company_name,
+        ceo: res?.data?.user?.name,
         nameBank: res?.data?.bank_name,
         inn: res?.data?.inn,
         mfo: res?.data?.mfo,
@@ -298,7 +298,7 @@ function Partners() {
                       <h5>Полное наименование</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>{modalData?.user?.name}</h5>
+                      <h5>{modalData?.company_name}</h5>
                     </Col>
                   </Row>
                   <Row
@@ -310,7 +310,7 @@ function Partners() {
                       <h5>Генеральный директор</h5>
                     </Col>
                     <Col xs={{ span: 24 }} md={{ span: 12 }}>
-                      <h5>{modalData?.ceos_name}</h5>
+                      <h5>{modalData?.user?.name}</h5>
                     </Col>
                   </Row>
                   <Row

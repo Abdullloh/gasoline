@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyledHeaderCarousel } from "./HeaderCarousel.style";
+import { StyledCard, StyledHeaderCarousel } from "./HeaderCarousel.style";
 import Down from "../../assets/img/Arrow-down.svg";
 import Up from "../../assets/img/Arrow-up.svg";
 import Axios from "../../utils/axios";
@@ -11,8 +11,7 @@ function HeaderCarousel() {
     try {
       const res = await Axios.get("/products/product_prices/");
       setData(res?.data);
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -23,28 +22,33 @@ function HeaderCarousel() {
       <div className="carousel_outer">
         <div className="carousel_inner">
           <span>
-            {data.map((item,index) => (
-              <div className="card" key={index}>
-                <div className="text_block">
-                
-                  {item?.product.length > 15 ?<div className="text">{item?.product}</div> :   <div className="text_2">{item?.product}</div>}
-                </div>
-                <div className="price_block">
-                  <div>
-                    <p className="price">{item?.price} UZS</p>
-                    {item?.percentage < 0 ? (
-                      <p className="decreasing">{item?.percentage}%</p>
+            {data.map((item, index) => (
+              <StyledCard length={item.product.length}>
+                <div className="card" key={index}>
+                  <div className="text_block">
+                    {item?.product.length > 15 ? (
+                      <div className="text">{item?.product}</div>
                     ) : (
-                      <p className="increasing">+{item?.percentage}%</p>
+                      <div className="text_2">{item?.product}</div>
                     )}
                   </div>
-                  {item?.percentage < 0 ? (
-                    <img src={Down} alt="decreasing" />
-                  ) : (
-                    <img src={Up} alt="increasing" />
-                  )}
+                  <div className="price_block">
+                    <div>
+                      <p className="price">{item?.price} UZS</p>
+                      {item?.percentage < 0 ? (
+                        <p className="decreasing">{item?.percentage}%</p>
+                      ) : (
+                        <p className="increasing">+{item?.percentage}%</p>
+                      )}
+                    </div>
+                    {item?.percentage < 0 ? (
+                      <img src={Down} alt="decreasing" />
+                    ) : (
+                      <img src={Up} alt="increasing" />
+                    )}
+                  </div>
                 </div>
-              </div>
+              </StyledCard>
             ))}
           </span>
         </div>

@@ -13,7 +13,7 @@ export const StyledHeaderCarousel = styled.div`
       display: block;
       width: 200%;
       position: absolute;
-      animation: marquee 30s linear infinite;
+      /* animation: marquee 30s linear infinite; */
       span {
         float: left;
         display: flex;
@@ -34,17 +34,37 @@ export const StyledHeaderCarousel = styled.div`
       text-align: end;
     }
   }
-  .card {
+/*  
+  @keyframes marquee {
+    0% {
+      left: 100%;
+    }
+    100% {
+      left: -100%;
+    }
+  } */
+
+  
+
+  @media only screen and (max-width: 992px) {
+    display: none;
+  }
+`;
+
+export const StyledCard = styled.div`
+.card {
     width: 160px;
     border-left: 0.5px solid ${COLORS.white};
     border-right: 0.5px solid ${COLORS.white};
     background-color: ${COLORS.main};
     padding: 7px;
     .text_block {
-      width: 405px;
+      /* width: 405px; */
+      height: 20px;
       overflow: hidden;
       /* background-color: blue; */
       white-space: nowrap;
+      position: relative;
       .text {
         font-style: normal;
         font-weight: 500;
@@ -52,7 +72,8 @@ export const StyledHeaderCarousel = styled.div`
         line-height: 22px;
         color: ${COLORS.white};
         display: inline-block;
-        animation: slide 20s linear infinite;
+        /* position: absolute; */
+        animation: slide 5s linear infinite;
       }
       .text_2 {
         font-style: normal;
@@ -85,30 +106,14 @@ export const StyledHeaderCarousel = styled.div`
       color: ${COLORS.lightRed};
     }
   }
-  @keyframes marquee {
-    0% {
-      left: 100%;
-    }
-    100% {
-      left: -100%;
-    }
-  }
 
   @keyframes slide {
     0% {
-        transform: translateX(-400px);
+      transform: translate(145px);
     }
-
-    50% {
-        transform: translateX(400px);
-    }
-    
     100% {
-        transform: translateX(-400px);
+      transform: translate(-100%);
+
     }
 }
-
-  @media only screen and (max-width: 992px) {
-    display: none;
-  }
-`;
+`
