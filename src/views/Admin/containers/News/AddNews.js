@@ -17,7 +17,7 @@ function AddNews() {
   const [date, setDate] = useState("");
   const [componentId, setComponentId] = useState([]);
   const counts = new Date().getUTCMilliseconds();
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState();
   const [formValues, setFormValues] = useState({
     title: "",
     short_description: "",
@@ -42,42 +42,46 @@ function AddNews() {
   };
   const submitComponent = async () => {
     const result = [];
-    let newArr = [...items,{text:description,image:img.current.files[0] ? img.current.files[0]:""}]
-    let arr = newArr.map(item=> {
+    let newArr = [
+      ...items,
+      {
+        text: JSON.stringify(description),
+        image: img.current.files[0] ? img.current.files[0] : "",
+      },
+    ];
+    let arr = newArr.map((item) => {
       return {
-        text:item.text,
-        image:item.image
-      }
-    })
+        text: item.text,
+        image: item.image,
+      };
+    });
     console.log(arr);
     let formDatas = [];
-    for(const element of arr){
-      const formData = new FormData()
-        for( const property in element){
-          formData.append(property,element[property])
-        }
-        formDatas.push(formData)
+    for (const element of arr) {
+      const formData = new FormData();
+      for (const property in element) {
+        formData.append(property, element[property]);
+      }
+      formDatas.push(formData);
     }
-   
-    for(let i = 0;i< formDatas.length;i++){
+
+    for (let i = 0; i < formDatas.length; i++) {
       try {
-        const res = await Axios.post("/blog/component/",formDatas[i],{
-          headers:header
-        })
+        const res = await Axios.post("/blog/component/", formDatas[i], {
+          headers: header,
+        });
         const { status, data } = res;
         console.log(data);
         if (status == 201) {
-          result.push({id: data.id})
-              setComponentId([...componentId, { id: data.id }]);
-               console.log(componentId);
-            }
-      } catch (error) {
-        
-      }
+          result.push({ id: data.id });
+          setComponentId([...componentId, { id: data.id }]);
+          console.log(componentId);
+        }
+      } catch (error) {}
     }
     return result;
   };
-  
+
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
@@ -87,18 +91,18 @@ function AddNews() {
     inp.current.click();
   };
 
-  const textHandler = (e,id) =>{
+  const textHandler = (e, id) => {
     console.log(items);
-    let filteredItem = items.filter(item=> item.id == id)
+    let filteredItem = items.filter((item) => item.id == id);
     console.log(filteredItem);
     filteredItem[0].text = e;
-  }
-  const imgHandler = (e,id) =>{
+  };
+  const imgHandler = (e, id) => {
     console.log(items);
-    let filteredItem = items.filter(item=> item.id == id)
+    let filteredItem = items.filter((item) => item.id == id);
     console.log(filteredItem);
     filteredItem[0].image = e.target.files[0];
-  }
+  };
 
   const uploadImg = async (inpFile) => {
     const formData = new FormData();
@@ -112,8 +116,8 @@ function AddNews() {
   };
 
   const handleSubmit = async (callback) => {
-   const result = await callback();
-   console.log(componentId);
+    const result = await callback();
+    console.log(componentId);
     try {
       const res = await Axios.post(
         "/blog/",
@@ -129,6 +133,8 @@ function AddNews() {
       );
     } catch (error) {}
   };
+
+  console.log(description, "tiny");
   return (
     <StyledAddNews>
       <div className="main">
@@ -190,11 +196,11 @@ function AddNews() {
                 id="short_description"
               /> */}
               <Editor
+                apiKey="12pyooxak2lnpf0lfl9e6r8dra60u6u5mxwf38qop1m4uncr"
                 onInit={(evt, editor) => (editorRef.current = editor)}
-                value={description}
-                onChange={() => setDescription(editorRef.current.getContent())}
+                onChange={(e) => setDescription(e.target.getContent())}
                 init={{
-                  height: 500,
+                  height: 300,
                   menubar: false,
                   plugins: [
                     "advlist autolink lists link image charmap print preview anchor",
@@ -221,15 +227,40 @@ function AddNews() {
               <div className="extra_news" key={id}>
                 <div className="input_block">
                   <label name="extra_description">Описание</label>
-                  <TextArea
+                  {/* <TextArea
                     rows={4}
                     onChange={(e) => textHandler(e.target.value,id)}
                     name="short_description"
                     id="short_description"
+                  /> */}
+                  <Editor
+                    apiKey="12pyooxak2lnpf0lfl9e6r8dra60u6u5mxwf38qop1m4uncr"
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    onChange={(e) => textHandler(e.target.getContent(), id)}
+                    init={{
+                      height: 300,
+                      menubar: false,
+                      plugins: [
+                        "advlist autolink lists link image charmap print preview anchor",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table paste code help wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | " +
+                        "bold italic backcolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
                   />
                 </div>
                 <div className="input_block">
-                  <input onChange={(e)=> imgHandler(e,id)} type="file" ref={img} />
+                  <input
+                    onChange={(e) => imgHandler(e, id)}
+                    type="file"
+                    ref={img}
+                  />
                 </div>
               </div>
             );
