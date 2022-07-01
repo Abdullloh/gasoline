@@ -13,7 +13,7 @@ export const StyledHeaderCarousel = styled.div`
       display: block;
       width: 200%;
       position: absolute;
-      /* animation: marquee 30s linear infinite; */
+      animation: marquee 30s linear infinite;
       span {
         float: left;
         display: flex;
@@ -34,7 +34,7 @@ export const StyledHeaderCarousel = styled.div`
       text-align: end;
     }
   }
-/*  
+ 
   @keyframes marquee {
     0% {
       left: 100%;
@@ -42,7 +42,7 @@ export const StyledHeaderCarousel = styled.div`
     100% {
       left: -100%;
     }
-  } */
+  }
 
   
 
