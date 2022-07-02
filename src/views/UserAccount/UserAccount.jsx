@@ -115,15 +115,16 @@ const handleViewEditProduct = (id)=>{
 }
 
  let initialValues = {
-  inn:userInfo?.inn || null,
-  email:userInfo?.email || null,
-  name:userInfo?.name || null,
-  phone:userInfo?.phone || null,   
-  bank_account:userInfo?.bank_account || null,
-  bank_name:userInfo?.bank_name || null,
-  ceos_name:userInfo?.ceos_name || null,
-  company_address:userInfo?.company_address || null,
-  mfo:userInfo?.mfo || null,
+  inn:userInfo?.inn || "",
+  company_name:userInfo?.company_name || "",
+  email:userInfo?.email || "",
+  name:userInfo?.name || "",
+  phone:userInfo?.phone || "",   
+  bank_account:userInfo?.bank_account || "",
+  bank_name:userInfo?.bank_name || "",
+  ceos_name:userInfo?.ceos_name || "",
+  company_address:userInfo?.company_address || "",
+  mfo:userInfo?.mfo || "",
 }
 
 
@@ -291,8 +292,8 @@ const handleSubmit = async (data,{resetForm})=>{
      return(
       <Form>
         <div className = "flex-item">
-        <label className = "item" htmlFor = "ceos_name">{t("Полное наименование")}</label> 
-        <Field className = "inputField" type="text"  id = "ceos_name"  name = "ceos_name"/> 
+        <label className = "item" htmlFor = "company_name">{t("Полное наименование")}</label> 
+        <Field className = "inputField" type="text"  id = "company_name"  name = "company_name"/> 
         </div> 
 
    <div className = "flex-item">
