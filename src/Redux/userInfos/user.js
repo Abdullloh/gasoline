@@ -80,6 +80,7 @@ export const user = createSlice({
         ceos_name:null,
         company_address:null,
         mfo:null,
+        userId:null
        },
        userOrders:{
         data:[],
@@ -100,7 +101,7 @@ export const user = createSlice({
             state.userInfo.name = action.payload?.details?.user?.name
             state.userInfo.phone = action.payload?.details?.user?.phone
             state.userInfo.id = action.payload?.details?.id
-
+            state.userInfo.userId = action.payload?.details?.user?.id
             state.userInfo.bank_account = action.payload?.details?.bank_account
             state.userInfo.bank_name = action.payload?.details?.bank_name
             state.userInfo.ceos_name = action.payload?.details?.ceos_name

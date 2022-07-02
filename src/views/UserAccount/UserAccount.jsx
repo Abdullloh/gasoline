@@ -129,8 +129,23 @@ const handleViewEditProduct = (id)=>{
 
 
 const handleSubmit = async (data,{resetForm})=>{
+  let answer = {
+  inn:data.inn,
+  company_name:data.company_name,
+  bank_account:data.bank_account,
+  bank_name:data.bank_name,
+  company_address:data.company_address,
+  mfo:data.mfo,
+  user:{
+    id:userInfo.userId,
+    email:data.email,
+    name:data.name,
+    phone:data.phone
+  },   
+}
+  console.log(answer)
   try {
-    const originalPromiseResult = await dispatch(editPartnerInfo({content:data,id:userInfo?.id})).unwrap()
+    const originalPromiseResult = await dispatch(editPartnerInfo({content:answer,id:userInfo?.id})).unwrap()
     dispatch(getUserInfo())
     set_edit_partnerInfo(false)
     resetForm({})
