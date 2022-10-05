@@ -45,7 +45,7 @@ function News() {
                           : item.title}
                       </h3>
                       <h5 className="sub_title">
-                        {item?.short_description.length > 130
+                        {item?.short_description?.length > 130
                           ? `${item.short_description.substring(0, 130)}...`
                           : item.short_description}
                       </h5>

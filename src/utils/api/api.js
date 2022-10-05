@@ -1,6 +1,6 @@
 import axios from "axios";
 
- const API_URL = "http://137.184.114.36:7774/";
+ const API_URL = "https://backend.gazoil.uz";
  const token  = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access
  const api = axios.create({
   baseURL: API_URL,
