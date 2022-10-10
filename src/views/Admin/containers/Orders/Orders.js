@@ -1,12 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import {
   Button,
-  Checkbox,
   Modal,
   Table,
-  Space,
   Spin,
   Row,
   Col,
@@ -14,7 +11,6 @@ import {
 } from "antd";
 import { StyledOrders } from "./Orders.style";
 import Axios from "../../../../utils/axios";
-import useFetchHook from "../../../../customhooks/useFetchHook";
 import useDebounce from "../../../../customhooks/useDebounce";
 
 function Orders() {

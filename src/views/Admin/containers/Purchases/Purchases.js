@@ -6,9 +6,7 @@ import { StyledPurchases } from "./Purchases.style";
 import OilImg from "../../../../assets/img/oil-img.svg";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "../../../../utils/axios";
-import useFetchHook from "../../../../customhooks/useFetchHook";
 import useDebounce from "../../../../customhooks/useDebounce";
-import axios from "axios";
 import EditIcon from "../../../../assets/img/edit-alt.svg";
 
 function Purchases() {

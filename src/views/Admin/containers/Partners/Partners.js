@@ -13,7 +13,6 @@ import {
 } from "antd";
 import { StyledPartners } from "./Partners.style";
 import Axios from "../../../../utils/axios";
-import useFetchHook from "../../../../customhooks/useFetchHook";
 
 function Partners() {
   const [data, setData] = useState([]);

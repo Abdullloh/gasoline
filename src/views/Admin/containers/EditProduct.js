@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button, Row, Col, Input, message, Select, Checkbox } from "antd";
+import { Button, Row, Col, Input, Checkbox } from "antd";
 import Axios from "../../../utils/axios";
 import { EditProStyle } from "./EditProduct.style";
 import { BsPlusLg } from "react-icons/bs";

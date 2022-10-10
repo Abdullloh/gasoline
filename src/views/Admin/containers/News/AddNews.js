@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { BsPlusLg } from "react-icons/bs";
 import { Editor } from "@tinymce/tinymce-react";
 import { StyledAddNews } from "./News.style";

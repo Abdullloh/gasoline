@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Col, Row, Pagination } from "antd";
+import { Button, Pagination } from "antd";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
-import { FiEdit } from "react-icons/fi";
-import EditIcon from "../../../../assets/img/edit-alt.svg";
 import { StyledNews } from "./News.style";
 import Axios from "../../../../utils/axios";
 

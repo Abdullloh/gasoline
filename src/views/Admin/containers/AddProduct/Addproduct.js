@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { BsPlusLg } from "react-icons/bs";
-import axios from "axios";
-import { Row, Col, Input, Select, Checkbox, Button } from "antd";
+import { Row, Col, Input,  Checkbox, Button } from "antd";
 import { StyledAddProduct } from "./Addproduct.style";
 import Axios from "../../../../utils/axios";
 const { TextArea } = Input;
-const { Option } = Select;
+
+
 function Addproduct() {
   const [productName, setProductName] = useState("");
   const [article, setArticle] = useState("");

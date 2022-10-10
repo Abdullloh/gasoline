@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.1cfdb870.css",
-    "main.js": "/static/js/main.375f586e.js",
+    "main.js": "/static/js/main.db216fab.js",
     "static/js/787.ec728d71.chunk.js": "/static/js/787.ec728d71.chunk.js",
     "static/media/PartnerBodyImage.svg": "/static/media/PartnerBodyImage.3b68469163303fc4a5d2c589d6c9db65.svg",
     "static/media/gazoil.mp4": "/static/media/gazoil.0669f9860b6dbfa00fb9.mp4",
@@ -61,16 +61,14 @@
     "static/media/service-chart.svg": "/static/media/service-chart.de85714f796cd2a9ae323f63d5555b18.svg",
     "static/media/getFetch.cjs": "/static/media/getFetch.c780682470504fffbd04.cjs",
     "static/media/menu-icon.svg": "/static/media/menu-icon.a3ee804705db1dbff8b717ef437c6093.svg",
-    "static/media/increase.svg": "/static/media/increase.04f3212087a789a75efdf75d80066ab6.svg",
-    "static/media/decrease.svg": "/static/media/decrease.77e4f2a3706c829dc5b095b1c79e93cc.svg",
     "static/media/Arrow-down.svg": "/static/media/Arrow-down.402a45f6831dbe2b6cabe34c0cf0b446.svg",
     "static/media/Arrow-up.svg": "/static/media/Arrow-up.f9e0e3baa6b63931910a521842e9bf4e.svg",
     "main.1cfdb870.css.map": "/static/css/main.1cfdb870.css.map",
-    "main.375f586e.js.map": "/static/js/main.375f586e.js.map",
+    "main.db216fab.js.map": "/static/js/main.db216fab.js.map",
     "787.ec728d71.chunk.js.map": "/static/js/787.ec728d71.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1cfdb870.css",
-    "static/js/main.375f586e.js"
+    "static/js/main.db216fab.js"
   ]
 }

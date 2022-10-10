@@ -1,6 +1,4 @@
 import React from "react";
-import IncreaseImg from "../../../../../assets/img/increase.svg";
-import DecreaseImg from "../../../../../assets/img/decrease.svg";
 import {StyledReportCard} from './ReportCard.style'
 
 function ReportCard(props) {

@@ -3,8 +3,6 @@ import { Button, Modal, Table, Row, Col, Pagination} from "antd";
 import moment from "moment";
 import { StyledApplication } from "./Application.style";
 import Axios from "../../../../utils/axios";
-import useFetchHook from "../../../../customhooks/useFetchHook";
-import axios from "axios";
 
 function Application() {
   const [data, setData] = useState([]);
