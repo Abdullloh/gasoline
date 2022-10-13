@@ -10,31 +10,37 @@ import { useNavigate } from "react-router-dom";
 export default function ProductDetail(props) {
   const dispatch = useDispatch();
   const { isVisible, handleCancel } = props;
-  const { title, images, price ,description,litre,id} = props.data;
-  let userInfo = JSON.parse(localStorage.getItem("user_info"))?.data?.token?.access;
-  const navigate = useNavigate()
-  const addCard = async(e) => {
+  const { title, images, price, description, litre, id } = props.data;
+  let userInfo = JSON.parse(localStorage.getItem("user_info"))?.data?.token
+    ?.access;
+  const navigate = useNavigate();
+  const addCard = async (e) => {
     e.stopPropagation();
     if (userInfo) {
-        try {
-          const res = await Axios.post("/cart/", {
-            product: id,
-            // quantity: state,
-          });
-        } catch (error) {}
-        message.success("Добавлено в корзину", 1);
+      try {
+        const res = await Axios.post("/cart/", {
+          product: id,
+          // quantity: state,
+        });
+      } catch (error) {}
+      message.success("Добавлено в корзину", 1);
     } else {
       navigate("/sign-in");
     }
   };
   return (
-    <Modal footer={null} visible={isVisible} onCancel={handleCancel} width={1000}>
+    <Modal
+      footer={null}
+      visible={isVisible}
+      onCancel={handleCancel}
+      width={1000}
+    >
       <ProductDetailStyle color={"#364A7E"}>
         <div className="detail-heading">
           <div className="heading-images">
             <Image src={images[0]?.image} />
             <div className="imgs_block">
-              {images?.map((item,index) => {
+              {images?.map((item, index) => {
                 return <img key={index} src={item?.image} alt="product" />;
               })}
             </div>
@@ -50,14 +56,9 @@ export default function ProductDetail(props) {
         </div>
         <div className="detail-body">
           <p>{title}</p>
-          <p>
-              {description}
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: description}} />
         </div>
       </ProductDetailStyle>
     </Modal>
   );
 }
-
-
-

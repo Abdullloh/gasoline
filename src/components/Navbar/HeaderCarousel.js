@@ -23,7 +23,7 @@ function HeaderCarousel() {
         <div className="carousel_inner">
           <span>
             {data.map((item, index) => (
-              <StyledCard length={item.product.length}>
+              <StyledCard length={item.product.length} key={index}>
                 <div className="card" key={index}>
                   <div className="text_block">
                     {item?.product.length > 15 ? (

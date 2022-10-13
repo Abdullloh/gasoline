@@ -77,7 +77,7 @@ function AddNews() {
           setComponentId([...componentId, { id: data.id }]);
           console.log(componentId);
         }
-      } catch (error) {}
+      } catch (error) { }
     }
     return result;
   };
@@ -112,7 +112,7 @@ function AddNews() {
         headers: header,
       });
       setUploadedImgs(res?.data.id);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleSubmit = async (callback) => {
@@ -131,10 +131,8 @@ function AddNews() {
         },
         { headers: header }
       );
-    } catch (error) {}
+    } catch (error) { }
   };
-
-  console.log(description, "tiny");
   return (
     <StyledAddNews>
       <div className="main">

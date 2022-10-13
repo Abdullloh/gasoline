@@ -151,9 +151,6 @@ function Navbar(props) {
                 <a href="#" className="logoImgHref">
                   <img className="logoImg" src={Logo} alt="Logo" />
                 </a>
-                <div className="birja_block">
-                  <img src={Birja} alt="logo" />
-                </div>
               </div>
               <div>
                 <div className="searchBlock" onClick={focusInput}>
@@ -228,7 +225,7 @@ function Navbar(props) {
         <StyledContainer>
           <div className="container">
             <div className="navigation">
-              <nav style={{ "background-color": "#364A7E" }}>
+              <nav style={{ "backgroundColor": "#364A7E" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <div className="nav_link" to="/">
                     <img src={Neft} />

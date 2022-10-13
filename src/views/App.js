@@ -9,20 +9,20 @@ import myVideo from './gazoil.mp4'
 import { useEffect } from "react";
 import { useState } from "react";
 function App() {
-  const [state,setState] = useState(false)
+  const [state, setState] = useState(false)
   let user_info = JSON.parse(localStorage.getItem('user_info'))
   const ref = useRef()
-setTimeout(()=>{
-  ref.current.style = "display:none"
-  setState(true)
-},6000)
+  setTimeout(() => {
+    ref.current.style.display = "none"
+    setState(true)
+  }, 6000)
   return (
     <>
-    <ScrollToTop/>
-   
-    {state == true ?  user_info?.user?.role === 'Manager' ? <Admin/> : <MainLanding />: <video ref={ref} autoPlay   muted>
-      <source src={myVideo} type="video/mp4"/>
-    </video>}
+      <ScrollToTop />
+
+      {state == true ? user_info?.user?.role === 'Manager' ? <Admin /> : <MainLanding /> : <video ref={ref} autoPlay muted>
+        <source src={myVideo} type="video/mp4" />
+      </video>}
     </>
   )
 }
