@@ -3,13 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Button, Row, Col, Input, message, Select, Checkbox } from "antd";
 import Axios from "../../../utils/axios";
 import { EditProStyle } from "./EditProduct.style";
+import { Editor } from "@tinymce/tinymce-react";
+import API_URL from '../../../utils/api/api'
 import { BsPlusLg } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 const { TextArea } = Input;
 
 function EditProduct({ productId }) {
   const { t } = useTranslation();
-  const baseUrl = "http://137.184.114.36:7774";
+  const baseUrl = API_URL.API_URL;
+  const editorRef = useRef(null)
   const navigate = useNavigate();
   const [data, setData] = useState({});
   // const { productId } = useParams();
@@ -301,14 +304,38 @@ function EditProduct({ productId }) {
                   />
                 </Col>
                 <Col span={24}>
-                  <label htmlFor="description">{t("Описание")}</label>
+                <label htmlFor="description">Описание</label>
+                  <Editor
+                    apiKey="12pyooxak2lnpf0lfl9e6r8dra60u6u5mxwf38qop1m4uncr"
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    initialValue={formValues.description}
+                    onChange={(e) => setFormValues({ ...formValues, description: e.target.getContent() })}
+                    id="description"
+                    init={{
+                      height: 300,
+                      menubar: false,
+                      plugins: [
+                        "advlist autolink lists link image charmap print preview anchor",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table paste code help wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | " +
+                        "bold italic backcolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  />
+                  {/* <label htmlFor="description">{t("Описание")}</label>
                   <TextArea
                     rows={8}
                     id="description"
                     value={formValues.description}
                     onChange={handleInputChange}
                     name="description"
-                  />
+                  /> */}
                 </Col>
                 <Col span={24}>
                   <div className="status_product">

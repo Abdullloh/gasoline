@@ -266,10 +266,12 @@ function Addproduct() {
                   />
                 </Col>
                 <Col span={24}>
+                <label htmlFor="description">Описание</label>
                 <Editor
                 apiKey="12pyooxak2lnpf0lfl9e6r8dra60u6u5mxwf38qop1m4uncr"
                 onInit={(evt, editor) => (editorRef.current = editor)}
                 // onChange={(e) => setDescription(e.target.getContent())}
+                id="description"
                 init={{
                   height: 300,
                   menubar: false,
@@ -287,13 +289,6 @@ function Addproduct() {
                     "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                 }}
               />
-                  {/* <label htmlFor="description">Описание</label>
-                  <TextArea
-                    rows={8}
-                    id="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  /> */}
                 </Col>
                 <Col span={24}>
                   <div className="status_product">

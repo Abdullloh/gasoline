@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Row, Col, Input, Checkbox } from "antd";
 import Axios from "../../../utils/axios";
+import { Editor } from "@tinymce/tinymce-react";
+import API_URL from '../../../utils/api/api'
 import { EditProStyle } from "./EditProduct.style";
 import { BsPlusLg } from "react-icons/bs";
 const { TextArea } = Input;
 
 function EditProduct() {
-  const baseUrl = "http://137.184.114.36:7774";
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  const editorRef = useRef(null)
   const { productId } = useParams();
   const [category, setCategory] = useState("");
   const [statusProduct, setStatusProduct] = useState(true);
@@ -61,6 +63,7 @@ function EditProduct() {
   }
   const handleSubmite = async (e) => {
     e.preventDefault();
+    console.log(formValues);
     try {
       const res = await Axios.patch(
         `/adminside/product/${data.id}`,
@@ -75,7 +78,7 @@ function EditProduct() {
       if (res?.status == 200) {
         navigate("/purchases");
       }
-    } catch (error) {}
+    } catch (error) { }
   };
   const deleteImg = (id) => {
     let filteredImgs = uploadedImgs.filter((item) => item.id !== id);
@@ -91,17 +94,17 @@ function EditProduct() {
       });
       setUploadedImgs([...uploadedImgs, res.data]);
       setUplodedImgsId([...uplodedImgsId, { id: res?.data.id }]);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleFocus = (inp) => {
     inp.current.click();
   };
 
-  
+
   const getProduct = async () => {
     try {
-      const res = await Axios.get(`/products/product/${productId}`, {headers: header});
+      const res = await Axios.get(`/products/product/${productId}`, { headers: header });
       setData(res?.data);
       setFormValues({
         title: res?.data?.title,
@@ -114,20 +117,19 @@ function EditProduct() {
       setDelivered(res?.data?.delivery)
       setUploadedImgs(res?.data?.images);
       setCategory(res?.data?.categories?.map(item => item.id))
-    } catch (error) {}
+    } catch (error) { }
   };
   const getCategories = async () => {
     try {
-      const res = await Axios.get("products/categories/", {headers: header});
+      const res = await Axios.get("products/categories/", { headers: header });
       setProductCategory(res?.data?.results);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormValues((state) => ({ ...state, [name]: value }));
   }, []);
-
   return (
     <EditProStyle>
       <form>
@@ -155,7 +157,7 @@ function EditProduct() {
                         src={
                           uploadedImgs[0]?.image.startsWith("ht")
                             ? uploadedImgs[0]?.image
-                            : `${baseUrl}${uploadedImgs[0]?.image}`
+                            : `${API_URL.API_URL}${uploadedImgs[0]?.image}`
                         }
                         alt="productImg"
                       />
@@ -187,7 +189,7 @@ function EditProduct() {
                         src={
                           uploadedImgs[1]?.image.startsWith("ht")
                             ? uploadedImgs[1]?.image
-                            : `${baseUrl}${uploadedImgs[1]?.image}`
+                            : `${API_URL.API_URL}${uploadedImgs[1]?.image}`
                         }
                         alt="productImg"
                       />
@@ -219,7 +221,7 @@ function EditProduct() {
                         src={
                           uploadedImgs[2]?.image.startsWith("ht")
                             ? uploadedImgs[2]?.image
-                            : `${baseUrl}${uploadedImgs[2]?.image}`
+                            : `${API_URL.API_URL}${uploadedImgs[2]?.image}`
                         }
                         alt="productImg"
                       />
@@ -251,7 +253,7 @@ function EditProduct() {
                         src={
                           uploadedImgs[3]?.image.startsWith("ht")
                             ? uploadedImgs[3]?.image
-                            : `${baseUrl}${uploadedImgs[3]?.image}`
+                            : `${API_URL.API_URL}${uploadedImgs[3]?.image}`
                         }
                         alt="productImg"
                       />
@@ -306,13 +308,29 @@ function EditProduct() {
                   />
                 </Col>
                 <Col span={24}>
-                  <label htmlFor="description">Описание</label>
-                  <TextArea
-                    rows={8}
+                <label htmlFor="description">Описание</label>
+                  <Editor
+                    apiKey="12pyooxak2lnpf0lfl9e6r8dra60u6u5mxwf38qop1m4uncr"
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    initialValue={formValues.description}
+                    onChange={(e) => setFormValues({ ...formValues, description: e.target.getContent() })}
                     id="description"
-                    value={formValues.description}
-                    onChange={handleInputChange}
-                    name="description"
+                    init={{
+                      height: 300,
+                      menubar: false,
+                      plugins: [
+                        "advlist autolink lists link image charmap print preview anchor",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table paste code help wordcount",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | " +
+                        "bold italic backcolor | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
                   />
                 </Col>
                 <Col span={24}>
