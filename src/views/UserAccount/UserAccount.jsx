@@ -7,6 +7,7 @@ import { UserAccountWrapper } from "./useAccounStyle";
 import {useDispatch,useSelector} from "react-redux"
 import { getUserOrders, getUserInfo, editPartnerInfo } from "../../Redux/userInfos/user";
 import exit from "../../assets/img/exit.svg"
+import API_URL from "../../utils/api/api"
 import AddProduct from "./AddProduct/Addproduct"
 import Purchases from "./Purchases/Purchases";
 import Addproduct from "./AddProduct/Addproduct";
@@ -36,12 +37,10 @@ export default function UserAccount() {
   
 
   
-  const userInfo = useSelector(state=>state.user.userInfo)
+  const userInfo = JSON.parse(localStorage.getItem("user_info")).data.user
   const userOrders = useSelector(state=>state.user.userOrders.data) ||[] 
   let role = JSON.parse(localStorage.getItem("user_info"))?.data?.user?.role
 
-
-//universal
   useEffect(()=>{
     let mounting = true;
     if(mounting){
@@ -205,7 +204,7 @@ const handleSubmit = async (data,{resetForm})=>{
                   
                        <React.Fragment>
                        <p className = "item">
-                        <img style = {{width:"100px"}} src = {"http://137.184.114.36:7774"+item?.product?.cover_image} alt = "images"/>
+                        <img style = {{width:"100px"}} src = {API_URL.API_URL+item?.product?.cover_image} alt = "images"/>
                       </p>
                     </React.Fragment>
                   

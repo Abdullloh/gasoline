@@ -1,12 +1,14 @@
 import axios from "axios"
 import {createAsyncThunk,createSlice} from "@reduxjs/toolkit"
+import API_URL from '../../utils/api/api'
+
 
 
 export const postUserInfo = createAsyncThunk(
     "userSlice/postUserInfo",
     async function (data,{rejectWithValue,dispatch}){
         try {
-            let response = await axios.post(`http://137.184.114.36:7774/accounts/login/`,data.userData)
+            let response = await axios.post(`${API_URL.API_URL}/accounts/login/`,data.userData)
             
             if (response.status === 200 || response.status === 201){
                 localStorage.setItem("user_info", JSON.stringify(response.data));
